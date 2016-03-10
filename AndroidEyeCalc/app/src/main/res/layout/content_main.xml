@@ -1,155 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.educem.eyecalc.androideyecalc.MainActivity"
-    tools:showIn="@layout/activity_main"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#3a5795">
+    <!-- xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+     tools:context="com.educem.eyecalc.androideyecalc.MainActivity"
+    tools:showIn="@layout/activity_main"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
 
-    <TableLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:showDividers="middle|beginning|end"
-        android:stretchColumns="0,1">
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageLogo"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.03"
-                android:layout_column="0" />
-                <!--android:src="@drawable/logo"-->
-
-
-        </TableRow>
-
-        <TableRow
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/imageLogo"
+            android:layout_gravity="center_horizontal"
 
-            <Space
-                android:layout_width="10px"
-                android:layout_height="75px" />
-        </TableRow>
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logodesc" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:id="@+id/editText"
+            android:textSize="25sp"
+            android:enabled="true"
+            android:background="@drawable/round_corners"
+            android:hint="@string/userplaceholder"
+            android:layout_marginTop="43dp"
+            android:inputType="text"
+            android:layout_gravity="center"
+            android:paddingStart="13dp"
+            android:paddingLeft="13dp"
+            android:paddingEnd="13dp"
+            android:paddingRight="13dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="User"
-                android:id="@+id/textView"
-                android:layout_column="0"
-                android:editable="true"
-                android:textSize="25dp"
-                android:inputType="textPersonName"
-                android:focusable="true"
-                android:layout_gravity="center" />
-        </TableRow>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="8"
+            android:id="@+id/editText2"
+            android:textSize="25sp"
+            android:enabled="true"
+            android:background="@drawable/round_corners"
+            android:hint="@string/passplaceholder"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="center"
+            android:paddingStart="13dp"
+            android:paddingLeft="13dp"
+            android:paddingEnd="13dp"
+            android:paddingRight="13dp"
+            android:inputType="textPassword" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </LinearLayout>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:textSize="25dp"
-                android:enabled="true"
-                android:editable="true"
-                android:background="#d1d1d1" />
-        </TableRow>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gocam"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Go Ccam"
-                android:id="@+id/button"
-                android:layout_column="0" />
-        </TableRow>
-
-    </TableLayout>
-</LinearLayout>
+</RelativeLayout>
