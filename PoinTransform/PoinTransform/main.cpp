@@ -36,7 +36,14 @@ int main (int argc, char *argv[]){
 		strcat(script, f); 
 	}
 	//Executo l'script!*/
-	system("script.autotrace > fitxerSortida.txt");
+  	
+	/*char *my_args[4];
+	strcpy( my_args[0], "autotrace" );
+	strcpy( my_args[1], "-centerline" );
+	strcpy( my_args[2], "render.bmp" );
+	strcpy( my_args[3], NULL );*/
+	system("sh script.autotrace > fitxerSortida.txt");
+	//execv("autotrace-0.31.1/autotrace",my_args );
 	//Un cop tenim la sortida de l'autotrace dins el fitxer, es hora d'analitzarlo.
 	string linia;
   	ifstream fitxer("fitxerSortida.txt");
@@ -89,11 +96,16 @@ int main (int argc, char *argv[]){
 	    	for(int w=0; w<StrokesMatrix[z].size(); w+=2){
 	    		printf("%i %i\n", StrokesMatrix[z][w],StrokesMatrix[z][w+1]);
 	    	}	
+	    }
+	    std::stringstream stream;  
+		std::string strNum; 
+ 
+	    ofstream fitxerEntrada ("exp3.scgink");
 	    }*/
 	    std::stringstream stream;  
 		std::string strNum; 
  
-	    ofstream fitxerEntrada ("../../../../seshat/SampleMathExps/exp3.scgink");
+	    ofstream fitxerEntrada ("seshat/SampleMathExps/exp3.scgink");
   		if (fitxerEntrada.is_open()){
   			fitxerEntrada << "SCG_INK\n";
   			stream << StrokesMatrix.size();
@@ -116,6 +128,7 @@ int main (int argc, char *argv[]){
 	    		}
 	    	}
    	 		fitxerEntrada.close();
+   	 		system("cd seshat; script.seshat");
   		}else cout << "Unable to open file";
     	
   	}else printf("Imposible obrir el fitxer");

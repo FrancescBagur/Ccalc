@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# -eq 0 ];
 then
-. ./autotrace -centerline -color-count 2 render.bmp;
+./autotrace-0.31.1/autotrace -centerline -color-count 2 autotrace-0.31.1/render.bmp;
 else
-. ./autotrace -centerline -color-count 2 $1;
+./autotrace-0.31.1/autotrace -centerline -color-count 2 $1;
 fi
