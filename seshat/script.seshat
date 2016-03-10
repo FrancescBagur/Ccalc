@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ $# -eq 0 ];
+then
+./seshat -c Config/CONFIG -i SampleMathExps/exp.scgink  -o out.inkml -r render.pmg -d out.dot
+else
+./seshat -c Config/CONFIG -i $1  -o out.inkml -r render.pmg -d out.dot
+fi

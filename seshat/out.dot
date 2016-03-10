@@ -1,0 +1,24 @@
+digraph mathExp{
+TermSub0 -> BrTerm1 [label=B]
+BrTerm1 -> OpenPar2 [label=H]
+TL2 [shape=box,label="("]
+OpenPar2 -> TL2
+BrTerm1 -> TermPar3 [label=H]
+TermPar3 -> Term4 [label=H]
+Term4 -> Sym5 [label=H]
+Tx5 [shape=box,label="x"]
+Sym5 -> Tx5
+Term4 -> OpDots6 [label=H]
+OpDots6 -> OpBin7 [label=H]
+Tm7 [shape=box,label="-"]
+OpBin7 -> Tm7
+OpDots6 -> CDots8 [label=H]
+Tscdots8 [shape=box,label="\cdots"]
+OpBin8 -> Tscdots8
+TermPar3 -> ClosePar9 [label=H]
+TR9 [shape=box,label=")"]
+ClosePar9 -> TR9
+TermSub0 -> Digit10 [label=B]
+T510 [shape=box,label="5"]
+Digit10 -> T510
+}
