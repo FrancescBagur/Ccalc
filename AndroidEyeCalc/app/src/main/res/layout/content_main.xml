@@ -28,7 +28,9 @@
             android:layout_gravity="center_horizontal"
 
             android:src="@drawable/logo"
-            android:contentDescription="@string/logodesc" />
+            android:contentDescription="@string/logodesc"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="60dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -72,7 +74,8 @@
         android:text="@string/gocam"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="97dp" />
 
 </RelativeLayout>
