@@ -10,7 +10,7 @@
         android:id="@+id/btTakePhoto"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="false" />
 
     <ImageView
         android:layout_width="fill_parent"

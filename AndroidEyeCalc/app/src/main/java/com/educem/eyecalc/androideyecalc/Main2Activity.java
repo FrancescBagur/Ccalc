@@ -9,6 +9,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,16 +39,12 @@ public class Main2Activity extends AppCompatActivity {
             Bitmap bmp = (Bitmap) Data.getExtras().get("data");
 
             //invertir la imatge
-        /*
-            Canvas c = new Canvas(bmp);
             Matrix m = new Matrix();
-            m.setScale(1,-1,bmp.getWidth(),0);
-            m.invert(m);
-            c.setBitmap(bmp);
-            c.drawBitmap(bmp,m,null);
-        */
+            m.preScale(1,-1);
+            Bitmap bmpInvertit = Bitmap.createBitmap(bmp,0,0,bmp.getWidth(),bmp.getHeight(),m,false);
+            bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
             //mostra la imatge
-            takenfoto.setImageBitmap(bmp);
+            takenfoto.setImageBitmap(bmpInvertit);
 
         }
     }
