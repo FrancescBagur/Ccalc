@@ -1,20 +1,14 @@
+#!/usr/bin/env python
+#encoding: latin1
 
-def llegirINKML():
-    #obro el fitxer en mode lectura 'r'
-    infile = open('../PoinTransform/PoinTransform/bin/Debug/seshat/out.inkml', 'r');
-    #Defineixo la variable operacio a la que anire concatenant les operacions que vagi trobant
-    operacio = "";
-    print('>>> Lectura del fichero linea a linea');
-    for line in infile:
-        if ' <annotation type="truth">' in line:
-    	    operacio += line[27:-14];
-	
-    # tanco el fitxer
-    print(operacio);
-    infile.close();
+from ClassInkmlReader import InkmlReader;
+from ClassCalculadoraPolaca import PolacCalc;
 
 def main():
-    llegirINKML();
+    #Creo un lector de fitxers inkml i li passo la ruta del fitxer que vui llegir
+    ObjInkmlReader = InkmlReader('../PoinTransform/PoinTransform/bin/Debug/seshat/out.inkml');
+    #Obting la operació del fitxer.
+    operacio = ObjInkmlReader.llegirINKML();
 
 if __name__ == "__main__":
     main()
