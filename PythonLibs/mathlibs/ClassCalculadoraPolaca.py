@@ -57,6 +57,6 @@ class PolacCalc:
             print "DEBUG: error a la pila, sobren operants"
             raise ValueError("Sobren operants")
 
-    def calcularExpresio(self,expresio): 
-        elements = expresio.split()
+    def calcularExpresio(self): 
+        elements = self.expresio.split()
         print self.calculadoraPolaca(elements)
