@@ -5,6 +5,9 @@
     <string name="bttakephoto">Take photo</string>
     <string name="userplaceholder">Usuari</string>
     <string name="passplaceholder">Contrasenya</string>
-    <string name="gocam">SKIP -></string>
+    <string name="gocam">Saltar -></string>
     <string name="logodesc">logo</string>
+    <string name="rememberPass">¿Has oblidat la contrasenya?</string>
+    <string name="entrar">Entrar</string>
+    <string name="funcions">Perdràs funcionalitats adicionals</string>
 </resources>
