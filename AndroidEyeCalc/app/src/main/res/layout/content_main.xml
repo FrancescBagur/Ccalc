@@ -27,7 +27,7 @@
             android:id="@+id/imageLogo"
             android:layout_gravity="center_horizontal"
 
-            android:src="@drawable/Ccalc"
+            android:src="@drawable/ccalc"
             android:contentDescription="@string/logodesc" />
 
         <EditText
