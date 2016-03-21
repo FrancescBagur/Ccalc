@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">AndroidEyeCalc</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="bttakephoto">Take photo</string>
+    <string name="userplaceholder">Usuari</string>
+    <string name="passplaceholder">Contrasenya</string>
+    <string name="gocam">SKIP -></string>
+    <string name="logodesc">logo</string>
 </resources>
