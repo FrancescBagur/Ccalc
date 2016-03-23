@@ -112,20 +112,20 @@ public class Main2Activity extends AppCompatActivity {
                 bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
                 //mostra la imatge
                 takenfoto.setImageBitmap(bmpInvertit);
-                //enviar la imatge a la api,
-                new ServerUpdate().execute();
+                //enviar la imatge a la api AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR.
             } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "el usuari ha cancelat la captura de la imatge", Toast.LENGTH_LONG).show();
             else Toast.makeText(getApplicationContext(), "error en captura la imatge", Toast.LENGTH_LONG).show();
         }
     }
-    //CONEXIO AMB SERVIDOR
+    //CONEXIO AMB SERVIDOR - otra clase mas
+    /*
     class ServerUpdate extends AsyncTask<String,String,String>{
         ProgressDialog pDialog;
         @Override
         protected String doInBackground(String... arg0) {
             uploadFoto();
             //inserta la imatge a base de dades del servidor cridant a un altra plana de la web
-            /*if(onInsert()) runOnUiThread(new Runnable() {
+            if(onInsert()) runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(Main2Activity.this,"Imatge enviada al servidor",Toast.LENGTH_LONG).show();
@@ -137,7 +137,7 @@ public class Main2Activity extends AppCompatActivity {
                     public void run() {
                         Toast.makeText(Main2Activity.this,"Error en enviar imatge al servidor",Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
             return null;
         }
         protected void onPreExecute(){
@@ -208,12 +208,8 @@ public class Main2Activity extends AppCompatActivity {
             }
             return false;
         }
-
     }
-
-
-
-
+    */
 
     /* 3 classe para subir la foto al server
     public class uploadFile extends AsyncTask <Void, Void, Void> {
@@ -319,7 +315,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
     }
-    classe per enviar la imatge al servidor cridada per el onActivityResult
+    classe per enviar la imatge al servidor
     private class UploadFileToServer extends AsyncTask<Void, Void, Void> {
 
         Bitmap image;
