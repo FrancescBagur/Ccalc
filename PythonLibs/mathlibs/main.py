@@ -21,6 +21,7 @@ def main():
         expresioPolaca += ex + " "
 
     #Un cop ting l'string a notacio polaca "expresioPolaca", es hora de resoldre la operació
+    print expresioPolaca + '------->'
     ObjPolacCalc = PolacCalc(expresioPolaca);
     ObjPolacCalc.calcularExpresio();
 
