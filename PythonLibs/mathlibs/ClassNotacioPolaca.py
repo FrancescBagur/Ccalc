@@ -117,20 +117,20 @@ class NotacioPolaca:
                     comp=self.papertura[self.pcierre.find(token)]
                     while self.stack[0]<>comp:
                         self.cola(self.pop())
-                    self.pop()#saca el parentesis y no lo mete en la cola
+                    self.pop()#treu el parèntesi i no el fica en cua
                     if len(self.stack)>0:
                         if self.func.count(self.stack[0])!=0:
-                           #metemos la funcion en la cola
+                           #fiquem la funció en la cua
                             self.cola(self.pop())
 
             elif tipo=='char':
-                #ver si es una funcio
+                #veure si es una funcio
                 if self.func.count(token)!=0:
                     #es una funcio
-                    push(token)
+                    self.push(token)
                 else:
                     #es una variable, la consideram com un numero
-                    cola(token)
+                    self.cola(token)
 
             elif tipo=='op':
                 if len(self.stack)>0:
