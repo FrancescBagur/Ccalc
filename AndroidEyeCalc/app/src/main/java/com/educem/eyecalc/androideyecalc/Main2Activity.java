@@ -129,6 +129,7 @@ public class Main2Activity extends AppCompatActivity {
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error en enviar la imatge - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
@@ -145,6 +146,7 @@ public class Main2Activity extends AppCompatActivity {
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error en enviar el token - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
