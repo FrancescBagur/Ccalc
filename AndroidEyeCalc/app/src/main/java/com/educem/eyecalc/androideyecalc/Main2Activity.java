@@ -103,6 +103,7 @@ public class Main2Activity extends AppCompatActivity {
                 bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
                 //mostra la imatge
                 takenfoto.setImageBitmap(bmpInvertit);
+                //bmpInvertit = Bitmap.createBitmap(bmpInvertit);
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via API.
                 //new uploadFile().execute();
                 //preparem la imatge per enviarla com a string
