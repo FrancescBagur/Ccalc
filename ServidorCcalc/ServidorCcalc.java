@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package servidorccalc;
-
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.apache.commons.codec.binary.Base64;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -28,7 +26,7 @@ import javax.imageio.ImageIO;
 public class ServidorCcalc {
 
     private static int id;
-    
+
     public static void main(String[] args) {
         // TODO code application logic here
         id = 0;
@@ -37,19 +35,19 @@ public class ServidorCcalc {
         Thread t = new Thread(ec);
         t.start();
     }
-    
+
     private static class EscoltaConnexio implements Runnable{
         Monitor m;
         public EscoltaConnexio(Monitor m){
             this.m = m;
         }
-        
+
         @Override
         public void run() {
             try {
                 ServerSocket ss = new ServerSocket(2010);
                 while(true){
-                    Socket s = ss.accept(); 
+                    Socket s = ss.accept();
                     System.out.println("Ha arribat una connexió\n");
                     //Un cop ha arribat la connexió, vaig a mirar que la cadena siqui correcta
                     BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -63,13 +61,13 @@ public class ServidorCcalc {
                             m.augmentarConnexio();
                         }
                     }
-                }   
+                }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }
     }
-    
+
     private static class ClientConnectat implements Runnable{
         Socket connexio;
         String encodetImage;
@@ -82,7 +80,7 @@ public class ServidorCcalc {
             this.m = m;
             seguirConnectat = true;
         }
-        
+
         @Override
         public void run(){
             try {
@@ -90,15 +88,15 @@ public class ServidorCcalc {
                 while((encodetImage=entrada.readLine()) != null){
                     seguirConnectat = m.tractarMissatge(encodetImage, id);
                     //InetAddress a = this.connexio.getInetAddress();
-                } 
+                }
                 m.eliminarUsuari(id);
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
-            }          
+            }
         }
-        
+
     }
-    
+
     private static class Monitor{
         ArrayList<Socket> connexio;
         ArrayList<String> usuaris;
@@ -106,11 +104,11 @@ public class ServidorCcalc {
             connexio = new ArrayList();
             usuaris = new ArrayList();
         }
-        
+
         public synchronized void setConnexio(Socket s){
             this.connexio.add(s);
         }
-        
+
         private void enviarMissatge(String missatge, int id){
             DataOutputStream sortida;
             try {
@@ -126,27 +124,27 @@ public class ServidorCcalc {
             try {
                 byte[] b = Base64.decode(encodetImage.getBytes());
                 BufferedImage imag=ImageIO.read(new ByteArrayInputStream(b));
-		ImageIO.write(imag, "jpg", new File("/var/www/html","snap.jpg"));
+		ImageIO.write(imag, "jpg", new File("/var/www/html/ApiCcalc/imatges/","snap.jpg"));
                 seguirConectat = true;
             } catch (Base64DecodingException | IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
-            }      
+            }
             return seguirConectat;
         }
-        
+
         private synchronized void enviarLlista(int id){
             DataOutputStream sortida;
             try {
             sortida = new DataOutputStream(connexio.get(id-1).getOutputStream());
                 sortida.writeBytes("Llista d'usuaris:\n");
-                for (int i = 0; i < connexio.size(); i++) { 
+                for (int i = 0; i < connexio.size(); i++) {
                     sortida.writeBytes(usuaris.get(i)+"\n");
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         private synchronized boolean comprovarNickNameRepetit(String nick){
             boolean trobat = false;
             int i=0;
@@ -160,12 +158,12 @@ public class ServidorCcalc {
             usuaris.remove(id-1);
             connexio.remove(id-1);
         }
-        
+
         private synchronized void augmentarConnexio(){
             //hi ha hagut una nova connexió, augmento la variable global id i aviso tothom
             id++;
         }
-        
+
         private synchronized void enviarMissatgeATothom(String missatge){
             DataOutputStream sortida;
             try {
