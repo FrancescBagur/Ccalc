@@ -41,7 +41,7 @@ public class Main2Activity extends AppCompatActivity {
     Bitmap bmpInvertit;//imatge que senviara al server
     private static final int CAM_REQUEST = 1313;
     //adreça del nostre server
-    private static final String SERVER_ADRESS="http://192.168.0.162/ApiCcalc/";
+    private static final String SERVER_ADRESS="http://172.20.10.4/ApiCcalc/";
     private File file;
     private String foto;
     @Override
@@ -102,19 +102,20 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             //intanciem un byteArrayOutputStream
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             //comprimim la imatge en format JPEG amb cualitat 100 i la guardem al byteArrayOutputStream anterior
-            //bmpInvertit.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            //bmpInvertit.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             //-------------------------------------------------------------------------------------------------
-            ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getByteCount());
+            ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes()*bmpInvertit.getHeight());
             bmpInvertit.copyPixelsToBuffer(bb);
-            String image = bb.toString();
+            byte[] imgbytes = bb.array();
+            String encodedImage = Base64.encodeToString(imgbytes,Base64.DEFAULT);
             //------------------------------------------------------------------------------------------------------
             //codifiquem la imatge
             //String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
             //creem un arraylist i li afegim les dades que volem enviar al server.
-            //ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            //dataToSend.add(new BasicNameValuePair("image", encodedImage));
+            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
+            dataToSend.add(new BasicNameValuePair("image", encodedImage));
             //dataToSend.add(new BasicNameValuePair("name", "primeraImgPalserver"));
             //instanciem la conexio aki perque el finally la pugui desconectar
             try {
@@ -126,10 +127,10 @@ public class Main2Activity extends AppCompatActivity {
                     urlConnection.setChunkedStreamingMode(0);
                     //aqui auriam de posar la imatge i despres enviarla al servidor
                     OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                    //writeStream(out);
-                    out.write(image.getBytes());
+
+                    out.write(dataToSend.get(0).getValue().getBytes());
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    //readStream(in);
+
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
