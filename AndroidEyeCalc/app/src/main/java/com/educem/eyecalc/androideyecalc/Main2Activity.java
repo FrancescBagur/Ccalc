@@ -3,6 +3,7 @@ package com.educem.eyecalc.androideyecalc;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,8 +17,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,6 +47,7 @@ public class Main2Activity extends AppCompatActivity {
     private String encodedImage;
     private File file;
     private String foto;
+    private byte[] imgbyte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,12 +99,31 @@ public class Main2Activity extends AppCompatActivity {
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via API.
                 //new uploadFile().execute();
                 //preparem la imatge per enviarla com a string
+/*
                 ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
                 bmpInvertit.copyPixelsToBuffer(bb);
                 imgBytes = new byte[60000];
                 imgBytes = bb.array();
                 //encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
+*/
+                    //ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
+                    //bmpInvertit.copyPixelsToBuffer(bb);
+                    //byte[] imgBytes = bb.array();
+                    //encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
+                    //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
+                /*File imagefile = new File(bmpInvertit);
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(imagefile);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                Bitmap bm = BitmapFactory.decodeStream(fis);*/
+                imgbyte = getBytesFromBitmap(bmpInvertit);
+
                 try {
                     s = new Socket(SERVER_ADRESS,2010); //obro el socket.
                 } catch (IOException e) {
@@ -113,14 +137,21 @@ public class Main2Activity extends AppCompatActivity {
             else Toast.makeText(getApplicationContext(), "error en capturar la imatge", Toast.LENGTH_LONG).show();
         }
     }
+    public byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        return stream.toByteArray();
+    }
     //Thread per enviar info al server
     public class enviaServerSocket extends AsyncTask <Void, Void, Void> {
         int operacio;
         DataOutputStream out;
+        OutputStream outImg;
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
             try {
                 out = new DataOutputStream(s.getOutputStream()); //obro el canal d'enviament de dades.
+                outImg = s.getOutputStream();
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "error en obrir output enviaServerSocket"+e.getMessage(), Toast.LENGTH_LONG).show();
@@ -143,7 +174,11 @@ public class Main2Activity extends AppCompatActivity {
             Boolean ok=false;
             try {
                  //obro el canal d'enviament
-                out.write(imgBytes,0,imgBytes.length);
+
+                //out.write(imgBytes,0,imgBytes.length);
+
+                outImg.write(imgbyte);
+
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -191,6 +226,7 @@ public class Main2Activity extends AppCompatActivity {
         private void tractaDades(String msg){
             //Toast.makeText(getApplicationContext(), "el servidor ha respos -- "+msg, Toast.LENGTH_LONG).show();
             if(msg.trim().equals("OK")) new enviaServerSocket(1).execute();
+
         }
     }
     /*try {
