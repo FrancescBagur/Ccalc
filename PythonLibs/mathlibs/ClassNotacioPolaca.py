@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+#encoding: latin1
 import string
 
+"""Aquesta classe  ens passa una expresió a notació polaca inversa """
 class NotacioPolaca:
 
     def __init__(self, expresio):
         self.expresio = expresio;
         self.precedencia={'+':1,'-':1,'*':2,'/':2,'^':3}
-        self.asociativo={'+':'i','-':'i','*':'i','/':'i','^':'d'}
+        self.associatiu={'+':'i','-':'i','*':'i','/':'i','^':'d'}
         self.operador='+-*/^'
         self.papertura='([{'
         self.pcierre=')]}'
@@ -13,18 +16,18 @@ class NotacioPolaca:
         self.func=['sqrt','log','ln','sin','cos','tg','cotg']
         self.expresion_infixa=''
         self.stack=[]
-        self.cola_salida=[]
+        self.cuaSortida=[]
         self.lista_tipo_token=[]
 
     def cola(self, token):
         #escribe el token en la lista de salida
-        self.cola_salida.append(token)
+        self.cuaSortida.append(token)
 
     def push(self, token):
         #mete el token en el stack
         self.stack.insert(0,token)
         return
-     
+
     def pop(self):
         #saca el primer elemento del stack
         return self.stack.pop(0)
@@ -35,10 +38,10 @@ class NotacioPolaca:
             self.cola(self.pop())
 
     def tipo_char(self, i):
-        #comprueba el tipo del caracter encontrado en la lista
-        #de la expresion de entrada, para agruparlos 
+        #comprova el tipus de caracter trobat a  la llista
+        #de la expresio d'entrada per agrupar-los
         if string.digits.find(i)!=-1:
-            #es una cifra
+            #es una xifra
             tipo='num'
         elif self.operador.find(i)!=-1:
             #es un operador
@@ -47,47 +50,47 @@ class NotacioPolaca:
             #es un parentesis
             tipo='par'
         elif self.sep.find(i)!=-1:
-            #es un separador de argumento de funcion
+            #es un separador de arguments de funció
             tipo='sep'
         else:
-            #es una letra
+            #es una lletra
             tipo='char'
         return tipo
 
     def infixa_a_tokens(self):
-        lista_tokens=[] 
+        lista_tokens=[]
         token=''
-        tipo=self.tipo_char(self.expresion_infixa[0])
+        tipoa=self.tipo_char(self.expresion_infixa[0])
 
         for char in self.expresion_infixa:
             tipo=self.tipo_char(char)
             if tipo=='par' or tipo=='sep' or tipo=='op':
-                #primero guardamos el numero, o var o funcion
-                # que pudieramos estar acumulando
+                #primer guerdem el numero, o var o funcio
+                # que puguessim estar acumulant
                 if tipoa=='char' or tipoa=='num':
                     lista_tokens.append(token)
-                    self.lista_tipo_token.append(tipoa)     
+                    self.lista_tipo_token.append(tipoa)
                     token=''
-               
+
                 lista_tokens.append(char)
                 self.lista_tipo_token.append(tipo)
                 tipoa=tipo
             else:
-                #es numero, o variable, o funcion
-                #y si antes tambien lo era, concatenamos los caracteres
+                #es numero, o variable, o funcio
+                #i si antes també ho era, concatenarem els caracters
                 token=token+char
                 tipoa=tipo
-     
-        if tipoa=='num' or tipoa=='char':  
-            lista_tokens.append(token) 
-            self.lista_tipo_token.append(tipo) 
+
+        if tipoa=='num' or tipoa=='char':
+            lista_tokens.append(token)
+            self.lista_tipo_token.append(tipo)
         return lista_tokens
 
     def pasarExpresioAPolaca(self):
         self.expresion_infixa=self.expresio
         print self.expresion_infixa
 
-        #buscamos los tokens que hay en infixa, y los metemos en una lista
+        #cercam els tockens que hi ha en l'expresio infixa i els ficam en una llista
         lista=self.infixa_a_tokens()
         print lista
 
@@ -98,47 +101,47 @@ class NotacioPolaca:
             if tipo=='num':
                 #a la cola salida
                 self.cola(token)
-          
+
             elif tipo=='sep':
-                #separador de parametros de funcion
-                while stack[0]!='(':
-                    self.cola(pop())
-          
+                #separador de parametres de la funcio
+                while self.stack[0]!='(':
+                    self.cola(self.pop())
+
             elif tipo=='par':
-                #ver si es apertura parent. o cierre
-                if papertura.find(token)!=-1:
-                  #es apertura
-                  push(token)
+                #veure si es una obertura o un tancament
+                if self.papertura.find(token)!=-1:
+                  #es obertura
+                  self.push(token)
                 else:
-                    #es cierre
-                    comp=papertura[pcierre.find(token)]
-                    while stack[0]<>comp:
-                        cola(pop())
-                    pop()#saca el parentesis y no lo mete en la cola
-                    if len(stack)>0:
-                        if func.count(stack[0])!=0:
-                           #metemos la funcion en la cola
-                            cola(pop())
+                    #es tancament
+                    comp=self.papertura[self.pcierre.find(token)]
+                    while self.stack[0]<>comp:
+                        self.cola(self.pop())
+                    self.pop()#treu el parèntesi i no el fica en cua
+                    if len(self.stack)>0:
+                        if self.func.count(self.stack[0])!=0:
+                           #fiquem la funció en la cua
+                            self.cola(self.pop())
 
             elif tipo=='char':
-                #ver si es una funcion
-                if func.count(token)!=0:
-                    #es una funcion
-                    push(token)
+                #veure si es una funcio
+                if self.func.count(token)!=0:
+                    #es una funcio
+                    self.push(token)
                 else:
-                    #es una variable, la consideramos como un numero
-                    cola(token)
+                    #es una variable, la consideram com un numero
+                    self.cola(token)
 
             elif tipo=='op':
                 if len(self.stack)>0:
                     while (len(self.stack)>0 and
                           ((self.operador.find(self.stack[0])!=-1 and
-                          self.asociativo.get(token)=='i' and
-                          self.precedencia.get(token)<=self.precedencia.get(stack[0])) or
-                          (self.asociativo.get(token)=='d' and 
-                          self.precedencia.get(token)<self.precedencia.get(stack[0])))):
-                        self.cola(pop())
+                          self.associatiu.get(token)=='i' and
+                          self.precedencia.get(token)<=self.precedencia.get(self.stack[0])) or
+                          (self.associatiu.get(token)=='d' and
+                          self.precedencia.get(token)<self.precedencia.get(self.stack[0])))):
+                        self.cola(self.pop())
                 self.push(token)
         self.vacia_stack()
-        print self.cola_salida
-        return self.cola_salida
+        print self.cuaSortida
+        return self.cuaSortida
