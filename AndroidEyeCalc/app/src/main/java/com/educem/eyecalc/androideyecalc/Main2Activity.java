@@ -34,11 +34,12 @@ public class Main2Activity extends AppCompatActivity {
     ImageView takenfoto; //image view que mostra la foto feta
     Bitmap bmpInvertit;//imatge que senviara al server
     private static final int CAM_REQUEST = 1313;
-    private final String token= "CcAlC4Kl1w40m5tAnC978olspA";
+    private final String token= "Ccalc\n";
     //adreça del nostre server
     //private static final String SERVER_ADRESS="http://192.168.0.162/ApiCcalc/";
-    private static final String SERVER_ADRESS="192.168.0.162";
+    private static final String SERVER_ADRESS="172.20.10.3";
     private Socket s;
+    byte[] imgBytes;
     private String encodedImage;
     private File file;
     private String foto;
@@ -95,8 +96,9 @@ public class Main2Activity extends AppCompatActivity {
                 //preparem la imatge per enviarla com a string
                 ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
                 bmpInvertit.copyPixelsToBuffer(bb);
-                byte[] imgBytes = bb.array();
-                encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
+                imgBytes = new byte[60000];
+                imgBytes = bb.array();
+                //encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
                 try {
                     s = new Socket(SERVER_ADRESS,2010); //obro el socket.
@@ -105,7 +107,7 @@ public class Main2Activity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "error new socket"+e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 new escoltaServerSocket().execute(); //executo un thread per escoltar dades que envii el servidor
-                new enviaServerSocket(1).execute(); //executo un thread per enviar el token al servidor
+                new enviaServerSocket(0).execute(); //executo un thread per enviar el token al servidor
 
             } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada", Toast.LENGTH_LONG).show();
             else Toast.makeText(getApplicationContext(), "error en capturar la imatge", Toast.LENGTH_LONG).show();
@@ -141,11 +143,11 @@ public class Main2Activity extends AppCompatActivity {
             Boolean ok=false;
             try {
                  //obro el canal d'enviament
-                out.writeBytes(encodedImage);
+                out.write(imgBytes,0,imgBytes.length);
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "error en enviar la imatge - "+e.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "error en enviar la imatge - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
@@ -163,7 +165,7 @@ public class Main2Activity extends AppCompatActivity {
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "error en enviar el token - "+e.getMessage(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "error en enviar el token - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
@@ -187,8 +189,8 @@ public class Main2Activity extends AppCompatActivity {
             return null;
         }
         private void tractaDades(String msg){
-            Toast.makeText(getApplicationContext(), "el servidor ha respos -- "+msg, Toast.LENGTH_LONG).show();
-            if(msg.equals("OK")) new enviaServerSocket(2).execute();
+            //Toast.makeText(getApplicationContext(), "el servidor ha respos -- "+msg, Toast.LENGTH_LONG).show();
+            if(msg.trim().equals("OK")) new enviaServerSocket(1).execute();
         }
     }
     /*try {
