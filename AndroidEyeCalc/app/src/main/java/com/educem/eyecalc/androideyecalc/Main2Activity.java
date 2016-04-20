@@ -14,9 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -30,6 +34,7 @@ public class Main2Activity extends AppCompatActivity {
     ImageView takenfoto; //image view que mostra la foto feta
     Bitmap bmpInvertit;//imatge que senviara al server
     private static final int CAM_REQUEST = 1313;
+    private final String token= "CcAlC4Kl1w40m5tAnC978olspA";
     //adreça del nostre server
     //private static final String SERVER_ADRESS="http://192.168.0.162/ApiCcalc/";
     private static final String SERVER_ADRESS="192.168.0.162";
@@ -93,7 +98,15 @@ public class Main2Activity extends AppCompatActivity {
                 byte[] imgBytes = bb.array();
                 encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
-                new enviaServerSocket(1).execute();
+                try {
+                    s = new Socket(SERVER_ADRESS,2010); //obro el socket.
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "error new socket"+e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                new escoltaServerSocket().execute(); //executo un thread per escoltar dades que envii el servidor
+                new enviaServerSocket(1).execute(); //executo un thread per enviar el token al servidor
+
             } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada", Toast.LENGTH_LONG).show();
             else Toast.makeText(getApplicationContext(), "error en capturar la imatge", Toast.LENGTH_LONG).show();
         }
@@ -101,8 +114,15 @@ public class Main2Activity extends AppCompatActivity {
     //Thread per enviar info al server
     public class enviaServerSocket extends AsyncTask <Void, Void, Void> {
         int operacio;
+        DataOutputStream out;
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
+            try {
+                out = new DataOutputStream(s.getOutputStream()); //obro el canal d'enviament de dades.
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error en obrir output enviaServerSocket"+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
 
         protected Void doInBackground(Void... params) {
@@ -120,31 +140,30 @@ public class Main2Activity extends AppCompatActivity {
         private boolean enviarImatge(){
             Boolean ok=false;
             try {
-                OutputStream out = s.getOutputStream();    //agafo el canal per enviar dades
-                PrintWriter output = new PrintWriter(out); //instancio print writer per enviar informacio
-                output.println(encodedImage); //envio el token per valida la peticio
-                out.flush(); //confirmo l'enviament.
-                out.close(); //tanco el canal
-                output.close(); //tanco el canal
+                 //obro el canal d'enviament
+                out.writeBytes(encodedImage);
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error en enviar la imatge - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
-        private Boolean enviarToken(){
-            Boolean ok=false;
-            try {
-                s = new Socket(SERVER_ADRESS,2010); //obro el socket
-                OutputStream out = s.getOutputStream();    //agafo el canal per enviar dades
+        /*OutputStream out = s.getOutputStream();    //agafo el canal per enviar dades
                 PrintWriter output = new PrintWriter(out); //instancio print writer per enviar informacio
-                output.println("CcAlC4Kl1w40m5tAnC978olspA"); //envio el token per valida la peticio
+                output.println(token); //envio el token per valida la peticio
                 out.flush(); //confirmo l'enviament.
                 out.close();
                 output.close();
+        */
+        private Boolean enviarToken(){
+            Boolean ok=false;
+            try {
+                out.writeBytes(token); //envio el token per validar la conexió
                 ok=true;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error en enviar el token - "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return ok;
         }
@@ -155,12 +174,21 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                InputStream in = s.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                String missatge;
                 //tractarDades rebudes.
+                while((missatge = in.readLine()) != null) {
+                    tractaDades(missatge);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "error al rebre info del server -- "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return null;
+        }
+        private void tractaDades(String msg){
+            Toast.makeText(getApplicationContext(), "el servidor ha respos -- "+msg, Toast.LENGTH_LONG).show();
+            if(msg.equals("OK")) new enviaServerSocket(2).execute();
         }
     }
     /*try {
