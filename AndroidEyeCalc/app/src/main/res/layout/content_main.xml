@@ -23,112 +23,25 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/imageLogo"
             android:layout_gravity="center_horizontal"
 
             android:src="@drawable/ccalc"
-            android:contentDescription="@string/logodesc" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:id="@+id/editText"
-            android:textSize="25sp"
-            android:enabled="true"
-            android:background="@drawable/round_corners"
-            android:hint="@string/userplaceholder"
-            android:layout_marginTop="30dp"
-            android:inputType="text"
-            android:layout_gravity="center"
-            android:paddingStart="30dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="13dp"
-            android:paddingRight="20dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:id="@+id/editText2"
-            android:textSize="25sp"
-            android:enabled="true"
-            android:background="@drawable/round_corners"
-            android:hint="@string/passplaceholder"
-            android:layout_marginTop="35dp"
-            android:layout_gravity="center"
-            android:paddingStart="30dp"
-            android:paddingLeft="13dp"
-            android:paddingEnd="13dp"
-            android:paddingRight="13dp"
-            android:inputType="textPassword"
-                android:layout_marginBottom="35dp"
-                android:textColorHint="#ffffff" />
+            android:contentDescription="@string/logodesc"
+            android:layout_weight="1" />
 
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="right">
-
-                <Button
-                        android:layout_width="111dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/entrar"
-                        android:id="@+id/button2"
-                        android:layout_marginRight="10dp"
-                        android:background="#ffffff"
-                        android:textColor="#3a5795"
-                        android:layout_marginBottom="10dp" />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/rememberPass"
-                        android:id="@+id/textView"
-                        android:textColor="#ffffff"
-                        android:gravity="right"
-                        android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:weightSum="1">
-
-                <Button
-                    android:layout_width="115dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gocam"
-                    android:id="@+id/button"
-                        android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="#ffffff"
-                        android:textColor="#3a5795"
-                        android:layout_marginBottom="10dp" />
-
-                <TextView
-                        android:layout_width="119dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/funcions"
-                        android:id="@+id/textView2"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="#ffffff" />
-            </LinearLayout>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gocam"
+                android:id="@+id/btScan" />
         </LinearLayout>
 
     </LinearLayout>
