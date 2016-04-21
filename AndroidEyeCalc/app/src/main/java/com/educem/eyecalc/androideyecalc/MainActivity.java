@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         public escoltaServerSocket(Socket s) {
             this.s=s;
         }
-
         @Override
         protected Void doInBackground(Void... params) {
             try {
