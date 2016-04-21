@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bmpInvertit; //aqui es guardar la imatge invertida en format BMP.
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
-    private static final String SERVER_ADRESS="192.168.0.161"; //ip del servidor (SOCKETS).
+    private static final String SERVER_ADRESS="172.20.10.3"; //ip del servidor (SOCKETS).
     private Socket s;
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
@@ -92,9 +92,11 @@ public class MainActivity extends AppCompatActivity {
                 ByteBuffer bb = ByteBuffer.allocate(bmp.getRowBytes() * bmp.getHeight());
                 bmp.copyPixelsToBuffer(bb);
                 imgbyte = getBytesFromBitmap(bmp);
-                //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicació
+                //executem l'escolta del servidor
+                new escoltaServerSocket().execute();
+                //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicaco
                 new enviaServerSocket(0).execute();
-                //mostro missatges si el client ha cancelat la captura de la foto o si hi ha agut algun error.
+                //Un cop enviat el token ja ens estan escoltant i comensem a enviar la imatge
             } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada per l'usuari", Toast.LENGTH_LONG).show();
             else Toast.makeText(getApplicationContext(), "error en capturar la imatge, torna a provar.", Toast.LENGTH_LONG).show();
         }
