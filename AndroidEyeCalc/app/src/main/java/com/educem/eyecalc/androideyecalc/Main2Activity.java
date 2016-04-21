@@ -107,22 +107,23 @@ public class Main2Activity extends AppCompatActivity {
                 //encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
                 //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
 */
-                    //ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
-                    //bmpInvertit.copyPixelsToBuffer(bb);
-                    //byte[] imgBytes = bb.array();
+                    ByteBuffer bb = ByteBuffer.allocate(bmp.getRowBytes() * bmp.getHeight());
+                    bmp.copyPixelsToBuffer(bb);
+                    //imgbyte = bb.array();
+                    imgbyte = getBytesFromBitmap(bmp);
                     //encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
                     //enviar la imatge AQUI ES CRIDA LA CLASE PER ENVIAR LA IMATGE "BMPINVERTIT" AL SERVIDOR via SOCKET.
                 /*File imagefile = new File(bmpInvertit);
                 FileInputStream fis = null;
                 try {
                     fis = new FileInputStream(imagefile);
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
+               } catch (FileNotFoundException e) {
+                   // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
                 Bitmap bm = BitmapFactory.decodeStream(fis);*/
-                imgbyte = getBytesFromBitmap(bmpInvertit);
+                    //imgbyte = getBytesFromBitmap(bmp);
 
                 try {
                     s = new Socket(SERVER_ADRESS,2010); //obro el socket.
@@ -139,7 +140,7 @@ public class Main2Activity extends AppCompatActivity {
     }
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
     //Thread per enviar info al server
@@ -178,6 +179,8 @@ public class Main2Activity extends AppCompatActivity {
                 //out.write(imgBytes,0,imgBytes.length);
 
                 outImg.write(imgbyte);
+                outImg.flush();
+                s.close();
 
                 ok=true;
             } catch (IOException e) {
