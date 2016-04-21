@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
     private static final String SERVER_ADRESS="192.168.0.161"; //ip del servidor (SOCKETS).
-    private Socket s;
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
 
@@ -110,21 +109,22 @@ public class MainActivity extends AppCompatActivity {
         int operacio; //m'indica l'operacio que tinc de fer.
         DataOutputStream out; //canal de sortida per enviar el token.
         OutputStream outImg; //canal de sortida per enviar la imatge.
+        private Socket s;
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
-            //executo un thread per escoltar al servidor per si m'envia informació
-            new escoltaServerSocket().execute();
-            try {
-                out = new DataOutputStream(s.getOutputStream());
-                outImg = s.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "error en obrir output enviaServerSocket"+e.getMessage(), Toast.LENGTH_LONG).show();
-            }
         }
         //en funcio del parametre rebut faig una cosa o un altra.
         protected Void doInBackground(Void... params) {
+            try {
+                s = new Socket(SERVER_ADRESS,2010);
+                out = new DataOutputStream(s.getOutputStream());
+                outImg = s.getOutputStream();
+                //executo un thread per escoltar al servidor per si m'envia informació
+                new escoltaServerSocket(s).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             switch (operacio){
                 case 0:
                     try {
@@ -150,12 +150,14 @@ public class MainActivity extends AppCompatActivity {
     }
     //thread per rebre info del server
     public class escoltaServerSocket extends AsyncTask <Void, Void, Void> {
+        private Socket s;
+        public escoltaServerSocket(Socket s) {
+            this.s=s;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                //obro un Socket
-                s = new Socket(SERVER_ADRESS,2010);
                 //obro canal de comunicació per rebre dades del servidor
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String missatge;
@@ -165,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "error al rebre info del server -- "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return null;
         }
