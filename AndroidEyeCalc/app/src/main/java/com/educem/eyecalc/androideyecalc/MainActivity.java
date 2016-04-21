@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bmpInvertit; //aqui es guardar la imatge invertida en format BMP.
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
-    private static final String SERVER_ADRESS="192.168.0.161"; //ip del servidor (SOCKETS).
+    private static final String SERVER_ADRESS="117.20.10.3"; //ip del servidor (SOCKETS).
     //private static final String SERVER_ADRESS="172.20.10.3"; //ip del servidor (SOCKETS).
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
