@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 s = new Socket(SERVER_ADRESS,2010);
                 out = new DataOutputStream(s.getOutputStream());
                 outImg = s.getOutputStream();
-                //executo un thread per escoltar al servidor per si m'envia informació
-                new escoltaServerSocket(s).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -147,6 +145,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //executo un thread per escoltar al servidor per si m'envia informació
+            new escoltaServerSocket(s).execute();
         }
     }
     //thread per rebre info del server
