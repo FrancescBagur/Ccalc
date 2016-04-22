@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 ByteBuffer bb = ByteBuffer.allocate(bmp.getRowBytes() * bmp.getHeight());
                 bmp.copyPixelsToBuffer(bb);
                 imgbyte = getBytesFromBitmap(bmp);
+                //comprobar que hi ha internet.
+
                 //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicaco
                 new enviaServerSocket(0).execute();
                 //Un cop enviat el token ja ens estan escoltant i comensem a enviar la imatge
@@ -120,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
             switch (operacio){
                 case 0:
                     try {
+                        //obro el socket
+                        s = new Socket(SERVER_ADRESS,2010);
+                        out = new DataOutputStream(s.getOutputStream());
                         //envio el token
                         s = new Socket(SERVER_ADRESS,2010);
                         out = new DataOutputStream(s.getOutputStream());
