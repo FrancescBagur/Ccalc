@@ -121,12 +121,30 @@ public class ServidorCcalc {
                     bos.write(mybytearray2);
                     System.out.println("hem acabat l'escriptura");
                     bos.flush();
+                    bos.close();
+                    convertirImatgeJPGaBMP();
                     
                     long end = System.currentTimeMillis();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }          
+        }
+
+        private void convertirImatgeJPGaBMP(){
+            try {
+                File input = new File("/imatges/prova.jpg");
+                //Llegeixo el fitxer a un buffered image
+                BufferedImage image = null;
+                image = ImageIO.read(input);
+                //Creo el fitxer de sortida
+                File output = new File("/Ccalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/render.bmp");
+                //Escric el jpg amb bmp
+                ImageIO.write(image, "bmp", output);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         
     }
@@ -163,7 +181,7 @@ public class ServidorCcalc {
                 InputStream in = new ByteArrayInputStream(b);
                 BufferedImage imag=ImageIO.read(in);
                 System.out.println(imag);
-		ImageIO.write(imag, "bmp", new File("/imatges/","snap.bmp"));
+		            ImageIO.write(imag, "bmp", new File("/imatges/","snap.bmp"));
                 seguirConectat = true;
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);

@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 bmpInvertit = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, false);
                 bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
                 //Paso la imatge a bytes.
-                ByteBuffer bb = ByteBuffer.allocate(bmp.getRowBytes() * bmp.getHeight());
-                bmp.copyPixelsToBuffer(bb);
-                imgbyte = getBytesFromBitmap(bmp);
+                ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
+                bmpInvertit.copyPixelsToBuffer(bb);
+                imgbyte = getBytesFromBitmap(bmpInvertit);
                 //comprobar que hi ha internet.
 
                 //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicaco
@@ -123,9 +123,6 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     try {
                         //obro el socket
-                        s = new Socket(SERVER_ADRESS,2010);
-                        out = new DataOutputStream(s.getOutputStream());
-                        //envio el token
                         s = new Socket(SERVER_ADRESS,2010);
                         out = new DataOutputStream(s.getOutputStream());
                         out.writeBytes(token);
