@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     Bitmap bmpInvertit; //aqui es guardar la imatge invertida en format BMP.
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
-    private static final String SERVER_ADRESS="117.20.10.3"; //ip del servidor (SOCKETS).
+    private static final String SERVER_ADRESS="172.20.10.4"; //ip del servidor (SOCKETS).
+    private Socket s;
     //private static final String SERVER_ADRESS="172.20.10.3"; //ip del servidor (SOCKETS).
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
@@ -110,24 +111,18 @@ public class MainActivity extends AppCompatActivity {
         int operacio; //m'indica l'operacio que tinc de fer.
         DataOutputStream out; //canal de sortida per enviar el token.
         OutputStream outImg; //canal de sortida per enviar la imatge.
-        private Socket s;
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
         }
         //en funcio del parametre rebut faig una cosa o un altra.
         protected Void doInBackground(Void... params) {
-            try {
-                s = new Socket(SERVER_ADRESS,2010);
-                out = new DataOutputStream(s.getOutputStream());
-                outImg = s.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             switch (operacio){
                 case 0:
                     try {
                         //envio el token
+                        s = new Socket(SERVER_ADRESS,2010);
+                        out = new DataOutputStream(s.getOutputStream());
                         out.writeBytes(token);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -136,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     try {
                         //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
+                        outImg = s.getOutputStream();
                         outImg.write(imgbyte);
                         outImg.flush();
                         s.close();
