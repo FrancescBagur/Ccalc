@@ -1,1 +1,1 @@
-include ':app'
+include ':ucrop', ':sample', ':app'

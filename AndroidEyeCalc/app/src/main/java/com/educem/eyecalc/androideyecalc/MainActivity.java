@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.yalantis.ucrop.UCrop;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
             //intent que obrira la camara i guardara la foto que es faci
             if(!isDeviceSupporCamera()) {
                 Toast.makeText(getApplicationContext(), "el mòvil no te càmara", Toast.LENGTH_LONG).show();
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
             startActivityForResult(cameraIntent, CAM_REQUEST);
+
         }
         private boolean isDeviceSupporCamera(){
             //si el mobil te camera retorna true si no false
