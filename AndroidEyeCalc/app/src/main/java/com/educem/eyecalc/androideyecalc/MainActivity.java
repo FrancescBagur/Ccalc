@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
     private static final String SERVER_ADRESS="192.168.0.161"; //ip del servidor (SOCKETS).
+    private Socket s;
     //private static final String SERVER_ADRESS="172.20.10.3"; //ip del servidor (SOCKETS).
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 ByteBuffer bb = ByteBuffer.allocate(bmp.getRowBytes() * bmp.getHeight());
                 bmp.copyPixelsToBuffer(bb);
                 imgbyte = getBytesFromBitmap(bmp);
+                //comprobar que hi ha internet.
+
                 //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicaco
                 new enviaServerSocket(0).execute();
                 //Un cop enviat el token ja ens estan escoltant i comensem a enviar la imatge
@@ -110,23 +113,18 @@ public class MainActivity extends AppCompatActivity {
         int operacio; //m'indica l'operacio que tinc de fer.
         DataOutputStream out; //canal de sortida per enviar el token.
         OutputStream outImg; //canal de sortida per enviar la imatge.
-        private Socket s;
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
         }
         //en funcio del parametre rebut faig una cosa o un altra.
         protected Void doInBackground(Void... params) {
-            try {
-                s = new Socket(SERVER_ADRESS,2010);
-                out = new DataOutputStream(s.getOutputStream());
-                outImg = s.getOutputStream();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             switch (operacio){
                 case 0:
                     try {
+                        //obro el socket
+                        s = new Socket(SERVER_ADRESS,2010);
+                        out = new DataOutputStream(s.getOutputStream());
                         //envio el token
                         out.writeBytes(token);
                     } catch (IOException e) {
@@ -136,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     try {
                         //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
+                        outImg = s.getOutputStream();
                         outImg.write(imgbyte);
                         outImg.flush();
                         s.close();
