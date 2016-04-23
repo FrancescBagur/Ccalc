@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -24,7 +26,9 @@ import com.yalantis.ucrop.UCrop;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió
     private static final String SERVER_ADRESS="172.20.10.4"; //ip del servidor (SOCKETS).
     private Socket s;
+    //variebles proba Ucrop
+    private Uri finalPhoto;
+    private Boolean imageTaked;
     //private static final String SERVER_ADRESS="172.20.10.3"; //ip del servidor (SOCKETS).
     //altres.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         //les dues instruccions seguents posan la pantalla en horitzontal i la blockejan perque no es pugui torna a posar vertical.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //faig saber a la activity que encara no s'ha fet la foto
+        imageTaked = false;
         //associo el boto programatic amb el boto creat visualment per obrir la camara
         SCAN = (Button) findViewById(R.id.btScan);
         //poso un listener al boto
@@ -84,13 +93,21 @@ public class MainActivity extends AppCompatActivity {
     Uri sourceUri=null;
     UCrop.of(sourceUri,destinationUri).withAspectRatio(16,9).withMaxResultSize(100,100).start(MainActivity.this);
     */
+
     //aqui tractare la imatge, i em comunicare amb el servidor.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
         super.onActivityResult(requestCode, resultCode, Data);
-
-        if (requestCode == CAM_REQUEST) {
-            if(resultCode == RESULT_OK) {
+        if(!imageTaked) {
+            if (requestCode == CAM_REQUEST) {
+                if (resultCode == RESULT_OK) {
+                    imageTaked = true;
+                    Uri photo = Data.getData();
+                    finalPhoto = photo;
+                    UCrop.Options opt = new UCrop.Options();
+                    opt.setFreeStyleCropEnabled(true);
+                    UCrop.of(photo, finalPhoto).withAspectRatio(16, 9).withMaxResultSize(100, 100).withOptions(opt).start(MainActivity.this);
+                /*Codi antic
                 //agafo la foto que s'ha fet
                 Bitmap bmp = (Bitmap) Data.getExtras().get("data");
                 //inverteixo la imatge
@@ -98,11 +115,34 @@ public class MainActivity extends AppCompatActivity {
                 //Paso la imatge a bytes.
                 imgbyte = getBytesFromBitmap(bmpInvertit);
                 //comprobar que hi ha internet.
-
                 //executo un thread que enviara la imatge al servidor.
-                new enviaServerSocket(0).execute();
-            } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada per l'usuari", Toast.LENGTH_LONG).show();
-            else Toast.makeText(getApplicationContext(), "error en capturar la imatge, torna a provar.", Toast.LENGTH_LONG).show();
+                new enviaServerSocket(0).execute();*/
+                } else if (resultCode == RESULT_CANCELED)Toast.makeText(getApplicationContext(), "captura cancelada per l'usuari", Toast.LENGTH_LONG).show();
+                else Toast.makeText(getApplicationContext(), "error en capturar la imatge, torna a provar.", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if(resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP){
+                final Uri CropResult = UCrop.getOutput(Data);
+                try {
+                    InputStream is = getContentResolver().openInputStream(CropResult);
+                    Bitmap bmp = BitmapFactory.decodeStream(is);
+                    //Bitmap bmp = BitmapFactory.decodeFile(CropResult.getPath());
+                    bmpInvertit = invertBMP(bmp);
+                    imgbyte = getBytesFromBitmap(bmpInvertit);
+                    ImageView iv = (ImageView) findViewById(R.id.ivMostraResUcrop);
+                    iv.setImageBitmap(bmp);
+                    iv.setVisibility(View.VISIBLE);
+                    //comprobar que hi ha internet
+                    //si hi ha internet
+                    //new enviaServerSocket(0).execute();
+                    imageTaked=false;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (resultCode == UCrop.RESULT_ERROR){
+                final Throwable cropError = UCrop.getError(Data);
+            }
         }
     }
     //inverteixo la imatge
