@@ -1,10 +1,12 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-
             //intent que obrira la camara i guardara la foto que es faci
             if(!isDeviceSupporCamera()) {
                 Toast.makeText(getApplicationContext(), "el mòvil no te càmara", Toast.LENGTH_LONG).show();
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
             startActivityForResult(cameraIntent, CAM_REQUEST);
-
         }
         private boolean isDeviceSupporCamera(){
             //si el mobil te camera retorna true si no false
@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    /*
+    Uri destinationUri=null;
+    Uri sourceUri=null;
+    UCrop.of(sourceUri,destinationUri).withAspectRatio(16,9).withMaxResultSize(100,100).start(MainActivity.this);
+    */
     //aqui tractare la imatge, i em comunicare amb el servidor.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
@@ -89,25 +94,29 @@ public class MainActivity extends AppCompatActivity {
                 //agafo la foto que s'ha fet
                 Bitmap bmp = (Bitmap) Data.getExtras().get("data");
                 //inverteixo la imatge
-                Matrix m = new Matrix();
-                m.preScale(1, -1);
-                bmpInvertit = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, false);
-                bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+                bmpInvertit = invertBMP(bmp);
                 //Paso la imatge a bytes.
-                ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
-                bmpInvertit.copyPixelsToBuffer(bb);
                 imgbyte = getBytesFromBitmap(bmpInvertit);
                 //comprobar que hi ha internet.
 
-                //executo un thread pasant-li el valor 0, amb aixo li dic que envii un token per valida que la conexió provè de la nostra aplicaco
+                //executo un thread que enviara la imatge al servidor.
                 new enviaServerSocket(0).execute();
-                //Un cop enviat el token ja ens estan escoltant i comensem a enviar la imatge
             } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada per l'usuari", Toast.LENGTH_LONG).show();
             else Toast.makeText(getApplicationContext(), "error en capturar la imatge, torna a provar.", Toast.LENGTH_LONG).show();
         }
     }
-    //el crida la funció anterior rep un bitmap i el retorna en bytes.
+    //inverteixo la imatge
+    public Bitmap invertBMP(Bitmap bmp){
+        Matrix m = new Matrix();
+        m.preScale(1, -1);
+        bmpInvertit = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, false);
+        bmpInvertit.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+        return bmpInvertit;
+    }
+    //el crida la funció anterior rep un bitmap i el retorna en bytes i comprimit en JPEG.
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
+        /*ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
+        bmpInvertit.copyPixelsToBuffer(bb);*/
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
@@ -184,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
             if(msg.trim().equals("OK")) new enviaServerSocket(1).execute();
         }
     }
+
+
+
+
     /*
     //aquesta clase envia la foto a una API, alternativa als sockets.
     public class uploadFile extends AsyncTask <Void, Void, Void> {
@@ -231,28 +244,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     */
-    //metodes autogenerats per el ANDROID STUDIO.
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 }
