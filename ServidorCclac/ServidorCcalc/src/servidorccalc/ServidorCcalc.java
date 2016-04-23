@@ -7,17 +7,7 @@ package servidorccalc;
 
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -108,7 +98,7 @@ public class ServidorCcalc {
                 //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
                 try (FileOutputStream fos = new FileOutputStream("/imatges/prova.jpg"); // destination path and name of file
                  //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
-                        BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+                     BufferedOutputStream bos = new BufferedOutputStream(fos)) {
                     bytesRead = is.read(mybytearray2,0,mybytearray2.length);
                     current = bytesRead;
                     do {
@@ -122,8 +112,17 @@ public class ServidorCcalc {
                     System.out.println("hem acabat l'escriptura");
                     bos.flush();
                     bos.close();
+                    //converteixo la imatge de jpg a bmp
                     convertirImatgeJPGaBMP();
-                    
+                    //Executo un programa Python que s'encarrega de passar un filtre a la imatge de tal manera
+                    //que eliminem sombres i defectes
+
+                    ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibstest1.py");
+                    Process p = pb.start();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    int ret = new Integer(in.readLine()).intValue();
+                    System.out.println(ret);
                     long end = System.currentTimeMillis();
                 }
             } catch (IOException ex) {

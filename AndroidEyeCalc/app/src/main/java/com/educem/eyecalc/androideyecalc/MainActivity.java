@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     //el crida la funció anterior rep un bitmap i el retorna en bytes.
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth()*2, bitmap.getHeight()*2,true);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
