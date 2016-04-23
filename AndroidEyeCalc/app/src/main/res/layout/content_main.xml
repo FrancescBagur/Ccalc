@@ -44,12 +44,13 @@
                 android:id="@+id/btScan" />
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/ivMostraResUcrop"
+            android:visibility="invisible"
+            android:layout_weight="1" />
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/ivMostraResUcrop"
-        android:visibility="invisible" />
+    </LinearLayout>
 
 </RelativeLayout>
