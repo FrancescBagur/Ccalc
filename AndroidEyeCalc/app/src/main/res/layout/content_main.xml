@@ -41,7 +41,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/gocam"
-                android:id="@+id/btScan" />
+                android:id="@+id/btScan"
+                android:enabled="true"
+                android:textColor="#0150fc"
+                android:textSize="30sp"
+                android:background="@drawable/blue_button"/>
+
+
         </LinearLayout>
 
     </LinearLayout>
