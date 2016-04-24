@@ -25,11 +25,12 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
