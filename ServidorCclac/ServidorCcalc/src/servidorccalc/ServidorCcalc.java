@@ -12,10 +12,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
+import sun.font.Script;
 
 /**
  *
@@ -73,12 +75,16 @@ public class ServidorCcalc {
         String encodetImage;
         Monitor m;
         Boolean seguirConnectat;
+        Boolean creat;
+        File fitxerSortida;
         int id;
+
         public ClientConnectat(Socket s, int id, Monitor m){
             this.connexio = s;
             this.id = id;
             this.m = m;
             seguirConnectat = true;
+            creat = false;
         }
         
         @Override
@@ -114,20 +120,40 @@ public class ServidorCcalc {
                     bos.close();
                     //converteixo la imatge de jpg a bmp
                     convertirImatgeJPGaBMP();
-                    //Executo un programa Python que s'encarrega de passar un filtre a la imatge de tal manera
-                    //que eliminem sombres i defectes
+                    //Natejo la imatge, li trec sombres i defectes
+                    if(filtrarImatge()==1){
+                        System.out.println("ok");
+                        //Llenço els scripts que executen PoinTransform,autrase i seshat
+                        llencarScripts();
+                        System.out.println("Scripts llençats");
+                        //Un cop llençats els scripts, he de veure si han acabat i ho miraré comprovant
+                        //si s'ha creat el fitxer de sortida
+                        while(!creat){
+                            fitxerSortida = new File("/Ccalc/PoinTransform/PoinTransform/bin/Debug/seshat/render.bmp");
+                            if (fitxerSortida.exists())
+                                //Els scripts han acabat
+                                creat = true;
+                        }
+                        //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
+                    }
 
-                    ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibstest1.py");
-                    Process p = pb.start();
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                    int ret = new Integer(in.readLine()).intValue();
-                    System.out.println(ret);
-                    long end = System.currentTimeMillis();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }          
+        }
+
+        private void llencarScripts(){
+            try {
+                ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform.sh");
+                //Map<String, String> env = pb.environment();
+                //env.put("VAR1", "myValue");
+                //env.remove("OTHERVAR");
+                //pb.directory(new File(""));
+                Process p = pb.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         private void convertirImatgeJPGaBMP(){
@@ -144,6 +170,24 @@ public class ServidorCcalc {
                 e.printStackTrace();
             }
 
+        }
+
+        private int filtrarImatge(){
+            //Executo un programa Python que s'encarrega de passar un filtre a la imatge de tal manera
+            //que eliminem sombres i defectes
+            int ret = 0;
+            try {
+                ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibs/SimpleCv/filtradorImatges.py");
+                Process p = null;
+                p = pb.start();
+                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                ret = new Integer(in.readLine()).intValue();
+
+                long end = System.currentTimeMillis();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ret;
         }
         
     }

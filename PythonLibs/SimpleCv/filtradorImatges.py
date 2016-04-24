@@ -3,7 +3,7 @@
 from SimpleCV import Image
 
 #Creo la imatge a partir del bmp
-imatge = Image('/Ccalc/prova.bmp')
+imatge = Image('/Ccalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/render.bmp')
 #La binaritzo, li trec totes les sombres i la natejo
 imgBin = imatge.binarize(-1,255,19,7)
 #I la inverteixo, la paso de fons negre i lletres blanques a fons blanc a lletres negres
