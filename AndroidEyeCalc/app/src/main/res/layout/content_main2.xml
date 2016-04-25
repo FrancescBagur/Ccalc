@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3a5795">
+    android:background="#3a5795"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/ivMostraResUcrop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-</RelativeLayout>
+        android:id="@+id/ivMostraRes"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SCAN AGAIN"
+        android:id="@+id/btScanAgain"
+        android:enabled="true"
+        android:textColor="#3a5795"
+        android:background="@drawable/blue_button"/>
+</LinearLayout>

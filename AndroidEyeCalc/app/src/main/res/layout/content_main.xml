@@ -29,7 +29,8 @@
 
             android:src="@drawable/ccalc"
             android:contentDescription="@string/logodesc"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginBottom="40dp" />
 
         <LinearLayout
                 android:orientation="horizontal"
@@ -43,9 +44,12 @@
                 android:text="@string/gocam"
                 android:id="@+id/btScan"
                 android:enabled="true"
-                android:textColor="#0150fc"
+                android:textColor="#3a5795"
                 android:textSize="30sp"
-                android:background="@drawable/blue_button"/>
+                android:background="@drawable/blue_button"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="50dp" />
 
 
         </LinearLayout>
