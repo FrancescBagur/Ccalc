@@ -1,12 +1,16 @@
 package com.educem.eyecalc.androideyecalc;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -43,15 +47,17 @@ public class Main2Activity extends AppCompatActivity {
         //agafo el intent que m'ha obert la activity
         Intent intentResult = getIntent();
         //agafo la uri(photo) del intent
-        Uri photo = intentResult.getData();
+        Uri OriginalImage = intentResult.getData();
         //obro el uCrop
-        StartUcrop(photo);
+        StartUcrop(OriginalImage);
     }
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
         finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto.bmp"));
         UCrop.Options opt = new UCrop.Options();
         opt.setFreeStyleCropEnabled(true);
+        opt.setToolbarColor(Color.parseColor("#3a5795"));
+        opt.setStatusBarColor(Color.parseColor("#3a5795"));
         UCrop.of(photo, finalPhoto).withAspectRatio(16, 9).withMaxResultSize(100, 100).withOptions(opt).start(Main2Activity.this);
     }
     //agafa el resultat del UCrop
