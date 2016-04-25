@@ -6,6 +6,7 @@
     <string name="gocam">SCAN</string>
     <string name="logodesc">logo</string>
     <string name="btScanAgain">SCAN AGAIN</string>
+    <string name="title_activity_result">ResultActivity</string>
     <!--<string name="userplaceholder">Usuari</string>
     <string name="passplaceholder">Contrasenya</string>
     <string name="rememberPass">¿Has oblidat la contrasenya?</string>
