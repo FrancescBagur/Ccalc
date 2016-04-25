@@ -5,6 +5,7 @@
     <string name="bttakephoto">Take photo</string>
     <string name="gocam">SCAN</string>
     <string name="logodesc">logo</string>
+    <string name="btScanAgain">SCAN AGAIN</string>
     <!--<string name="userplaceholder">Usuari</string>
     <string name="passplaceholder">Contrasenya</string>
     <string name="rememberPass">¿Has oblidat la contrasenya?</string>

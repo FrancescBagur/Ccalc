@@ -95,12 +95,12 @@ public class Main2Activity extends AppCompatActivity {
                 bmpInvertit = invertBMP(bmp);
                 //la paso a bytes
                 imgbyte = getBytesFromBitmap(bmpInvertit);
-                /*
+
                 //la mostro per pantalla (per comprobar que es la imatge correcte, aquest codi es borrarà)
                 ImageView iv = (ImageView) findViewById(R.id.ivMostraRes);
                 iv.setImageBitmap(bmp);
                 iv.setVisibility(View.VISIBLE);
-                */
+
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
                     //new enviaServerSocket(0).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!

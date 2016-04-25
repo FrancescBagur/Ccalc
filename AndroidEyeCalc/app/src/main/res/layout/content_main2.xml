@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="#3a5795"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:padding="20dp">
 
 
     <ImageView
@@ -17,9 +18,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SCAN AGAIN"
+        android:text="@string/btScanAgain"
         android:id="@+id/btScanAgain"
         android:enabled="true"
         android:textColor="#3a5795"
-        android:background="@drawable/blue_button"/>
+        android:background="@drawable/blue_button"
+        android:layout_gravity="right" />
+
 </LinearLayout>
