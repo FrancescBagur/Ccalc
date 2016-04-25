@@ -77,6 +77,8 @@ public class ServidorCcalc {
         Boolean seguirConnectat;
         Boolean creat;
         File fitxerSortida;
+        String fitxerRebutMobil = "";
+        String fitxerConvertitBmp = "";
         int id;
 
         public ClientConnectat(Socket s, int id, Monitor m){
@@ -85,6 +87,8 @@ public class ServidorCcalc {
             this.m = m;
             seguirConnectat = true;
             creat = false;
+            fitxerRebutMobil = "rebut" + String.valueOf(id) + ".jpg";
+            fitxerConvertitBmp = "render" + String.valueOf(id) + ".bmp";
         }
         
         @Override
@@ -102,7 +106,7 @@ public class ServidorCcalc {
                 byte [] mybytearray2  = new byte [filesize];
                 InputStream is = connexio.getInputStream();
                 //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
-                try (FileOutputStream fos = new FileOutputStream("/imatges/prova.jpg"); // destination path and name of file
+                try (FileOutputStream fos = new FileOutputStream("/imatges/"+fitxerRebutMobil); // destination path and name of file
                  //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
                      BufferedOutputStream bos = new BufferedOutputStream(fos)) {
                     bytesRead = is.read(mybytearray2,0,mybytearray2.length);
@@ -145,12 +149,17 @@ public class ServidorCcalc {
 
         private void llencarScripts(){
             try {
-                ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform.sh");
-                //Map<String, String> env = pb.environment();
-                //env.put("VAR1", "myValue");
+                ProcessBuilder pb = new ProcessBuilder("sh","/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform.sh", String.valueOf(id));
+                Process p = null;
+                p = pb.start();
+                /*ProcessBuilder pb = new ProcessBuilder("PoinTransform");
+                Map<String, String> env = pb.environment();
+                env.put("VAR1", String.valueOf(id));
                 //env.remove("OTHERVAR");
-                //pb.directory(new File(""));
-                Process p = pb.start();
+                pb.directory(new File("../../PoinTransform/PoinTransform/bin/Debug/"));
+                Process p = pb.start();*/
+                //Process process = Runtime.getRuntime().exec("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform " + String.valueOf(id));
+                //InputStream inputstream = process.getInputStream();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -158,12 +167,12 @@ public class ServidorCcalc {
 
         private void convertirImatgeJPGaBMP(){
             try {
-                File input = new File("/imatges/prova.jpg");
+                File input = new File("/imatges/" + fitxerRebutMobil);
                 //Llegeixo el fitxer a un buffered image
                 BufferedImage image = null;
                 image = ImageIO.read(input);
-                //Creo el fitxer de sortida
-                File output = new File("/Ccalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/render.bmp");
+                //Creo el fitxer de sortida segons la id de la transaccio
+                File output = new File("/Ccalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/"+ fitxerConvertitBmp);
                 //Escric el jpg amb bmp
                 ImageIO.write(image, "bmp", output);
             } catch (IOException e) {
@@ -177,7 +186,7 @@ public class ServidorCcalc {
             //que eliminem sombres i defectes
             int ret = 0;
             try {
-                ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibs/SimpleCv/filtradorImatges.py");
+                ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibs/SimpleCv/filtradorImatges.py",fitxerConvertitBmp);
                 Process p = null;
                 p = pb.start();
                 BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

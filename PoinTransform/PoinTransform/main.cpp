@@ -17,16 +17,16 @@ int arrodonirFloat(float numf);
 int main (int argc, char *argv[]){
 	vector< vector<int> > StrokesMatrix;
 	vector <int> numInt;
-	//Miro que m'hagin pasat un argument que es la imatge necessaria per fer funcionar el autotrace
-	/*std::string file;
+	//Miro que m'hagin pasat un argument que es la id de la transaccio
+	std::string id;
 	if(argc!=2) {
 		//Si no l'han passat faig el print i surto del programa.
-		printf("Falta el parametre imatge.\n"); 
-		file="";
+		printf("Falta el parametre id\n"); 
+		id="";
 		//exit(1);
 	}else{
-		file=argv[1];
-	}*/
+		id=argv[1];
+	}
 	//Si l'han passat executo l'autotrace amb el parametre imatge que m'han passat i envio el resultat a un fitxer de sortida
 	/*const char * instruccio = "sh ../../../../autotrace-0.31.1/script.autotrace "; //Això es l'script a executar
 	const char * f = file.c_str();//El fitxer que m'an passat
@@ -42,7 +42,9 @@ int main (int argc, char *argv[]){
 	strcpy( my_args[1], "-centerline" );
 	strcpy( my_args[2], "render.bmp" );
 	strcpy( my_args[3], NULL );*/
-	system("sh script.autotrace > fitxerSortida.txt");
+	char comanda[50];
+	sprintf(comanda,"sh script.autotrace %s %s",argv[1]," > fitxerSortida.txt");
+	system(comanda);
 	//execv("autotrace-0.31.1/autotrace",my_args );
 	//Un cop tenim la sortida de l'autotrace dins el fitxer, es hora d'analitzarlo.
 	string linia;
@@ -104,8 +106,8 @@ int main (int argc, char *argv[]){
 	    }*/
 	    std::stringstream stream;  
 		std::string strNum; 
- 
-	    ofstream fitxerEntrada ("seshat/SampleMathExps/exp3.scgink");
+ 		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
+	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
   		if (fitxerEntrada.is_open()){
   			fitxerEntrada << "SCG_INK\n";
   			stream << StrokesMatrix.size();
@@ -128,7 +130,9 @@ int main (int argc, char *argv[]){
 	    		}
 	    	}
    	 		fitxerEntrada.close();
-   	 		system("cd seshat; script.seshat");
+   	 		char comandaSeshat[60];
+			sprintf(comandaSeshat,"cd seshat;script.seshat %s",argv[1]);
+			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
   	}else printf("Imposible obrir el fitxer");

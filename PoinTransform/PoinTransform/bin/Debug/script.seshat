@@ -1,7 +1,3 @@
 #!/bin/bash
-if [ $# -eq 0 ];
-then
-./seshat/seshat -c seshat/Config/CONFIG -i seshat/SampleMathExps/exp3.scgink  -o seshat/out.inkml -r seshat/render.pmg -d seshat/out.dot
-else
-./seshat/seshat -c seshat/Config/CONFIG -i $1  -o seshat/out.inkml -r seshat/render.pmg -d seshat/out.dot
-fi
+./seshat/seshat -c seshat/Config/CONFIG -i seshat/SampleMathExps/exp$1.scgink  -o seshat/out.inkml -r seshat/render$1.pmg -d seshat/out.dot
+
