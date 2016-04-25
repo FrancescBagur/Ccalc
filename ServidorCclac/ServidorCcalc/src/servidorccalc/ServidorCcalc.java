@@ -149,7 +149,7 @@ public class ServidorCcalc {
 
         private void llencarScripts(){
             try {
-                ProcessBuilder pb = new ProcessBuilder("sh","/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform.sh", String.valueOf(id));
+                ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform", String.valueOf(id));
                 Process p = null;
                 p = pb.start();
                 /*ProcessBuilder pb = new ProcessBuilder("PoinTransform");
@@ -159,7 +159,12 @@ public class ServidorCcalc {
                 pb.directory(new File("../../PoinTransform/PoinTransform/bin/Debug/"));
                 Process p = pb.start();*/
                 //Process process = Runtime.getRuntime().exec("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform " + String.valueOf(id));
-                //InputStream inputstream = process.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String missatge;
+                while((missatge = in.readLine() )!= null){
+                    System.out.println(missatge + "\n");
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

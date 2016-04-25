@@ -43,12 +43,16 @@ int main (int argc, char *argv[]){
 	strcpy( my_args[2], "render.bmp" );
 	strcpy( my_args[3], NULL );*/
 	char comanda[50];
-	sprintf(comanda,"sh script.autotrace %s %s",argv[1]," > fitxerSortida.txt");
+	char fitxerSortida[25];
+	sprintf(fitxerSortida, " > fitxerSortida%s%s",argv[1],".txt");
+	sprintf(comanda,"sh script.autotrace %s %s",argv[1],fitxerSortida);
 	system(comanda);
 	//execv("autotrace-0.31.1/autotrace",my_args );
 	//Un cop tenim la sortida de l'autotrace dins el fitxer, es hora d'analitzarlo.
 	string linia;
-  	ifstream fitxer("fitxerSortida.txt");
+	char fitxSort[25];
+	sprintf(fitxSort,"fitxerSortida%s%s",argv[1],".txt");
+  	ifstream fitxer(fitxSort);
   	if(fitxer.is_open()){
   		printf("S'ha obert el fitxer");
   		//Si he pogut obrir el fitxer el vaig analitzant linia a linia.
@@ -78,7 +82,6 @@ int main (int argc, char *argv[]){
 		    					}
 	    					}
 	    				}
-	    				
 	    				printf("\n");
 	    			}else{
 	    				//significa que comença una nova stroke
@@ -107,7 +110,7 @@ int main (int argc, char *argv[]){
 	    std::stringstream stream;  
 		std::string strNum; 
  		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
-	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
+	    ofstream fitxerEntrada (("/Ccalc/PoinTransform/PoinTransform/bin/Debug/seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
   		if (fitxerEntrada.is_open()){
   			fitxerEntrada << "SCG_INK\n";
   			stream << StrokesMatrix.size();
