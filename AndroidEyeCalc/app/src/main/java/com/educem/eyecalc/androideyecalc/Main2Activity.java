@@ -1,6 +1,7 @@
 package com.educem.eyecalc.androideyecalc;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,8 +40,10 @@ public class Main2Activity extends AppCompatActivity {
     Bitmap bmpInvertit; //aqui es guardar la imatge invertida en format BMP.
     private byte[] imgbyte; //aqui es guardarà la imatge en bytes.
     private final String token= "Ccalc\n"; //token per enviar al servidor perque validi la conexió.
-    private static final String SERVER_ADRESS="172.20.10.4"; //ip del servidor (SOCKETS).
+    private static final String SERVER_ADRESS="172.20.10.9"; //ip del servidor (SOCKETS).
     private Socket s;
+    private Button scanAgain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,21 @@ public class Main2Activity extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
+        //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
+        scanAgain = (Button) findViewById(R.id.btScanAgain);
+        scanAgain.setOnClickListener(new takenfotoClicker());
+    }
+    //classe a que sentra quan fas click a tkfoto
+    public class takenfotoClicker implements Button.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            //creo un intent per tornar a la primera activity
+            Intent intTofirstActivity = new Intent(Main2Activity.this,MainActivity.class);
+            //vaig a ala primera activity per torna a scanejar
+            startActivity(intTofirstActivity);
+            //tanco la activity
+            Main2Activity.this.finish();
+        }
     }
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){

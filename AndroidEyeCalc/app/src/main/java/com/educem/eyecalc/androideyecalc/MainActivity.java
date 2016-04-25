@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                    intentResult.setData(photo);
                    //obro la segona activity
                    startActivity(intentResult);
+                   //tanco la activity
+                   MainActivity.this.finish();
                } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "captura cancelada per l'usuari", Toast.LENGTH_LONG).show();
             } else Toast.makeText(getApplicationContext(), "error en capturar la imatge, torna a provar.", Toast.LENGTH_LONG).show();
     }
