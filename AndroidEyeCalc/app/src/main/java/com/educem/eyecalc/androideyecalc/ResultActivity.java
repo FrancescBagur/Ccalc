@@ -32,13 +32,13 @@ public class ResultActivity extends Activity {
         Intent in = getIntent();
         ID = in.getExtras().getInt("id");
         //Mostro una animacio (processant)
-            //Associo la progres var visual amb la programatica per poderla treure.
+        //Associo la progres Bar visual amb la programatica per poderla treure.
         pb = (ProgressBar) findViewById(R.id.ProgBar);
-        //per desactivarl --> pb.setVisibility(View.GONE);
+        //si el ID es -1 significa que algo no ha anat be en la activity anterior (la id no sa inicialitzat), mostro missatge i trec el progress
         if(ID==-1){
             finalizeProgress();
-            Toast.makeText(this,"Please try again, an error occurred in the server",Toast.LENGTH_LONG);
-        } else {
+            Toast.makeText(this,"Please try again, an error occurred in the server",Toast.LENGTH_LONG).show();
+        } else { //si el id no es -1 demo al servidor el resultat i el mostro per pantalla.
             //obro threads d'escolta al servidor
             new escoltaServerSocket(2010);
         }
