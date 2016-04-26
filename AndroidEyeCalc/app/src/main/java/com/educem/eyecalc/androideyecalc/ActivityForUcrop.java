@@ -45,8 +45,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     private static final String SERVER_ADRESS="192.168.0.160";
     //Socket (canal de comunicacio amb el servidor)
     private Socket s;
-    //boto per anar a la primera activity i torna a fer la foto
-    private Button scanAgain;
     //id de transacció, per el servidor
     private int ID;
     //boolea per executar o no el thread que escoltarà el que envii el servidor
@@ -62,21 +60,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
-        //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
-        scanAgain = (Button) findViewById(R.id.btScanAgain);
-        scanAgain.setOnClickListener(new takenfotoClicker());
-    }
-    //classe a que sentra quan fas click a tkfoto
-    public class takenfotoClicker implements Button.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            //creo un intent per tornar a la primera activity
-            Intent intTofirstActivity = new Intent(ActivityForUcrop.this,InitialActivity.class);
-            //vaig a ala primera activity per torna a scanejar
-            startActivity(intTofirstActivity);
-            //tanco la activity
-            ActivityForUcrop.this.finish();
-        }
     }
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
@@ -119,7 +102,7 @@ public class ActivityForUcrop extends AppCompatActivity {
 
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
-                    //new enviaServerSocket(0).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!
+                    new enviaServerSocket(0).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -157,10 +140,13 @@ public class ActivityForUcrop extends AppCompatActivity {
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
+            Log.i("HOLA", "operacio??----------   " + this.operacio + "   ---------------");
         }
         //en funcio del parametre rebut faig una cosa o un altra.
+        @Override
         protected Void doInBackground(Void... params) {
-            switch (operacio){
+            Log.i("HOLA", "operacio??----------   "+this.operacio+"   ---------------");
+            switch (this.operacio){
                 case 0:
                     try {
                         //obro el socket, envio el token i poso a true el executeListener.
@@ -168,17 +154,25 @@ public class ActivityForUcrop extends AppCompatActivity {
                         out = new DataOutputStream(s.getOutputStream());
                         out.writeBytes(token);
                         executeListener=true;
+                        Log.i("HOLA", "token enviat??-------------------------");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case 1:
+                    Log.i("HOLA", "entra al case enviar imatge??-------------------------");
                     try {
+                        Log.i("HOLA", "comensa enviar imatge??-------------------------");
                         //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
                         outImg = s.getOutputStream();
                         outImg.write(imgbyte);
                         outImg.flush();
                         s.close();
+                        executeListener=false;
+                        Intent inToResult = new Intent(ActivityForUcrop.this,ResultActivity.class);
+                        inToResult.putExtra("ID",ID);
+                        startActivity(inToResult);
+                        Log.i("HOLA", "acaba envia imatge??-------------------------");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -190,16 +184,15 @@ public class ActivityForUcrop extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             //executo un thread per escoltar al servidor per si m'envia informació
-            if(executeListener){
-                new escoltaServerSocket(s).execute();
-                executeListener=false;
-            }
+            escoltaServerSocket escolta = new escoltaServerSocket(s);
+            if(executeListener) escolta.execute();
+            else escolta.cancel(true);
+            Log.i("HOLA", "muerete enviaserverSocket");
         }
     }
     //thread per rebre info del server
     public class escoltaServerSocket extends AsyncTask <Void, Void, Void> {
         private Socket s;
-        public Boolean acaba=false;
         public escoltaServerSocket(Socket s) {
             this.s=s;
         }
@@ -210,9 +203,10 @@ public class ActivityForUcrop extends AppCompatActivity {
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String missatge;
                 //quan es rep algo s'entra al while i es tracta la informació rebuda amb la funcio tractar dades.
-                while((missatge = in.readLine()) != null && !acaba) {
+                while((missatge = in.readLine()) != null) {
                     tractaDades(missatge);
                 }
+                Log.i("HOLA","te mueres o no cabron??-------------------------");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -221,11 +215,12 @@ public class ActivityForUcrop extends AppCompatActivity {
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             //si m'ha enviat un OK vol dir que el token es correcte i per tant espera a que li envii la imatge
-            //si ok crido a un thread passantlli 1 de parametre perque envii la foto al servidor.
+            //si ok crido a un thread passantlli 1 de parametre perque envii la foto al servidor i mato aquest thread.
             if(msg.trim().equals("OK")){
+                Log.i("HOLA", "executa enviar imatge??-------------------------");
                 new enviaServerSocket(1).execute();
-                acaba=true;
             }
+            //si m'envien ID=x agafo la x i segueixo escoltat
             else if (msg.trim().startsWith("ID")) ID = Integer.parseInt(msg.substring(3));
 
         }
