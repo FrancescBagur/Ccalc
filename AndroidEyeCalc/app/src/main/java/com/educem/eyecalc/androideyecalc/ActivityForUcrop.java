@@ -39,17 +39,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     private Bitmap bmpInvertit;
     //resultat del UCrop en bytes per enviarlo
     private byte[] imgbyte;
-    //token identificatiu perque el servidor respongui
-    private final String token= "Ccalc\n";
-    //Ip del servidor
-    private static final String SERVER_ADRESS="192.168.0.160";
-    //Socket (canal de comunicacio amb el servidor)
-    private Socket s;
     //id de transacció, per el servidor
-    private int ID;
-    //boolea per executar o no el thread que escoltarà el que envii el servidor
-    private Boolean executeListener;
-
+    private int ID=-1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,10 +86,10 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //la paso a bytes
                 imgbyte = getBytesFromBitmap(bmpInvertit);
 
-                //la mostro per pantalla (per comprobar que es la imatge correcte, aquest codi es borrarà)
+                /*//la mostro per pantalla (per comprobar que es la imatge correcte, aquest codi es borrarà)
                 ImageView iv = (ImageView) findViewById(R.id.ivMostraRes);
                 iv.setImageBitmap(bmpInvertit);
-                iv.setVisibility(View.VISIBLE);
+                iv.setVisibility(View.VISIBLE);*/
 
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
@@ -134,9 +125,21 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //Thread per enviar info al server 0-> enviar token de validació 1-> enviar la imatge feta.
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
-        int operacio; //m'indica l'operacio que tinc de fer.
-        DataOutputStream out; //canal de sortida per enviar el token.
-        OutputStream outImg; //canal de sortida per enviar la imatge.
+        //m'indica l'operacio que tinc de fer.
+        int operacio;
+        //canal de sortida per enviar el token.
+        DataOutputStream out;
+        //canal de sortida per enviar la imatge.
+        OutputStream outImg;
+        //Ip del servidor
+        private static final String SERVER_ADRESS="192.168.0.160";
+        //token identificatiu perque el servidor respongui
+        private final String token= "Ccalc\n";
+        //Socket (canal de comunicacio amb el servidor)
+        private Socket s;
+        //boolea per executar o no el thread que escoltarà el que envii el servidor
+        private Boolean executeListener;
+
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
@@ -169,9 +172,11 @@ public class ActivityForUcrop extends AppCompatActivity {
                         outImg.flush();
                         s.close();
                         executeListener=false;
-                        Intent inToResult = new Intent(ActivityForUcrop.this,ResultActivity.class);
-                        inToResult.putExtra("ID",ID);
+                        //un cop s'ha enviat la imatge anem a la activity per mostrar el resultat.
+                        Intent inToResult = new Intent(ActivityForUcrop.this, ResultActivity.class);
+                        inToResult.putExtra("ID", ID);
                         startActivity(inToResult);
+                        ActivityForUcrop.this.finish();
                         Log.i("HOLA", "acaba envia imatge??-------------------------");
                     } catch (IOException e) {
                         e.printStackTrace();
