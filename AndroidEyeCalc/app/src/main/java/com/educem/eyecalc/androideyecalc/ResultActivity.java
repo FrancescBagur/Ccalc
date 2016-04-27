@@ -30,7 +30,8 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.activity_result);
         //agafo la id que em servire per que el servidor sepiga qui soc.
         Intent in = getIntent();
-        ID = in.getExtras().getInt("id");
+        ID = in.getExtras().getInt("ID");
+        Toast.makeText(this,"ID transacció"+ID,Toast.LENGTH_LONG).show();
         //Mostro una animacio (processant)
         //Associo la progres Bar visual amb la programatica per poderla treure.
         pb = (ProgressBar) findViewById(R.id.ProgBar);
@@ -44,10 +45,10 @@ public class ResultActivity extends Activity {
         }
         //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
         scanAgain = (Button) findViewById(R.id.btScanAgain);
-        scanAgain.setOnClickListener(new takenfotoClicker());
+        scanAgain.setOnClickListener(new goInitial());
     }
     //classe a que sentra quan fas click a scanAgain
-    public class takenfotoClicker implements Button.OnClickListener {
+    public class goInitial implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
             //creo un intent per tornar a la primera activity

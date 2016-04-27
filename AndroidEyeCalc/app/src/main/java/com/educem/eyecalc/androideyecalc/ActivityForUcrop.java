@@ -139,7 +139,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         private Socket s;
         //boolea per executar o no el thread que escoltarà el que envii el servidor
         private Boolean executeListener;
-
         //en el constructor inicialitzo les variables.
         public enviaServerSocket(int operacio) {
             this.operacio = operacio;
