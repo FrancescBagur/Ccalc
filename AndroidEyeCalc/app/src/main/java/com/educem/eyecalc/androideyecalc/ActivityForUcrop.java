@@ -41,6 +41,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     private byte[] imgbyte;
     //id de transacció, per el servidor
     private int ID=-1;
+    //Socket (canal de comunicacio amb el servidor)
+    private Socket s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,7 @@ public class ActivityForUcrop extends AppCompatActivity {
 
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
-                    new enviaServerSocket(0).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!
+                    new enviaServerSocket(0,s).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -132,7 +134,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.160";
+        private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc\n";
         //Socket (canal de comunicacio amb el servidor)
@@ -140,8 +142,9 @@ public class ActivityForUcrop extends AppCompatActivity {
         //boolea per executar o no el thread que escoltarà el que envii el servidor
         private Boolean executeListener;
         //en el constructor inicialitzo les variables.
-        public enviaServerSocket(int operacio) {
+        public enviaServerSocket(int operacio, Socket s) {
             this.operacio = operacio;
+            this.s = s;
             Log.i("HOLA", "operacio??----------   " + this.operacio + "   ---------------");
         }
         //en funcio del parametre rebut faig una cosa o un altra.
@@ -220,12 +223,14 @@ public class ActivityForUcrop extends AppCompatActivity {
         private void tractaDades(String msg){
             //si m'ha enviat un OK vol dir que el token es correcte i per tant espera a que li envii la imatge
             //si ok crido a un thread passantlli 1 de parametre perque envii la foto al servidor i mato aquest thread.
-            if(msg.trim().equals("OK")){
+            String[] dades = msg.trim().split(":");
+            if(dades[0].equals("OK")){
+                //guardem la id de la trnasaccio
+                ID = Integer.valueOf(dades[1]);
                 Log.i("HOLA", "executa enviar imatge??-------------------------");
-                new enviaServerSocket(1).execute();
+                new enviaServerSocket(1,s).execute();
             }
-            //si m'envien ID=x agafo la x i segueixo escoltat
-            else if (msg.trim().startsWith("ID")) ID = Integer.parseInt(msg.substring(3));
+
 
         }
     }

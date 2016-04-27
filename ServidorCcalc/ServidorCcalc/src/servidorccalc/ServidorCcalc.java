@@ -59,7 +59,7 @@ public class ServidorCcalc {
                             Thread t = new Thread(client);
                             t.start();
                             System.out.println("S'ha creat el thread");
-                            m.enviarMissatge("OK\n", id);
+                            m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
                             m.augmentarConnexio();
                         }
                     }
