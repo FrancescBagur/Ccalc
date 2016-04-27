@@ -41,8 +41,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     private byte[] imgbyte;
     //id de transacció, per el servidor
     private int ID=-1;
-    //Socket (canal de comunicacio amb el servidor)
-    private Socket s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,15 +85,9 @@ public class ActivityForUcrop extends AppCompatActivity {
                 bmpInvertit = invertBMP(bmp);
                 //la paso a bytes
                 imgbyte = getBytesFromBitmap(bmpInvertit);
-
-                /*//la mostro per pantalla (per comprobar que es la imatge correcte, aquest codi es borrarà)
-                ImageView iv = (ImageView) findViewById(R.id.ivMostraRes);
-                iv.setImageBitmap(bmpInvertit);
-                iv.setVisibility(View.VISIBLE);*/
-
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
-                    new enviaServerSocket(0,s).execute();     //----------------------------Descomentar Prque envii a servidor. y posar be la IP!!!!
+                new enviaServerSocket().execute();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -127,8 +119,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //Thread per enviar info al server 0-> enviar token de validació 1-> enviar la imatge feta.
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
-        //m'indica l'operacio que tinc de fer.
-        int operacio;
         //canal de sortida per enviar el token.
         DataOutputStream out;
         //canal de sortida per enviar la imatge.
@@ -139,99 +129,64 @@ public class ActivityForUcrop extends AppCompatActivity {
         private final String token= "Ccalc\n";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
-        //boolea per executar o no el thread que escoltarà el que envii el servidor
-        private Boolean executeListener;
-        //en el constructor inicialitzo les variables.
-        public enviaServerSocket(int operacio, Socket s) {
-            this.operacio = operacio;
-            this.s = s;
-            Log.i("HOLA", "operacio??----------   " + this.operacio + "   ---------------");
-        }
-        //en funcio del parametre rebut faig una cosa o un altra.
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.i("HOLA", "operacio??----------   "+this.operacio+"   ---------------");
-            switch (this.operacio){
-                case 0:
-                    try {
-                        //obro el socket, envio el token i poso a true el executeListener.
-                        s = new Socket(SERVER_ADRESS,2010);
-                        out = new DataOutputStream(s.getOutputStream());
-                        out.writeBytes(token);
-                        executeListener=true;
-                        Log.i("HOLA", "token enviat??-------------------------");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 1:
-                    Log.i("HOLA", "entra al case enviar imatge??-------------------------");
-                    try {
-                        Log.i("HOLA", "comensa enviar imatge??-------------------------");
-                        //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
-                        outImg = s.getOutputStream();
-                        outImg.write(imgbyte);
-                        outImg.flush();
-                        s.close();
-                        executeListener=false;
-                        //un cop s'ha enviat la imatge anem a la activity per mostrar el resultat.
-                        Intent inToResult = new Intent(ActivityForUcrop.this, ResultActivity.class);
-                        inToResult.putExtra("ID", ID);
-                        startActivity(inToResult);
-                        ActivityForUcrop.this.finish();
-                        Log.i("HOLA", "acaba envia imatge??-------------------------");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            //executo un thread per escoltar al servidor per si m'envia informació
-            escoltaServerSocket escolta = new escoltaServerSocket(s);
-            if(executeListener) escolta.execute();
-            else escolta.cancel(true);
-            Log.i("HOLA", "muerete enviaserverSocket");
-        }
-    }
-    //thread per rebre info del server
-    public class escoltaServerSocket extends AsyncTask <Void, Void, Void> {
-        private Socket s;
-        public escoltaServerSocket(Socket s) {
-            this.s=s;
-        }
+
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                //obro canal de comunicació per rebre dades del servidor
-                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                String missatge;
-                //quan es rep algo s'entra al while i es tracta la informació rebuda amb la funcio tractar dades.
-                while((missatge = in.readLine()) != null) {
-                    tractaDades(missatge);
-                }
-                Log.i("HOLA","te mueres o no cabron??-------------------------");
+                //obro el socket, envio el token i poso a true el executeListener.
+                s = new Socket(SERVER_ADRESS,2010);
+                enviaToken();
+                escoltaDades();
+                enviarImatge();
+                //un cop s'ha enviat la imatge anem a la activity per mostrar el resultat.
+                Intent inToResult = new Intent(ActivityForUcrop.this, ResultActivity.class);
+                inToResult.putExtra("ID", ID);
+                startActivity(inToResult);
+                ActivityForUcrop.this.finish();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
         }
+        //enviar token al server
+        private void enviaToken(){
+            try {
+                out = new DataOutputStream(s.getOutputStream());
+                out.writeBytes(token);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //enviar la imatge al server
+        private void enviarImatge(){
+            //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
+            try {
+                outImg = s.getOutputStream();
+                outImg.write(imgbyte);
+                outImg.flush();
+                s.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
+        private void escoltaDades(){
+            try {
+                //obro canal de comunicació per rebre dades del servidor
+                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                String missatge = in.readLine();
+                //quan es rep algo es tracta la informació rebuda amb la funcio tractar dades.
+                tractaDades(missatge);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
-            //si m'ha enviat un OK vol dir que el token es correcte i per tant espera a que li envii la imatge
-            //si ok crido a un thread passantlli 1 de parametre perque envii la foto al servidor i mato aquest thread.
             String[] dades = msg.trim().split(":");
-            if(dades[0].equals("OK")){
-                //guardem la id de la trnasaccio
+            if(dades[0].trim().equals("OK")){
                 ID = Integer.valueOf(dades[1]);
-                Log.i("HOLA", "executa enviar imatge??-------------------------");
-                new enviaServerSocket(1,s).execute();
             }
-
-
         }
     }
 }
