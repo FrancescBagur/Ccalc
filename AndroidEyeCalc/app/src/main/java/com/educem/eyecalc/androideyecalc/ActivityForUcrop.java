@@ -140,7 +140,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         /*ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
         bmpInvertit.copyPixelsToBuffer(bb);*/
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 5, bitmap.getHeight()*5,true);
+        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 2, bitmap.getHeight()*2,true);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
@@ -153,7 +153,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //Ip del servidor
         private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
-        private final String token= "Ccalc\n";
+        private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
         //El contenidor de la app
@@ -190,7 +190,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         private void enviaMissatge(String msg){
             try {
                 out = new DataOutputStream(s.getOutputStream());
-                out.writeBytes(msg);
+                out.writeBytes(msg+"\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }

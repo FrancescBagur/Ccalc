@@ -47,7 +47,7 @@ public class ServidorCcalc {
         }
         
         @Override
-        public void run() {
+        public synchronized void run() {
             try {
                 ServerSocket ss = new ServerSocket(2010);
                 while(true){
@@ -58,7 +58,6 @@ public class ServidorCcalc {
                     String token = entrada.readLine().trim();
                     if(token.equals("Ccalc")){
                         //Es una connexió vàlida i podem crear el thread
-                        synchronized(this){
                             m.setConnexio(s);
                             ClientConnectat client = new ClientConnectat(s,id,m);
                             Thread t = new Thread(client);
@@ -66,10 +65,8 @@ public class ServidorCcalc {
                             System.out.println("S'ha creat el thread");
                             m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
                             m.augmentarConnexio();
-                        }
                     }else if(token.startsWith("Ccalc:")){
                         //Es una connexió vàlida i espera una respota
-                        synchronized(this){
                             int idTrans = Integer.valueOf(token.substring(6));
                             m.setConnexio(s);
                             RespostaClient client = new RespostaClient(s,id,idTrans,m);
@@ -77,7 +74,6 @@ public class ServidorCcalc {
                             t.start();
                             System.out.println("S'ha creat el thread de resposta");
                             m.augmentarConnexio();
-                        }
                     }
                 }   
             } catch (IOException ex) {
@@ -154,20 +150,12 @@ public class ServidorCcalc {
         @Override
         public void run(){
             try {
-                /*InputStream in = client.getInputStream();
-                line = null;
-                in.read(line);
-
-                    Log.d("ServerActivity", line.toString());
-                    bitmap = BitmapFactory.decodeByteArray(line , 0, line.length);*/
                 int bytesRead;
                 int current;
                 int filesize=65383; 
                 byte [] mybytearray2  = new byte [filesize];
                 InputStream is = connexio.getInputStream();
-                //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
                 try (FileOutputStream fos = new FileOutputStream("/imatges/"+fitxerRebutMobil); // destination path and name of file
-                 //FileOutputStream fos = new FileOutputStream("/storage/sdcard0/Pictures/Screenshots/");
                      BufferedOutputStream bos = new BufferedOutputStream(fos)) {
                     bytesRead = is.read(mybytearray2,0,mybytearray2.length);
                     current = bytesRead;
@@ -187,11 +175,16 @@ public class ServidorCcalc {
                     //Natejo la imatge, li trec sombres i defectes
                     if(filtrarImatge()==1){
                         System.out.println("Imatge filtrada");
+                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml")){
+                            File f = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml");
+                            f.delete();
+                        }
                         //Llenço els scripts que executen PoinTransform,autrase i seshat
                         llencarScripts();
                         System.out.println("Scripts llençats");
                         //Un cop llençats els scripts, he de veure si han acabat i ho miraré comprovant
                         //si s'ha creat el fitxer de sortida
+
                         while(!creat){
                             fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml");
                             if (fitxerSortida.exists()) {
@@ -201,16 +194,11 @@ public class ServidorCcalc {
                             }
                         }
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
-                        String resultat = engegarLibMath();
-                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/"+ id + ".txt")){
-                            File f =  new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".txt");
+                        engegarLibMath();
+                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+ id + ".txt")) {
+                            File f = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida" + String.valueOf(id) + ".txt");
                             f.delete();
                         }
-                        PrintWriter writer = new PrintWriter("/Ccalc/ServidorCcalc/ServidorCcalc/"+ id + ".tx", "UTF-8");
-                        writer.println(resultat);
-                        writer.close();
-                        File f2 = new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".tx");
-                        f2.renameTo(new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".txt"));
                     }
 
                 }
@@ -227,19 +215,14 @@ public class ServidorCcalc {
                 return false;
         }
 
-        private String engegarLibMath(){
-            String resultat = "";
+        private void engegarLibMath(){
             try {
                 ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(id));
                 Process p = null;
                 p = pb.start();
-                BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                resultat += in.readLine() + ":";
-                return resultat;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return resultat;
         }
 
         private void llencarScripts(){
@@ -323,37 +306,6 @@ public class ServidorCcalc {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        private boolean tractarMissatge(String encodetImage, int id) {
-            boolean seguirConectat = false;
-            try {           
-                System.out.println(encodetImage);
-                System.out.println("guardant imatge");
-                byte[] b = Base64.decodeBase64(encodetImage);
-                InputStream in = new ByteArrayInputStream(b);
-                BufferedImage imag=ImageIO.read(in);
-                System.out.println(imag);
-		            ImageIO.write(imag, "bmp", new File("/imatges/","snap.bmp"));
-                seguirConectat = true;
-            } catch (IOException ex) {
-                Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
-            }      
-            return seguirConectat;
-        }
-        
-        private synchronized void enviarLlista(int id){
-            DataOutputStream sortida;
-            try {
-            sortida = new DataOutputStream(connexio.get(id-1).getOutputStream());
-                sortida.writeBytes("Llista d'usuaris:\n");
-                for (int i = 0; i < connexio.size(); i++) { 
-                    sortida.writeBytes(usuaris.get(i)+"\n");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
       
         private synchronized void eliminarUsuari(int id){
             usuaris.remove(id-1);
@@ -364,17 +316,6 @@ public class ServidorCcalc {
             //hi ha hagut una nova connexió, augmento la variable global id i aviso tothom
             id++;
         }
-        
-        private synchronized void enviarMissatgeATothom(String missatge){
-            DataOutputStream sortida;
-            try {
-                for (int i = 0; i < connexio.size(); i++) {
-                    sortida = new DataOutputStream(connexio.get(i).getOutputStream());
-                    sortida.writeBytes(missatge);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
     }
 }

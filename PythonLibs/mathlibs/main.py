@@ -10,7 +10,7 @@ from ClassCalculadoraPolaca import PolacCalc;
 ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
 
 #Obting la operació del fitxer.
-print operacio = ObjInkmlReader.llegirINKML()
+operacio = ObjInkmlReader.llegirINKML()
 ObjNotacioPolaca = NotacioPolaca(operacio)
 
 #Passo la operació a notació polaca i la fico en un string expresioPolaca
@@ -22,7 +22,11 @@ for ex in cuaSortida:
 #Un cop ting l'string a notacio polaca "expresioPolaca", es hora de resoldre la operació
 #print expresioPolaca + '------->'
 ObjPolacCalc = PolacCalc(expresioPolaca);
-ObjPolacCalc.calcularExpresio();
+resultat = ObjPolacCalc.calcularExpresio();
+operacioResultat = operacio+":"+resultat
+file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt', 'w+')
+file.write(operacioResultat)
+file.close()
 
 
 

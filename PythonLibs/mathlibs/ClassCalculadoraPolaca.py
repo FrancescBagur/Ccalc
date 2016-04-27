@@ -59,4 +59,4 @@ class PolacCalc:
 
     def calcularExpresio(self):
         elements = self.expresio.split()
-        print self.calculadoraPolaca(elements)
+        return self.calculadoraPolaca(elements)
