@@ -1,0 +1,12 @@
+digraph mathExp{
+Term0 -> Sym1 [label=H]
+T31 [shape=box,label="3"]
+Sym1 -> T31
+Term0 -> OpSym2 [label=H]
+OpSym2 -> OpBin3 [label=H]
+Tp3 [shape=box,label="+"]
+OpBin3 -> Tp3
+OpSym2 -> Sym4 [label=H]
+T34 [shape=box,label="3"]
+Sym4 -> T34
+}
