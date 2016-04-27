@@ -41,7 +41,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     private byte[] imgbyte;
     //id de transacció, per el servidor
     private int ID=-1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,11 +124,12 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.9";
+        private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc\n";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
+
         @Override
         protected Void doInBackground(Void... params) {
             try {
