@@ -1,0 +1,16 @@
+digraph mathExp{
+Term0 -> TermSup1 [label=H]
+TermSup1 -> Digit2 [label=P]
+T72 [shape=box,label="7"]
+Digit2 -> T72
+TermSup1 -> Digit3 [label=P]
+T03 [shape=box,label="0"]
+Digit3 -> T03
+Term0 -> OpDots4 [label=H]
+OpDots4 -> OpBin5 [label=H]
+Tm5 [shape=box,label="-"]
+OpBin5 -> Tm5
+OpDots4 -> CDots6 [label=H]
+Tscdots6 [shape=box,label="\cdots"]
+OpBin6 -> Tscdots6
+}

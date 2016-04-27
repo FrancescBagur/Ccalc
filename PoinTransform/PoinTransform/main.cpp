@@ -7,46 +7,62 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <sstream> 
+#include <errno.h>
 
 using namespace std;
 using namespace boost;
 
 // declaración de prototipo
 int arrodonirFloat(float numf);
+int existsFile(char* filename); 
 
 int main (int argc, char *argv[]){
 	vector< vector<int> > StrokesMatrix;
 	vector <int> numInt;
-	//Miro que m'hagin pasat un argument que es la imatge necessaria per fer funcionar el autotrace
-	/*std::string file;
+	//Miro que m'hagin pasat un argument que es la id de la transaccio
+	std::string id;
 	if(argc!=2) {
 		//Si no l'han passat faig el print i surto del programa.
-		printf("Falta el parametre imatge.\n"); 
-		file="";
+		printf("Falta el parametre id\n"); 
+		id="";
 		//exit(1);
 	}else{
-		file=argv[1];
-	}*/
-	//Si l'han passat executo l'autotrace amb el parametre imatge que m'han passat i envio el resultat a un fitxer de sortida
-	/*const char * instruccio = "sh ../../../../autotrace-0.31.1/script.autotrace "; //Això es l'script a executar
-	const char * f = file.c_str();//El fitxer que m'an passat
-	char script[200];
-	strcpy(script, instruccio); 
-	if(f != ""){
-		strcat(script, f); 
+		id=argv[1];
 	}
-	//Executo l'script!*/
-  	
-	/*char *my_args[4];
-	strcpy( my_args[0], "autotrace" );
-	strcpy( my_args[1], "-centerline" );
-	strcpy( my_args[2], "render.bmp" );
-	strcpy( my_args[3], NULL );*/
-	system("sh script.autotrace > fitxerSortida.txt");
-	//execv("autotrace-0.31.1/autotrace",my_args );
+	//Si l'han passat executo l'autotrace amb el parametre imatge que m'han passat i envio el resultat a un fitxer de sortida
+	char comanda[50];
+	char fitxerSortida[25];
+	char fitxSort[25];
+	sprintf(fitxerSortida,"%sfitxerSortida%s",argv[1],".txt");
+	sprintf(fitxSort,"fitxerSortida%s%s",argv[1],".txt");
+	if(existsFile(fitxSort)==1){
+		//Si ja existeix un fitxer anterior, l'elimino per poder seguir amb el proces
+		if(remove(fitxSort) != 0)
+    		printf("Error a l'eliminar arxiu antic");
+  		else
+    		printf("S'ha eliminat un fitxer antic");
+  		return 0;
+	}
+	
+	//Executo l'escript de l'autotrace
+	sprintf(comanda,"script.autotrace %s > %s; mv -i %s %s;",argv[1],fitxerSortida,fitxerSortida,fitxSort);
+	system(comanda);
+	//Ara he d'esperar a que l'autotrace acabi, i ho faig mirant si ja existeix el fitxer de sortida amb 
+	//el nom canviat per l'script
+	bool seguir = false;
+	while(!seguir){
+		if(existsFile(fitxSort)==1){
+			//El fitxer ja existeix, autotrace ha acabat i per tant podem seguir
+			printf("Soc al bucle");
+			seguir = true;
+		}
+	}
+	printf("Autotrace ha acabat, pasem a anàlizi del fitxer.");
 	//Un cop tenim la sortida de l'autotrace dins el fitxer, es hora d'analitzarlo.
 	string linia;
-  	ifstream fitxer("fitxerSortida.txt");
+	
+	
+  	ifstream fitxer(fitxSort);
   	if(fitxer.is_open()){
   		printf("S'ha obert el fitxer");
   		//Si he pogut obrir el fitxer el vaig analitzant linia a linia.
@@ -76,7 +92,7 @@ int main (int argc, char *argv[]){
 		    					}
 	    					}
 	    				}
-	    				
+
 	    				printf("\n");
 	    			}else{
 	    				//significa que comença una nova stroke
@@ -89,23 +105,11 @@ int main (int argc, char *argv[]){
 	    	t++;
 	    }
 	    fitxer.close();
-	    
-	   /* printf("%i\n",StrokesMatrix.size());
-	    for(int z=0; z <StrokesMatrix.size(); z++){
-	    	printf("%i\n",StrokesMatrix[z].size()/2);
-	    	for(int w=0; w<StrokesMatrix[z].size(); w+=2){
-	    		printf("%i %i\n", StrokesMatrix[z][w],StrokesMatrix[z][w+1]);
-	    	}	
-	    }
+	   
 	    std::stringstream stream;  
 		std::string strNum; 
- 
-	    ofstream fitxerEntrada ("exp3.scgink");
-	    }*/
-	    std::stringstream stream;  
-		std::string strNum; 
- 
-	    ofstream fitxerEntrada ("seshat/SampleMathExps/exp3.scgink");
+ 		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
+	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
   		if (fitxerEntrada.is_open()){
   			fitxerEntrada << "SCG_INK\n";
   			stream << StrokesMatrix.size();
@@ -128,7 +132,10 @@ int main (int argc, char *argv[]){
 	    		}
 	    	}
    	 		fitxerEntrada.close();
-   	 		system("cd seshat; script.seshat");
+   	 		char comandaSeshat[60];
+   	 		printf("Executem seshat");
+			sprintf(comandaSeshat,"cd seshat;script.seshat %s",argv[1]);
+			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
   	}else printf("Imposible obrir el fitxer");
@@ -140,4 +147,15 @@ int arrodonirFloat(float numf){
 	int numAux = (int) numf;
 	if(numf-numAux > 0.5)numAux++;
 	return numAux;
+}
+
+int existsFile(char* filename) {
+	FILE* f = NULL;
+	f = fopen(filename,"r");
+	if (f == NULL && errno == ENOENT) 
+		return 0;
+	else {
+		fclose(f);
+		return 1;
+	}
 }

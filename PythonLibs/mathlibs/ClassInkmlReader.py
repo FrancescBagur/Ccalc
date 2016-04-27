@@ -13,7 +13,7 @@ class InkmlReader:
 		infile = open(self.ruta, 'r');
 		#Defineixo la variable operacio a la que anire concatenant les operacions que vagi trobant
 		operacio = "";
-		print('>>> Lectura del fichero linea a linea');
+		#print('>>> Lectura del fichero linea a linea');
 		"""Aqui modifico la sortida del fitxer inkml amb el que espera la calculadora de notació polaca """
 		for line in infile:
 			if ' <annotation type="truth">' in line:
