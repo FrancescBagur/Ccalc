@@ -41,7 +41,7 @@ public class ResultActivity extends Activity {
             Toast.makeText(this,"Please try again, an error occurred in the server",Toast.LENGTH_LONG).show();
         } else { //si el id no es -1 demo al servidor el resultat i el mostro per pantalla.
             //obro threads d'escolta al servidor
-            new escoltaServerSocket(2010);
+                //new escoltaServerSocket(2010);
         }
         //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
         scanAgain = (Button) findViewById(R.id.btScanAgain);
