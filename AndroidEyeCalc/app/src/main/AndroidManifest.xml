@@ -35,10 +35,6 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:screenOrientation="portrait"
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result" />
     </application>
 
 </manifest>

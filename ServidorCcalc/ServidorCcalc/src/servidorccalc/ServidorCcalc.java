@@ -59,11 +59,7 @@ public class ServidorCcalc {
                             Thread t = new Thread(client);
                             t.start();
                             System.out.println("S'ha creat el thread");
-<<<<<<< HEAD
                             m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
-=======
-                            m.enviarMissatge("OK:"+String.valueOf(id)+"\n", id);
->>>>>>> 0fd3d1d858ba2f99b6daf704839b105a266d5274
                             m.augmentarConnexio();
                         }
                     }
@@ -144,8 +140,8 @@ public class ServidorCcalc {
                                 creat = true;
                             }
                         }
-                        float resultat = engegarLibMath();
-                        System.out.println("El resultat de la operació es: " + String.valueOf(resultat));
+                        String resultat = engegarLibMath();
+                        m.enviarMissatge(resultat,id);
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                     }
 
@@ -155,20 +151,19 @@ public class ServidorCcalc {
             }          
         }
 
-        private float engegarLibMath(){
-            float result = 0;
+        private String engegarLibMath(){
+            String resultat = "";
             try {
                 ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(id));
                 Process p = null;
                 p = pb.start();
                 BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                result = new Float(in.readLine()).floatValue();
-
-                long end = System.currentTimeMillis();
+                resultat += in.readLine() + ":";
+                return resultat;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return result;
+            return resultat;
         }
 
         private void llencarScripts(){

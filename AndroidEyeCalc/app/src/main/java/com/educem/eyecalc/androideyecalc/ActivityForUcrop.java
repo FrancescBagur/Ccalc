@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -39,8 +40,12 @@ public class ActivityForUcrop extends AppCompatActivity {
     private Bitmap bmpInvertit;
     //resultat del UCrop en bytes per enviarlo
     private byte[] imgbyte;
-    //id de transacció, per el servidor
+    //id de transacció, per el servido
     private int ID=-1;
+    //Barra de progres mentre s'espera el resultat del servidor
+    private ProgressBar pb;
+    //boto per anar a la primera activity i torna a fer la foto
+    private Button scanAgain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +56,41 @@ public class ActivityForUcrop extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
+        //Mostro una animacio (processant)
+        //Associo la progres Bar visual amb la programatica per poderla treure.
+        pb = (ProgressBar) findViewById(R.id.ProgBar);
+        //si el ID es -1 significa que algo no ha anat be en la activity anterior (la id no sa inicialitzat), mostro missatge i trec el progress
+        if(ID==-1){
+            finalizeProgress();
+            Toast.makeText(this,"Please try again, an error occurred in the server",Toast.LENGTH_LONG).show();
+        } else { //si el id no es -1 demo al servidor el resultat i el mostro per pantalla.
+            //obro threads d'escolta al servidor
+            //new escoltaServerSocket(2010);
+        }
+        //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
+        scanAgain = (Button) findViewById(R.id.btScanAgain);
+        scanAgain.setOnClickListener(new goInitial());
     }
+
+    //aquesta funcio activa els elements de la activity i treu la progress bar
+    public void finalizeProgress(){
+        pb.setVisibility(View.GONE);
+        scanAgain.setEnabled(true);
+    }
+
+    //classe a que sentra quan fas click a scanAgain
+    public class goInitial implements Button.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            //creo un intent per tornar a la primera activity
+            Intent intTofirstActivity = new Intent(ActivityForUcrop.this,InitialActivity.class);
+            //vaig a ala primera activity per torna a scanejar
+            startActivity(intTofirstActivity);
+            //tanco la activity
+            ActivityForUcrop.this.finish();
+        }
+    }
+
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
         String timeStamp=generaTMS();
@@ -138,11 +177,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 enviaToken();
                 escoltaDades();
                 enviarImatge();
-                //un cop s'ha enviat la imatge anem a la activity per mostrar el resultat.
-                Intent inToResult = new Intent(ActivityForUcrop.this, ResultActivity.class);
-                inToResult.putExtra("ID", ID);
-                startActivity(inToResult);
-                ActivityForUcrop.this.finish();
+                escoltaDades();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -186,6 +221,8 @@ public class ActivityForUcrop extends AppCompatActivity {
             String[] dades = msg.trim().split(":");
             if(dades[0].trim().equals("OK")){
                 ID = Integer.valueOf(dades[1]);
+            }else{
+
             }
         }
     }

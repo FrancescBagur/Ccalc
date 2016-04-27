@@ -9,11 +9,26 @@
     android:padding="20dp">
 
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/ivMostraRes"
-        android:layout_weight="1" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="bottom|center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progBar"
+            android:indeterminate="true" />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -23,6 +38,6 @@
         android:enabled="true"
         android:textColor="#3a5795"
         android:background="@drawable/blue_button"
-        android:layout_gravity="right" />
+        android:layout_gravity="center" />
 
 </LinearLayout>
