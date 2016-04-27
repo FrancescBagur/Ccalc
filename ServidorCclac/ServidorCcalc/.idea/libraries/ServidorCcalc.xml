@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="ServidorCcalc">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/dist/ServidorCcalc.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

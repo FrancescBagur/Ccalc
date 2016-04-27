@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 #encoding: latin1
 import string
 
@@ -88,11 +88,11 @@ class NotacioPolaca:
 
     def pasarExpresioAPolaca(self):
         self.expresion_infixa=self.expresio
-        print self.expresion_infixa
+        #print self.expresion_infixa
 
         #cercam els tockens que hi ha en l'expresio infixa i els ficam en una llista
         lista=self.infixa_a_tokens()
-        print lista
+       # print lista
 
         for i in range(len(lista)):
             tipo=self.lista_tipo_token[i]
@@ -143,5 +143,5 @@ class NotacioPolaca:
                         self.cola(self.pop())
                 self.push(token)
         self.vacia_stack()
-        print self.cuaSortida
+        #print self.cuaSortida
         return self.cuaSortida

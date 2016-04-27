@@ -18,7 +18,7 @@ class Pila:
 	def desapilar(self):
 		""" Torna l'ultim element de la pila i l'elimina.
 		    si la pila esta buida llença una excepció """
-		try:    
+		try:
 			return self.items.pop()
 		except IndexError:
 			raise ValueError("La pila està buida")
