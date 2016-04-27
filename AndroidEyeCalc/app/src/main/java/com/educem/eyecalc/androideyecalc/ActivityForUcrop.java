@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -42,8 +44,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     private byte[] imgbyte;
     //id de transacció, per el servido
     private int ID=-1;
-    //Barra de progres mentre s'espera el resultat del servidor
-    private ProgressBar pb;
     //boto per anar a la primera activity i torna a fer la foto
     private Button scanAgain;
     @Override
@@ -56,27 +56,14 @@ public class ActivityForUcrop extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
-        //Mostro una animacio (processant)
-        //Associo la progres Bar visual amb la programatica per poderla treure.
-        pb = (ProgressBar) findViewById(R.id.ProgBar);
-        //si el ID es -1 significa que algo no ha anat be en la activity anterior (la id no sa inicialitzat), mostro missatge i trec el progress
-        if(ID==-1){
-            finalizeProgress();
-            Toast.makeText(this,"Please try again, an error occurred in the server",Toast.LENGTH_LONG).show();
-        } else { //si el id no es -1 demo al servidor el resultat i el mostro per pantalla.
-            //obro threads d'escolta al servidor
-            //new escoltaServerSocket(2010);
-        }
+        //new escoltaServerSocket(2010);
+
         //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
     }
 
-    //aquesta funcio activa els elements de la activity i treu la progress bar
-    public void finalizeProgress(){
-        pb.setVisibility(View.GONE);
-        scanAgain.setEnabled(true);
-    }
+
 
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
@@ -153,6 +140,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         /*ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
         bmpInvertit.copyPixelsToBuffer(bb);*/
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 5, bitmap.getHeight()*5,true);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
@@ -168,26 +156,41 @@ public class ActivityForUcrop extends AppCompatActivity {
         private final String token= "Ccalc\n";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
+        //El contenidor de la app
+        private LinearLayout ll;
+
+        public enviaServerSocket() {
+            //Obtenim el contenidor
+            this.ll = (LinearLayout) findViewById(R.id.llContenidor);
+        }
+
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                //obro el socket, envio el token i poso a true el executeListener.
+                //obro el socket, envio el token i espero resposta
                 s = new Socket(SERVER_ADRESS,2010);
-                enviaToken();
+                enviaMissatge(token);
                 escoltaDades();
+                //quan tinc la resposta envio la imatge
                 enviarImatge();
+                //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
+                s = new Socket(SERVER_ADRESS,2010);
+                enviaMissatge(token + ":"+ID);
+                //espero el resultat de la operacio
                 escoltaDades();
+                //tanco el socket
+                s.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
         }
         //enviar token al server
-        private void enviaToken(){
+        private void enviaMissatge(String msg){
             try {
                 out = new DataOutputStream(s.getOutputStream());
-                out.writeBytes(token);
+                out.writeBytes(msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -222,8 +225,38 @@ public class ActivityForUcrop extends AppCompatActivity {
             if(dades[0].trim().equals("OK")){
                 ID = Integer.valueOf(dades[1]);
             }else{
-
+                acabarEspera();
+                if(dades[1].equals("err")){
+                    mostrarError();
+                }else{
+                    mostrarResultatCorrecte(dades[0], dades[1]);
+                }
+                scanAgain.setEnabled(true);
             }
+        }
+
+        private void acabarEspera(){
+            //Eliminem els elements antics del contenidor
+            TextView tv = (TextView) findViewById(R.id.tvMostrarEstat);
+            ll.removeView(tv);
+            ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
+            ll.removeView(pb);
+        }
+
+        private void mostrarResultatCorrecte(String operacio, String resultat){
+            //Creem els nous TextView
+            TextView tvOperacio = new TextView(ActivityForUcrop.this);
+            tvOperacio.setText(operacio);
+            ll.addView(tvOperacio);
+            TextView tvResultat = new TextView(ActivityForUcrop.this);
+            tvOperacio.setText(resultat);
+            ll.addView(tvResultat);
+        }
+
+        private void mostrarError(){
+            TextView tvError = new TextView(ActivityForUcrop.this);
+            tvError.setText("Error reading operation, try again.");
+            ll.addView(tvError);
         }
     }
 }

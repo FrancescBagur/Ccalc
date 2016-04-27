@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -18,6 +20,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import sun.font.Script;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 /**
  *
@@ -51,7 +55,8 @@ public class ServidorCcalc {
                     System.out.println("Ha arribat una connexió\n");
                     //Un cop ha arribat la connexió, vaig a mirar que la cadena siqui correcta
                     BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    if(entrada.readLine().trim().equals("Ccalc")){
+                    String token = entrada.readLine().trim();
+                    if(token.equals("Ccalc")){
                         //Es una connexió vàlida i podem crear el thread
                         synchronized(this){
                             m.setConnexio(s);
@@ -62,6 +67,17 @@ public class ServidorCcalc {
                             m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
                             m.augmentarConnexio();
                         }
+                    }else if(token.startsWith("Ccalc:")){
+                        //Es una connexió vàlida i espera una respota
+                        synchronized(this){
+                            int idTrans = Integer.valueOf(token.substring(6));
+                            m.setConnexio(s);
+                            RespostaClient client = new RespostaClient(s,id,idTrans,m);
+                            Thread t = new Thread(client);
+                            t.start();
+                            System.out.println("S'ha creat el thread de resposta");
+                            m.augmentarConnexio();
+                        }
                     }
                 }   
             } catch (IOException ex) {
@@ -69,7 +85,51 @@ public class ServidorCcalc {
             }
         } 
     }
-    
+
+    private static class RespostaClient implements Runnable{
+        Socket connexio;
+        Monitor m;
+        Boolean creat;
+        File fitxerSortida;
+        int id;
+        int idTransaccio;
+
+        public RespostaClient(Socket s, int id, int idTrans, Monitor m){
+            this.connexio = s;
+            this.id = id;
+            this.idTransaccio = idTrans;
+            this.m = m;
+            creat = false;
+        }
+
+        @Override
+        public void run(){
+            while(!creat){
+                fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
+                if (fitxerSortida.exists()) {
+                    //Els scripts han acabat
+                    System.out.println("Ja hi ha el fitxer de sortida");
+                    creat = true;
+                }
+            }
+            String resultat = "";
+            try (BufferedReader br = new BufferedReader(new FileReader(fitxerSortida))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    // process the line.
+                    resultat += line;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            m.enviarMissatge(resultat,id);
+        }
+    }
+
+
     private static class ClientConnectat implements Runnable{
         Socket connexio;
         String encodetImage;
@@ -140,15 +200,31 @@ public class ServidorCcalc {
                                 creat = true;
                             }
                         }
-                        String resultat = engegarLibMath();
-                        m.enviarMissatge(resultat,id);
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
+                        String resultat = engegarLibMath();
+                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/"+ id + ".txt")){
+                            File f =  new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".txt");
+                            f.delete();
+                        }
+                        PrintWriter writer = new PrintWriter("/Ccalc/ServidorCcalc/ServidorCcalc/"+ id + ".tx", "UTF-8");
+                        writer.println(resultat);
+                        writer.close();
+                        File f2 = new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".tx");
+                        f2.renameTo(new File("/Ccalc/ServidorCcalc/ServidorCcalc/" + String.valueOf(id) + ".txt"));
                     }
 
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }          
+        }
+
+        private Boolean existeixFitxer(String path){
+            File f = new File(path);
+            if(f.exists() && !f.isDirectory()) {
+                return true;
+            }else
+                return false;
         }
 
         private String engegarLibMath(){

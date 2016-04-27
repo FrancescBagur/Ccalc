@@ -1,16 +1,12 @@
 digraph mathExp{
 Term0 -> Sym1 [label=H]
-T31 [shape=box,label="3"]
-Sym1 -> T31
-Term0 -> OpTerm2 [label=H]
-OpTerm2 -> OpBin3 [label=H]
-Tp3 [shape=box,label="+"]
-OpBin3 -> Tp3
-OpTerm2 -> UnTerm4 [label=H]
-UnTerm4 -> OpUn5 [label=H]
-Tm5 [shape=box,label="-"]
-OpUn5 -> Tm5
-UnTerm4 -> Sym6 [label=H]
-Tx6 [shape=box,label="x"]
-Sym6 -> Tx6
+T91 [shape=box,label="9"]
+Sym1 -> T91
+Term0 -> OpDots2 [label=H]
+OpDots2 -> OpBin3 [label=H]
+Tscdot3 [shape=box,label="\cdot"]
+OpBin3 -> Tscdot3
+OpDots2 -> CDots4 [label=H]
+Tscdots4 [shape=box,label="\cdots"]
+OpBin4 -> Tscdots4
 }
