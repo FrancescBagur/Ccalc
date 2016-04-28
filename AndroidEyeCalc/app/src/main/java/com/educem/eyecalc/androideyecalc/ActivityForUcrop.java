@@ -222,6 +222,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             String[] dades = msg.trim().split(":");
+            Log.i("HOLA",dades[0]+ "-" +dades[1]);
             if(dades[0].trim().equals("OK")){
                 ID = Integer.valueOf(dades[1]);
             }else{
