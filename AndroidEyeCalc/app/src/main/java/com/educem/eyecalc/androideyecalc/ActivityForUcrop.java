@@ -44,6 +44,10 @@ public class ActivityForUcrop extends AppCompatActivity {
     private byte[] imgbyte;
     //id de transacció, per el servido
     private int ID=-1;
+    //El resultat del Thread
+    private String[] res = {""};
+    //El contenidor de la app
+    private LinearLayout ll;
     //boto per anar a la primera activity i torna a fer la foto
     private Button scanAgain;
     @Override
@@ -61,9 +65,9 @@ public class ActivityForUcrop extends AppCompatActivity {
         //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
+        this.ll = (LinearLayout) findViewById(R.id.llContenidor);
+
     }
-
-
 
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
@@ -80,20 +84,12 @@ public class ActivityForUcrop extends AppCompatActivity {
 
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
-        String timeStamp=generaTMS();
-        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+timeStamp+".bmp"));
+        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+SimpleDateFormat.getDateTimeInstance()+".bmp"));
         UCrop.Options opt = new UCrop.Options();
         opt.setFreeStyleCropEnabled(true);
         opt.setToolbarColor(Color.parseColor("#3a5795"));
         opt.setStatusBarColor(Color.parseColor("#3a5795"));
         UCrop.of(photo, finalPhoto).withAspectRatio(16, 9).withMaxResultSize(100, 100).withOptions(opt).start(ActivityForUcrop.this);
-    }
-    //genera un timeStamp per posar al nom de la foto i evitar conflites de fitxers repetits
-    public String generaTMS(){
-        String tms;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        tms = df.format(new Date());
-        return tms;
     }
     //agafa el resultat del UCrop
     @Override
@@ -114,6 +110,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
                 new enviaServerSocket().execute();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -126,6 +123,33 @@ public class ActivityForUcrop extends AppCompatActivity {
                 Toast.makeText(ActivityForUcrop.this,"unexpected error", Toast.LENGTH_SHORT).show();
             }
         }
+
+    }
+    private void acabarEspera(){
+        //Eliminem els elements antics del contenidor
+        TextView tv = (TextView) findViewById(R.id.tvMostrarEstat);
+        ll.removeView(tv);
+        ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
+        ll.removeView(pb);
+        Log.i("HOLA", "hem acabat la espera");
+    }
+
+    private void mostrarResultatCorrecte(String operacio, String resultat){
+        Log.i("HOLA","entro a mostrar resultat correcte");
+        //Creem els nous TextView
+        TextView tvOperacio = new TextView(ActivityForUcrop.this);
+        tvOperacio.setText(operacio);
+        ll.addView(tvOperacio);
+        TextView tvResultat = new TextView(ActivityForUcrop.this);
+        tvOperacio.setText(resultat);
+        ll.addView(tvResultat);
+    }
+
+    private void mostrarError(){
+        Log.i("HOLA","entro a mostrar error");
+        TextView tvError = new TextView(ActivityForUcrop.this);
+        tvError.setText("Error reading operation, try again.");
+        ll.addView(tvError);
     }
     //inverteixo la imatge
     public Bitmap invertBMP(Bitmap bmp){
@@ -156,14 +180,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
-        //El contenidor de la app
-        private LinearLayout ll;
-
-        public enviaServerSocket() {
-            //Obtenim el contenidor
-            this.ll = (LinearLayout) findViewById(R.id.llContenidor);
-        }
-
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -186,9 +202,27 @@ public class ActivityForUcrop extends AppCompatActivity {
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Boolean seguir = false;
+            while(!seguir){
+                if(!res[0].equals(""))
+                    seguir = true;
+            }
+            acabarEspera();
+            if(res[1].equals("err")){
+                mostrarError();
+            }else{
+                mostrarResultatCorrecte(res[0],res[1]);
+            }
+        }
+
         //enviar token al server
         private void enviaMissatge(String msg){
             try {
+                Log.i("HOLA","enntro a enviar missatge");
                 out = new DataOutputStream(s.getOutputStream());
                 out.writeBytes(msg+"\n");
             } catch (IOException e) {
@@ -197,6 +231,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         }
         //enviar la imatge al server
         private void enviarImatge(){
+            Log.i("HOLA", "entro a enviar imatge");
             //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
             try {
                 outImg = s.getOutputStream();
@@ -210,9 +245,11 @@ public class ActivityForUcrop extends AppCompatActivity {
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
         private void escoltaDades(){
             try {
+                Log.i("HOLA","entro a escoltar dades");
                 //obro canal de comunicació per rebre dades del servidor
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String missatge = in.readLine();
+                Log.i("HOLA","he llegit una linia");
                 //quan es rep algo es tracta la informació rebuda amb la funcio tractar dades.
                 tractaDades(missatge);
             } catch (IOException e) {
@@ -221,43 +258,17 @@ public class ActivityForUcrop extends AppCompatActivity {
         }
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
+            Log.i("HOLA", "entro a tractar dades");
             String[] dades = msg.trim().split(":");
-            Log.i("HOLA",dades[0]+ "-" +dades[1]);
+            Log.i("HOLA", dades[0] + "-" + dades[1]);
             if(dades[0].trim().equals("OK")){
+                Log.i("HOLA","man enviat ok:id");
                 ID = Integer.valueOf(dades[1]);
             }else{
-                acabarEspera();
-                if(dades[1].equals("err")){
-                    mostrarError();
-                }else{
-                    mostrarResultatCorrecte(dades[0], dades[1]);
-                }
-                scanAgain.setEnabled(true);
+                Log.i("HOLA","man enviat resultat");
+                ActivityForUcrop.this.res=dades;
+
             }
-        }
-
-        private void acabarEspera(){
-            //Eliminem els elements antics del contenidor
-            TextView tv = (TextView) findViewById(R.id.tvMostrarEstat);
-            ll.removeView(tv);
-            ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
-            ll.removeView(pb);
-        }
-
-        private void mostrarResultatCorrecte(String operacio, String resultat){
-            //Creem els nous TextView
-            TextView tvOperacio = new TextView(ActivityForUcrop.this);
-            tvOperacio.setText(operacio);
-            ll.addView(tvOperacio);
-            TextView tvResultat = new TextView(ActivityForUcrop.this);
-            tvOperacio.setText(resultat);
-            ll.addView(tvResultat);
-        }
-
-        private void mostrarError(){
-            TextView tvError = new TextView(ActivityForUcrop.this);
-            tvError.setText("Error reading operation, try again.");
-            ll.addView(tvError);
         }
     }
 }

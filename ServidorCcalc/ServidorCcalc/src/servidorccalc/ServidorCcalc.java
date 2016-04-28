@@ -10,18 +10,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.apache.commons.codec.binary.Base64;
-import sun.font.Script;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 /**
  *
@@ -123,7 +116,7 @@ public class ServidorCcalc {
             }
             System.out.println("La id del thread es " + idThread);
             System.out.println("El resultat es: " + resultat);
-            m.enviarMissatge(resultat,idThread);
+            m.enviarMissatge(resultat+"\n",idThread);
             borrarFitxersAntics(idTransaccio);
         }
 
