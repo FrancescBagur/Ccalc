@@ -1,3 +1,0 @@
-#!/bin/bash 
-./seshat -c Config/CONFIG -i "SampleMathExps/exp$1.scgink"  -o "$1out.inkml" -r "render$1.pmg" -d "out$1.dot";
-mv -i /Ccalc/ServidorCcalc/ServidorCcalc/seshat/$1out.inkml /Ccalc/ServidorCcalc/ServidorCcalc/seshat/out$1.inkml;

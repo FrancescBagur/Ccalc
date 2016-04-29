@@ -1,5 +1,6 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -80,20 +81,12 @@ public class ActivityForUcrop extends AppCompatActivity {
 
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
-        String timeStamp=generaTMS();
-        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+timeStamp+".bmp"));
+        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+SimpleDateFormat.getDateTimeInstance()+".bmp"));
         UCrop.Options opt = new UCrop.Options();
         opt.setFreeStyleCropEnabled(true);
         opt.setToolbarColor(Color.parseColor("#3a5795"));
         opt.setStatusBarColor(Color.parseColor("#3a5795"));
         UCrop.of(photo, finalPhoto).withAspectRatio(16, 9).withMaxResultSize(100, 100).withOptions(opt).start(ActivityForUcrop.this);
-    }
-    //genera un timeStamp per posar al nom de la foto i evitar conflites de fitxers repetits
-    public String generaTMS(){
-        String tms;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        tms = df.format(new Date());
-        return tms;
     }
     //agafa el resultat del UCrop
     @Override
@@ -163,7 +156,6 @@ public class ActivityForUcrop extends AppCompatActivity {
             //Obtenim el contenidor
             this.ll = (LinearLayout) findViewById(R.id.llContenidor);
         }
-
 
         @Override
         protected Void doInBackground(Void... params) {

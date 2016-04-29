@@ -1,3 +1,0 @@
-#!/bin/bash
-./autotrace-0.31.1/autotrace -filter-iterations 10 -centerline -color-count 2 -tangent-surround 0 -preserve-width /Ccalc/ServidorCcalc/ServidorCcalc/imatges/render$1.bmp;
-
