@@ -10,18 +10,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.apache.commons.codec.binary.Base64;
-import sun.font.Script;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 /**
  *
@@ -87,12 +80,12 @@ public class ServidorCcalc {
         Monitor m;
         Boolean creat;
         File fitxerSortida;
-        int id;
+        int idThread;
         int idTransaccio;
 
         public RespostaClient(Socket s, int id, int idTrans, Monitor m){
             this.connexio = s;
-            this.id = id;
+            this.idThread = id;
             this.idTransaccio = idTrans;
             this.m = m;
             creat = false;
@@ -100,6 +93,7 @@ public class ServidorCcalc {
 
         @Override
         public void run(){
+            System.out.println("La id de transaccio val " + idTransaccio);
             while(!creat){
                 fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
                 if (fitxerSortida.exists()) {
@@ -120,8 +114,37 @@ public class ServidorCcalc {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.out.println("La id del thread es " + idThread);
+            System.out.println("El resultat es: " + resultat);
+            m.enviarMissatge(resultat+"\n",idThread);
+            borrarFitxersAntics(idTransaccio);
+        }
 
-            m.enviarMissatge(resultat,id);
+        private void borrarFitxersAntics(int idTran){
+            String[] fitxerBorrar = {"/imatges/rebut"+idTran+".jpg",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/imatges/render"+idTran+".bmp",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/fitxerSortida"+idTran+".txt",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp"+idTran+".scgink",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".inkml",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".dot",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/render"+idTran+".pmg",
+                                     "/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+idTran+".txt",
+                                    };
+            for (int i=0; i<fitxerBorrar.length; i++){
+                if(existeixFitxer(fitxerBorrar[i])){
+                    File f = new File(fitxerBorrar[i]);
+                    f.delete();
+                }
+            }
+            System.out.printf("Fitxers anitics Eliminats");
+        }
+
+        private Boolean existeixFitxer(String path){
+            File f = new File(path);
+            if(f.exists() && !f.isDirectory()) {
+                return true;
+            }else
+                return false;
         }
     }
 
@@ -135,11 +158,11 @@ public class ServidorCcalc {
         File fitxerSortida;
         String fitxerRebutMobil = "";
         String fitxerConvertitBmp = "";
-        int id;
+        int idThread;
 
         public ClientConnectat(Socket s, int id, Monitor m){
             this.connexio = s;
-            this.id = id;
+            this.idThread = id;
             this.m = m;
             seguirConnectat = true;
             creat = false;
@@ -175,9 +198,10 @@ public class ServidorCcalc {
                     //Natejo la imatge, li trec sombres i defectes
                     if(filtrarImatge()==1){
                         System.out.println("Imatge filtrada");
-                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml")){
-                            File f = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml");
+                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(idThread) + ".inkml")){
+                            File f = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(idThread) + ".inkml");
                             f.delete();
+                            System.out.println("S'ha eliminat un fitxer de sortida antic de seshat\n");
                         }
                         //Llenço els scripts que executen PoinTransform,autrase i seshat
                         llencarScripts();
@@ -186,7 +210,7 @@ public class ServidorCcalc {
                         //si s'ha creat el fitxer de sortida
 
                         while(!creat){
-                            fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(id) + ".inkml");
+                            fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(idThread) + ".inkml");
                             if (fitxerSortida.exists()) {
                                 //Els scripts han acabat
                                 System.out.println("Els scripts han finalitzat, engegant llibreries matemàtiques");
@@ -195,10 +219,6 @@ public class ServidorCcalc {
                         }
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                         engegarLibMath();
-                        if(existeixFitxer("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+ id + ".txt")) {
-                            File f = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida" + String.valueOf(id) + ".txt");
-                            f.delete();
-                        }
                     }
 
                 }
@@ -217,7 +237,7 @@ public class ServidorCcalc {
 
         private void engegarLibMath(){
             try {
-                ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(id));
+                ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
                 Process p = null;
                 p = pb.start();
             } catch (IOException e) {
@@ -227,16 +247,9 @@ public class ServidorCcalc {
 
         private void llencarScripts(){
             try {
-                ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform", String.valueOf(id));
+                ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform", String.valueOf(idThread));
                 Process p = null;
                 p = pb.start();
-                /*ProcessBuilder pb = new ProcessBuilder("PoinTransform");
-                Map<String, String> env = pb.environment();
-                env.put("VAR1", String.valueOf(id));
-                //env.remove("OTHERVAR");
-                pb.directory(new File("../../PoinTransform/PoinTransform/bin/Debug/"));
-                Process p = pb.start();*/
-                //Process process = Runtime.getRuntime().exec("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform " + String.valueOf(id));
                 BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String missatge;
                 while((missatge = in.readLine() )!= null){

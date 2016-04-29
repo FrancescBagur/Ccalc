@@ -41,7 +41,6 @@ int main (int argc, char *argv[]){
     		printf("Error a l'eliminar arxiu antic");
   		else
     		printf("S'ha eliminat un fitxer antic");
-  		return 0;
 	}
 	
 	//Executo l'escript de l'autotrace
@@ -51,9 +50,9 @@ int main (int argc, char *argv[]){
 	//el nom canviat per l'script
 	bool seguir = false;
 	while(!seguir){
+		printf("Soc al bucle");
 		if(existsFile(fitxSort)==1){
 			//El fitxer ja existeix, autotrace ha acabat i per tant podem seguir
-			printf("Soc al bucle");
 			seguir = true;
 		}
 	}
@@ -105,7 +104,6 @@ int main (int argc, char *argv[]){
 	    	t++;
 	    }
 	    fitxer.close();
-	   
 	    std::stringstream stream;  
 		std::string strNum; 
  		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
@@ -133,14 +131,24 @@ int main (int argc, char *argv[]){
 	    	}
    	 		fitxerEntrada.close();
    	 		char comandaSeshat[60];
+   	 		char fitxer1[30];
+			char fitxer2[30];
+			sprintf(fitxer1,"%s%s",argv[1],"out.inkml");
+			sprintf(fitxer2,"%s%s%s","out",argv[1],".inkml");
+   	 		//Si existeix el fitxer de sortida antic de seshat el borrem
+   	 		if(existsFile(fitxer1)==1){
+			//Si ja existeix un fitxer anterior, l'elimino per poder seguir amb el proces
+				if(remove(fitxer1) != 0)
+		    		printf("Error a l'eliminar arxiu antic");
+		  		else
+		    		printf("S'ha eliminat un fitxer antic");
+			}
    	 		printf("Executem seshat");
-			sprintf(comandaSeshat,"cd seshat;script.seshat %s",argv[1]);
+			sprintf(comandaSeshat,"cd seshat;script.seshat %s; mv -i %s %s;",argv[1],fitxer1,fitxer2);
 			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
   	}else printf("Imposible obrir el fitxer");
-	
-	return 0;
 }
 
 int arrodonirFloat(float numf){
