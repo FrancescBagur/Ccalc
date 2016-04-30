@@ -117,7 +117,7 @@ public class ServidorCcalc {
             System.out.println("La id del thread es " + idThread);
             System.out.println("El resultat es: " + resultat);
             m.enviarMissatge(resultat+"\n",idThread);
-            borrarFitxersAntics(idTransaccio);
+            //borrarFitxersAntics(idTransaccio);
         }
 
         private void borrarFitxersAntics(int idTran){
@@ -185,9 +185,9 @@ public class ServidorCcalc {
                     do {
                         bytesRead = is.read(mybytearray2, current, mybytearray2.length-current);
                         if(bytesRead >= 0) current += bytesRead;
-                        System.out.println(bytesRead);
+                        //System.out.println(bytesRead);
                     } while((bytesRead > -1));
-                    System.out.println("sortim del bucle");
+                    System.out.println("Imatge rebuda");
                     
                     bos.write(mybytearray2);
                     System.out.println("hem acabat l'escriptura");

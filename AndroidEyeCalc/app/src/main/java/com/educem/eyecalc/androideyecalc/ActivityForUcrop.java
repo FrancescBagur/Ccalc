@@ -164,7 +164,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         /*ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
         bmpInvertit.copyPixelsToBuffer(bb);*/
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 2, bitmap.getHeight()*2,true);
+        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 5, bitmap.getHeight() * 5,true);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
