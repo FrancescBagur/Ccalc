@@ -117,7 +117,7 @@ public class ServidorCcalc {
             System.out.println("La id del thread es " + idThread);
             System.out.println("El resultat es: " + resultat);
             m.enviarMissatge(resultat+"\n",idThread);
-            borrarFitxersAntics(idTransaccio);
+            //borrarFitxersAntics(idTransaccio);
         }
 
         private void borrarFitxersAntics(int idTran){
@@ -220,7 +220,6 @@ public class ServidorCcalc {
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                         engegarLibMath();
                     }
-
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);

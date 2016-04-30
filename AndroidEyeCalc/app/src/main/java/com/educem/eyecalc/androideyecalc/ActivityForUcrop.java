@@ -163,7 +163,8 @@ public class ActivityForUcrop extends AppCompatActivity {
         TextView tvError = new TextView(ActivityForUcrop.this);
         tvError.setBackgroundResource(R.drawable.text_views);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvError.setText("Error reading operation, try again.");
+        if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
+        else tvError.setText("Error reading operation, try again.");
         tvError.setTextSize(50);
         tvError.setTextColor(Color.WHITE);
         tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -191,11 +192,13 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.4";
+        private static final String SERVER_ADRESS="192.168.0.160";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
         private Socket s;
+        //per que laplicacio no es quedi penjada si cau el servidor
+        private Boolean serverOFF=false;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -215,6 +218,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 s.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
             return null;
         }
@@ -223,15 +227,20 @@ public class ActivityForUcrop extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Boolean seguir = false;
-            while(!seguir){
-                if(!res[0].equals(""))
-                    seguir = true;
-            }
             acabarEspera();
-            if(res[1].equals("err")){
+            if(!serverOFF) {
+                while (!seguir) {
+                    if (!res[0].equals(""))
+                        seguir = true;
+                }
+                if (res[1].equals("err")) {
+                    mostrarError();
+                } else {
+                    mostrarResultatCorrecte(res[0], res[1]);
+                }
+            } else {
+                res[0] = "ers";
                 mostrarError();
-            }else{
-                mostrarResultatCorrecte(res[0],res[1]);
             }
         }
 
@@ -262,17 +271,20 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //obro canal de comunicació per rebre dades del servidor
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String missatge = in.readLine();
-                //quan es rep algo es tracta la informació rebuda amb la funcio tractar dades.
-                tractaDades(missatge);
+                //si el missatge es null error de conexio amb servidor
+                if(missatge == null ) serverOFF=true;
+                //si no, quan es rep algo es tracta la informació rebuda amb la funcio tractar dades.
+                else tractaDades(missatge);
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
         }
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             String[] dades = msg.trim().split(":");
-            if(dades[0].trim().equals("OK"))ID = Integer.valueOf(dades[1]);
-            else ActivityForUcrop.this.res=dades;
+            if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
+            else ActivityForUcrop.this.res = dades;
         }
     }
 }
