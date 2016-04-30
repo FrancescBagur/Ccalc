@@ -3,7 +3,6 @@ package com.educem.eyecalc.androideyecalc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.net.InetAddress;
 
 public class InitialActivity extends AppCompatActivity {
     private static final int CAM_REQUEST = 1313; //codi de peticio per la camara
@@ -78,50 +75,3 @@ public class InitialActivity extends AppCompatActivity {
             } else Toast.makeText(getApplicationContext(), "Error taking picture please try again", Toast.LENGTH_LONG).show();
     }
 }
-    /*
-    //aquesta clase envia la foto a una API, alternativa als sockets.
-    public class uploadFile extends AsyncTask <Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            //intanciem un byteArrayOutputStream
-                //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            //comprimim la imatge en format JPEG amb cualitat 100 i la guardem al byteArrayOutputStream anterior
-                //bmpInvertit.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            //codifiquem la imatge en base64
-                //String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-            //Intent de pasar la imatge a bytes sense fer el compress
-                ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
-                bmpInvertit.copyPixelsToBuffer(bb);
-                byte[] imgBytes = bb.array();
-                String encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
-            //creem un arraylist i li afegim les dades que volem enviar al server.
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("image", encodedImage));
-            dataToSend.add(new BasicNameValuePair("name", "primeraImgPalserver"));
-            //instanciem la conexio aki perque el finally la pugui desconectar
-            try {
-                URL url = new URL(SERVER_ADRESS + "index.php");  //inicialitzem una conexió amb el servidor
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection(); //obrim la conexió amb el servidor
-                try {
-                    urlConnection.setDoOutput(true);    //obrim connexio amb el servidor
-                    urlConnection.setChunkedStreamingMode(0); //serveix per evitar alguns errors
-                    OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream()); //crea un outputStream per enviar dades al server amb la seguent instruccio
-                    out.write(dataToSend.get(0).getValue().getBytes());
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream()); //agafa les possibles dades que pugui retornar el servidor
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    urlConnection.disconnect();
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-    */

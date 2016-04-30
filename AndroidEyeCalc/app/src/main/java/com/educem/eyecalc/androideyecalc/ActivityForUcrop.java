@@ -1,13 +1,11 @@
 package com.educem.eyecalc.androideyecalc;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -22,9 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.yalantis.ucrop.UCrop;
 
-import org.xmlpull.v1.XmlPullParser;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -35,7 +32,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 
@@ -70,7 +66,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
         this.ll = (LinearLayout) findViewById(R.id.llContenidor);
-
     }
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
@@ -112,6 +107,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //si hi ha internet envio la foto al servidor
                 //Comprobo si hi ha internet
                 if(!isNetworkAvailable(getApplicationContext())){
+                    acabarEspera();
                     scanAgain.setText("Connection lost, try again");
                 } else {
                     new enviaServerSocket().execute();
