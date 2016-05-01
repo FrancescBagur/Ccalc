@@ -220,7 +220,6 @@ public class ServidorCcalc {
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                         engegarLibMath();
                     }
-
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
