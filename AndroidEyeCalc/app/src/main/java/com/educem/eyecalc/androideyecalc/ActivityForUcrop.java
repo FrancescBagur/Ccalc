@@ -1,25 +1,30 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.yalantis.ucrop.UCrop;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -30,9 +35,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class ActivityForUcrop extends AppCompatActivity {
@@ -50,6 +55,7 @@ public class ActivityForUcrop extends AppCompatActivity {
     private LinearLayout ll;
     //boto per anar a la primera activity i torna a fer la foto
     private Button scanAgain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,15 +66,12 @@ public class ActivityForUcrop extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
-        //new escoltaServerSocket(2010);
-
         //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
         this.ll = (LinearLayout) findViewById(R.id.llContenidor);
 
     }
-
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
         @Override
@@ -81,7 +84,6 @@ public class ActivityForUcrop extends AppCompatActivity {
             ActivityForUcrop.this.finish();
         }
     }
-
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
         finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+SimpleDateFormat.getDateTimeInstance()+".bmp"));
@@ -107,10 +109,13 @@ public class ActivityForUcrop extends AppCompatActivity {
                 bmpInvertit = invertBMP(bmp);
                 //la paso a bytes
                 imgbyte = getBytesFromBitmap(bmpInvertit);
-                //comprobar que hi ha internet
                 //si hi ha internet envio la foto al servidor
-                new enviaServerSocket().execute();
-
+                //Comprobo si hi ha internet
+                if(!isNetworkAvailable(getApplicationContext())){
+                    scanAgain.setText("Connection lost, try again");
+                } else {
+                    new enviaServerSocket().execute();
+                }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -120,35 +125,52 @@ public class ActivityForUcrop extends AppCompatActivity {
                 Log.e("ActivityForUcrop", "handleCropError: ", cropError);
                 Toast.makeText(ActivityForUcrop.this, cropError.getMessage(), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(ActivityForUcrop.this,"unexpected error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityForUcrop.this, "unexpected error", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
+    //comproba si hi ha internet
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+    //cancela la progress bar i activa el boto
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
-        TextView tv = (TextView) findViewById(R.id.tvMostrarEstat);
-        ll.removeView(tv);
         ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
         ll.removeView(pb);
-        Log.i("HOLA", "hem acabat la espera");
     }
-
+    //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
-        Log.i("HOLA","entro a mostrar resultat correcte");
-        //Creem els nous TextView
+        //operacio
         TextView tvOperacio = new TextView(ActivityForUcrop.this);
-        tvOperacio.setText(operacio);
+        tvOperacio.setText("Operation   \n"+operacio);
+        //*tvOperacio.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvOperacio.setTextSize(50);
+        tvOperacio.setTextColor(Color.WHITE);
+        tvOperacio.setBackgroundResource(R.drawable.text_views);
+        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.addView(tvOperacio);
+        //resultat
         TextView tvResultat = new TextView(ActivityForUcrop.this);
-        tvOperacio.setText(resultat);
+        tvResultat.setText("Result   \n"+resultat);
+        tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvResultat.setTextSize(50);
+        tvResultat.setTextColor(Color.WHITE);
+        tvResultat.setBackgroundResource(R.drawable.text_views);
+        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.addView(tvResultat);
     }
-
-    private void mostrarError(){
-        Log.i("HOLA","entro a mostrar error");
+    //mostra error al calcular
+    private void mostrarError() {
         TextView tvError = new TextView(ActivityForUcrop.this);
+        tvError.setBackgroundResource(R.drawable.text_views);
+        tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         tvError.setText("Error reading operation, try again.");
+        tvError.setTextSize(50);
+        tvError.setTextColor(Color.WHITE);
+        tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.addView(tvError);
     }
     //inverteixo la imatge
@@ -161,8 +183,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //el crida la funció anterior rep un bitmap i el retorna en bytes i comprimit en JPEG.
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
-        /*ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
-        bmpInvertit.copyPixelsToBuffer(bb);*/
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 5, bitmap.getHeight() * 5,true);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -222,7 +242,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         //enviar token al server
         private void enviaMissatge(String msg){
             try {
-                Log.i("HOLA","enntro a enviar missatge");
                 out = new DataOutputStream(s.getOutputStream());
                 out.writeBytes(msg+"\n");
             } catch (IOException e) {
@@ -231,7 +250,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         }
         //enviar la imatge al server
         private void enviarImatge(){
-            Log.i("HOLA", "entro a enviar imatge");
             //envio la imatge en bytes i tanco el socket, important perque rebi la imatge correctament.
             try {
                 outImg = s.getOutputStream();
@@ -245,11 +263,9 @@ public class ActivityForUcrop extends AppCompatActivity {
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
         private void escoltaDades(){
             try {
-                Log.i("HOLA","entro a escoltar dades");
                 //obro canal de comunicació per rebre dades del servidor
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 String missatge = in.readLine();
-                Log.i("HOLA","he llegit una linia");
                 //quan es rep algo es tracta la informació rebuda amb la funcio tractar dades.
                 tractaDades(missatge);
             } catch (IOException e) {
@@ -258,17 +274,9 @@ public class ActivityForUcrop extends AppCompatActivity {
         }
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
-            Log.i("HOLA", "entro a tractar dades");
             String[] dades = msg.trim().split(":");
-            Log.i("HOLA", dades[0] + "-" + dades[1]);
-            if(dades[0].trim().equals("OK")){
-                Log.i("HOLA","man enviat ok:id");
-                ID = Integer.valueOf(dades[1]);
-            }else{
-                Log.i("HOLA","man enviat resultat");
-                ActivityForUcrop.this.res=dades;
-
-            }
+            if(dades[0].trim().equals("OK"))ID = Integer.valueOf(dades[1]);
+            else ActivityForUcrop.this.res=dades;
         }
     }
 }

@@ -274,7 +274,6 @@ public class ServidorCcalc {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
 
         private int filtrarImatge(){

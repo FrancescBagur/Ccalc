@@ -1,7 +1,10 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,11 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.net.InetAddress;
+
 public class InitialActivity extends AppCompatActivity {
     private static final int CAM_REQUEST = 1313; //codi de peticio per la camara
     Button SCAN;    //boto que obrira la camara per fer la foto.
     Intent intentResult;  //intent que obrira la activity per mostra el resultat.
-    //aqui s'inicialitzen variables i s'escolta el click del boto.
+    Boolean con = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,15 @@ public class InitialActivity extends AppCompatActivity {
         SCAN = (Button) findViewById(R.id.btScan);
         //poso un listener al boto
         SCAN.setOnClickListener(new takenfotoClicker());
+        if(!isNetworkAvailable(getApplicationContext())){
+            SCAN.setText("No internet connection, Reload");
+            con=false;
+        }
+    }
+    //Comprobo si hi ha internet
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
     //classe a que sentra quan fas click a tkfoto
     public class takenfotoClicker implements Button.OnClickListener {
@@ -36,10 +50,14 @@ public class InitialActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "The mobile has no camera", Toast.LENGTH_LONG).show();
                 finish();
             }
-            //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
-            startActivityForResult(cameraIntent, CAM_REQUEST);
+            if (!con){
+                InitialActivity.this.recreate();
+            } else {
+                //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
+                startActivityForResult(cameraIntent, CAM_REQUEST);
+            }
         }
     }
     //aqui obrire un altra activity que s'encarregarà de tractar la imatge que s'ha fet.
@@ -54,6 +72,8 @@ public class InitialActivity extends AppCompatActivity {
                    intentResult.setData(photo);
                    //obro la segona activity
                    startActivity(intentResult);
+                   //tanco aquesta activity
+                   InitialActivity.this.finish();
                } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "Canceled by User", Toast.LENGTH_LONG).show();
             } else Toast.makeText(getApplicationContext(), "Error taking picture please try again", Toast.LENGTH_LONG).show();
     }
