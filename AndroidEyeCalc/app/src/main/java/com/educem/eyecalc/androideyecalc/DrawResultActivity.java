@@ -66,7 +66,8 @@ public class DrawResultActivity extends Activity {
     private void preparaDades(String[] strokes){
         operacio = "[";
         for (int i=0; i<strokes.length; i++){
-            operacio += strokes[i];
+            if(i==strokes.length-1) operacio += strokes[i];
+            else operacio += strokes[i]+",";
         }
         operacio += "]";
     }
