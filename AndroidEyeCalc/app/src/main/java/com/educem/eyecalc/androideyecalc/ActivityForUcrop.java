@@ -141,7 +141,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         //operacio
         TextView tvOperacio = new TextView(ActivityForUcrop.this);
         tvOperacio.setText("Operation   \n"+operacio);
-        //*tvOperacio.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(50);
         tvOperacio.setTextColor(Color.WHITE);

@@ -28,7 +28,7 @@
             android:layout_marginBottom="40dp" />
 
         <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
             android:gravity="center_horizontal">
@@ -38,6 +38,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gocam"
                 android:id="@+id/btScan"
+                android:enabled="true"
+                android:textColor="#3a5795"
+                android:textSize="30sp"
+                android:background="@drawable/blue_button"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="50dp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gowrite"
+                android:id="@+id/btWrite"
                 android:enabled="true"
                 android:textColor="#3a5795"
                 android:textSize="30sp"
