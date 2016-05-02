@@ -14,9 +14,10 @@ import android.widget.Toast;
 
 public class InitialActivity extends AppCompatActivity {
     private static final int CAM_REQUEST = 1313; //codi de peticio per la camara
-    Button SCAN;    //boto que obrira la camara per fer la foto.
-    Intent intentResult;  //intent que obrira la activity per mostra el resultat.
-    Boolean con = true;
+    private Button SCAN;    //boto que obrira la camara per fer la foto.
+    private Button TRACE; //boto que obrira la pagina per escriure amb el dit
+    private Intent intentResult;  //intent que obrira la activity per mostra el resultat.
+    private Boolean con = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +25,12 @@ public class InitialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //inicialitzo el intent que em portara a la pantalla del resultat.
         intentResult = new Intent(this,ActivityForUcrop.class);
-        //associo el boto programatic amb el boto creat visualment per obrir la camara
+        //associo els botons programatic amb el boto creat visualment per obrir la camara
+        TRACE = (Button) findViewById(R.id.btWrite);
         SCAN = (Button) findViewById(R.id.btScan);
-        //poso un listener al boto
-        SCAN.setOnClickListener(new takenfotoClicker());
+        //poso un listener al botons
+        TRACE.setOnClickListener(new listenClick());
+        SCAN.setOnClickListener(new listenClick());
         if(!isNetworkAvailable(getApplicationContext())){
             SCAN.setText("No internet connection, Reload");
             con=false;
@@ -39,21 +42,26 @@ public class InitialActivity extends AppCompatActivity {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
     //classe a que sentra quan fas click a tkfoto
-    public class takenfotoClicker implements Button.OnClickListener {
+    public class listenClick implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
-            //intent que obrira la camara i guardara la foto que es faci
-            if(!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Toast.makeText(getApplicationContext(), "The mobile has no camera", Toast.LENGTH_LONG).show();
-                finish();
-            }
             if (!con){
                 InitialActivity.this.recreate();
             } else {
-                //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
-                startActivityForResult(cameraIntent, CAM_REQUEST);
+                if (v.getId() == R.id.btScan) {
+                    if(!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                        Toast.makeText(getApplicationContext(), "The mobile has no camera", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
+                    startActivityForResult(cameraIntent, CAM_REQUEST);
+                }
+                else {
+                    Intent DrawIntent = new Intent(InitialActivity.this,drawingActivity.class);
+                    startActivity(DrawIntent);
+                }
             }
         }
     }

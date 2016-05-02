@@ -4,9 +4,14 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="bttakephoto">Take photo</string>
     <string name="gocam">SCAN</string>
+    <string name="gowrite">WRITE</string>
     <string name="logodesc">logo</string>
     <string name="btScanAgain">SCAN AGAIN</string>
+    <string name="btClear">Clear screen</string>
+    <string name="btSend">Send</string>
     <string name="title_activity_result">ResultActivity</string>
+    <string name="title_activity_drawing">drawingActivity</string>
+    <string name="title_activity_draw_result">DrawResultActivity</string>
     <!--<string name="userplaceholder">Usuari</string>
     <string name="passplaceholder">Contrasenya</string>
     <string name="rememberPass">¿Has oblidat la contrasenya?</string>

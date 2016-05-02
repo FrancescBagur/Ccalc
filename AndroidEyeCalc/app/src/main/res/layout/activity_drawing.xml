@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.educem.eyecalc.androideyecalc.drawingActivity"
+    android:background="#3a5795"
+    android:id="@+id/llPrinc"
+    android:padding="5sp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:paddingTop="10sp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btClear"
+            android:background="@drawable/blue_button"
+            android:enabled="true"
+            android:textColor="#3a5795"
+            android:text="@string/btClear"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btSend"
+            android:background="@drawable/blue_button"
+            android:enabled="true"
+            android:textColor="#3a5795"
+            android:text="@string/btSend"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>
