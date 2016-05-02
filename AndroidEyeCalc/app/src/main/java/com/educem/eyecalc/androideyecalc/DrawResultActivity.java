@@ -1,23 +1,20 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class DrawResultActivity extends Activity {
@@ -26,10 +23,10 @@ public class DrawResultActivity extends Activity {
     //identificador per el servidor
     private int ID=0;
     //aqui es guardara el resultat que envii el servidor.
-    private String[] res = new String[5];
+    private String[] res = {""};
     //layout on es mostrara el resultat.
     private LinearLayout ll;
-    //
+    //torna a la plana inicial
     private Button scanAgain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +40,9 @@ public class DrawResultActivity extends Activity {
         Intent res = getIntent();
         String[] strokes = res.getExtras().getStringArray("strokes");
         preparaDades(strokes);
-        /*TextView tvRes = (TextView) findViewById(R.id.textView);
-        String str="";
-        for(int i=0; i<strokes.length; i++) {
-           str +=strokes[i];
-        }
-        tvRes.setText(str);*/
+        /* //mostra el que s'enviara al servidor per comprobar.
+        TextView tvRes = (TextView) findViewById(R.id.textView);
+        tvRes.setText(operacio);*/
         new enviaServerSocket().execute();
     }
     //classe a que sentra quan fas click a scanAgain
@@ -63,6 +57,7 @@ public class DrawResultActivity extends Activity {
             DrawResultActivity.this.finish();
         }
     }
+    //prepara les dades per enviarles al servidor
     private void preparaDades(String[] strokes){
         operacio = "[";
         for (int i=0; i<strokes.length; i++){
