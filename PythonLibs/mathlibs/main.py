@@ -7,11 +7,13 @@ from ClassCalculadoraPolaca import PolacCalc;
 
 
 #Creo un lector de fitxers inkml i li passo la ruta del fitxer que vui llegir
-ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
+#ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
 
 #Obting la operació del fitxer.
 try:
-    operacio = ObjInkmlReader.llegirINKML()
+    infile = open('/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp'+sys.argv[1]+'.txt','r')
+    operacio = infile.readline()
+    #operacio = ObjInkmlReader.llegirINKML()
     ObjNotacioPolaca = NotacioPolaca(operacio)
 
     #Passo la operació a notació polaca i la fico en un string expresioPolaca
