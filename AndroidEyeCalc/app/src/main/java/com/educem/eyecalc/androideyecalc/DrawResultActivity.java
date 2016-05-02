@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -26,13 +28,18 @@ public class DrawResultActivity extends Activity {
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = new String[5];
     //layout on es mostrara el resultat.
-    private RelativeLayout rl;
+    private LinearLayout ll;
+    //
+    private Button scanAgain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_result);
+        //inicialitzo el boto per tornar al principi
+        scanAgain = (Button) findViewById(R.id.btScanAgain);
+        scanAgain.setOnClickListener(new goInitial());
         //inicialitzo el layout pare i agafo les dades amb que m'han obert
-        rl = (RelativeLayout) findViewById(R.id.RlBoss);
+        ll = (LinearLayout) findViewById(R.id.llContenidor);
         Intent res = getIntent();
         String[] strokes = res.getExtras().getStringArray("strokes");
         preparaDades(strokes);
@@ -43,6 +50,18 @@ public class DrawResultActivity extends Activity {
         }
         tvRes.setText(str);*/
         new enviaServerSocket().execute();
+    }
+    //classe a que sentra quan fas click a scanAgain
+    public class goInitial implements Button.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            //creo un intent per tornar a la primera activity
+            Intent intTofirstActivity = new Intent(DrawResultActivity.this,InitialActivity.class);
+            //vaig a ala primera activity per torna a scanejar
+            startActivity(intTofirstActivity);
+            //tanco la activity
+            DrawResultActivity.this.finish();
+        }
     }
     private void preparaDades(String[] strokes){
         operacio = "[";
@@ -55,7 +74,7 @@ public class DrawResultActivity extends Activity {
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
         ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
-        rl.removeView(pb);
+        ll.removeView(pb);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
@@ -67,7 +86,7 @@ public class DrawResultActivity extends Activity {
         tvOperacio.setTextColor(Color.WHITE);
         tvOperacio.setBackgroundResource(R.drawable.text_views);
         tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        rl.addView(tvOperacio);
+        ll.addView(tvOperacio);
         //resultat
         TextView tvResultat = new TextView(DrawResultActivity.this);
         tvResultat.setText("Result   \n"+resultat);
@@ -76,7 +95,7 @@ public class DrawResultActivity extends Activity {
         tvResultat.setTextColor(Color.WHITE);
         tvResultat.setBackgroundResource(R.drawable.text_views);
         tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        rl.addView(tvResultat);
+        ll.addView(tvResultat);
     }
     //mostra error al calcular
     private void mostrarError() {
@@ -88,7 +107,7 @@ public class DrawResultActivity extends Activity {
         tvError.setTextSize(50);
         tvError.setTextColor(Color.WHITE);
         tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        rl.addView(tvError);
+        ll.addView(tvError);
     }
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
         //canal de sortida per enviar strings

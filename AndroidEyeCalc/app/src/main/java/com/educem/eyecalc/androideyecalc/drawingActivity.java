@@ -76,7 +76,6 @@ public class drawingActivity extends Activity {
                     drawingActivity.this.finish();
                 }
             }
-
         }
     }
     //clase per escriure a la pantalla amb el dit
