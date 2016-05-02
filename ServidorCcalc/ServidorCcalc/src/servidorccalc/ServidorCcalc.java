@@ -8,12 +8,12 @@ package servidorccalc;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -23,8 +23,9 @@ import javax.imageio.ImageIO;
 public class ServidorCcalc {
 
     private static int id;
+
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
         id = 0;
         Monitor m = new Monitor();
@@ -73,6 +74,130 @@ public class ServidorCcalc {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+    }
+
+    //HTTP Post request
+    private static class sendPost implements Runnable{
+        private static final String USER_AGENT = "Mozilla/5.0";
+        String url = "http://cat.prhlt.upv.es/mer/eq.php";
+        String strokes;
+        public sendPost(String strokes) {
+            this.strokes = strokes;
+        }
+
+        @Override
+        public void run() {
+            URL obj = null;
+            try {
+                obj = new URL(url);
+
+                HttpURLConnection con;
+                con = (HttpURLConnection) obj.openConnection();
+
+                //add request header
+                con.setRequestMethod("POST");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+                /*String strokes = "[[[48, 223]," +
+                        "[69,229]," +
+                        "[95,226]," +
+                        "[114,215]," +
+                        "[128,207]," +
+                        "[134,190]," +
+                        "[125,176]," +
+                        "[117,163]," +
+                        "[105,155]," +
+                        "[90,152]," +
+                        "[81,151]," +
+                        "[73,154]," +
+                        "[65,149]," +
+                        "[73,139]," +
+                        "[99,136]," +
+                        "[103,123]," +
+                        "[105,114]," +
+                        "[97,108]," +
+                        "[90,105]," +
+                        "[75,97]," +
+                        "[57,95]," +
+                        "[43,106]]," +
+                        "[" +
+                        "[369,214]," +
+                        "[374,210]," +
+                        "[381,212]," +
+                        "[387,210]," +
+                        "[397,206]," +
+                        "[405,209]," +
+                        "[415,207]," +
+                        "[435,202]," +
+                        "[462,176]," +
+                        "[437,159]," +
+                        "[432,156]," +
+                        "[426,157]," +
+                        "[421,156]," +
+                        "[417,155]," +
+                        "[413,152]," +
+                        "[410,149]," +
+                        "[415,142]," +
+                        "[430,137]," +
+                        "[431,127]," +
+                        "[432,118]," +
+                        "[420,113]," +
+                        "[414,111]," +
+                        "[395,104]," +
+                        "[376,106]," +
+                        "[358,112]]," +
+                        "[" +
+                        "[246,181]," +
+                        "[244,164]," +
+                        "[253,162]," +
+                        "[279,162]]," +
+                        "[" +
+                        "[224,159]," +
+                        "[244,162]]," +
+                        "[" +
+                        "[243,161]," +
+                        "[244,132]]," +
+                        "[" +
+                        "[49,149]," +
+                        "[65,149]]," +
+                        "[" +
+                        "[377,145]," +
+                        "[410,149]]]";*/
+                String encodedStrokes = URLEncoder.encode(strokes, "UTF-8");
+                String urlParameters = "strokes="+encodedStrokes;
+                // Send post request
+                con.setDoOutput(true);
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                wr.writeBytes(urlParameters);
+                wr.flush();
+                wr.close();
+
+                int responseCode = con.getResponseCode();
+                System.out.println("\nSending 'POST' request to URL : " + url);
+                System.out.println("Post parameters : " + urlParameters);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                //print result
+                System.out.println(response.toString());
+                
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static class RespostaClient implements Runnable{
@@ -203,7 +328,7 @@ public class ServidorCcalc {
                             f.delete();
                             System.out.println("S'ha eliminat un fitxer de sortida antic de seshat\n");
                         }
-                        //Llenço els scripts que executen PoinTransform,autrase i seshat
+                        //Llenço els scripts que executen PoinTransform i autotrace, que generaran l'entrada de seshat
                         llencarScripts();
                         System.out.println("Scripts llençats");
                         //Un cop llençats els scripts, he de veure si han acabat i ho miraré comprovant
@@ -213,10 +338,15 @@ public class ServidorCcalc {
                             fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(idThread) + ".inkml");
                             if (fitxerSortida.exists()) {
                                 //Els scripts han acabat
-                                System.out.println("Els scripts han finalitzat, engegant llibreries matemàtiques");
+                                System.out.println("Els scripts han finalitzat, llencem la petició  a seshat");
                                 creat = true;
                             }
                         }
+                        String strokes = llegirFitxerSeshat(idThread);
+                        //Creo el Thread que farà la petició al server
+                        sendPost sp = new sendPost();
+                        Thread sendp = new Thread(sp);
+                        sendp.start();
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                         engegarLibMath();
                     }
@@ -224,6 +354,23 @@ public class ServidorCcalc {
             } catch (IOException ex) {
                 Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
             }          
+        }
+
+        private String llegirFitxerSeshat(int id){
+            String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathsExps/out" + id + ".inkml";
+            String strokes = "";
+            File f = new File(ruta);
+            try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    strokes = line.trim();
+                }
+                return strokes;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         private Boolean existeixFitxer(String path){

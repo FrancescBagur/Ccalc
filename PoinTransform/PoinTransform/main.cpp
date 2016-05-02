@@ -109,26 +109,37 @@ int main (int argc, char *argv[]){
  		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
 	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
   		if (fitxerEntrada.is_open()){
-  			fitxerEntrada << "SCG_INK\n";
-  			stream << StrokesMatrix.size();
-	    	strNum = stream.str();
+  			//fitxerEntrada << "SCG_INK\n";
+  			fitxerEntrada << "[";
+  			//stream << StrokesMatrix.size();
+	    	//strNum = stream.str();
 	    	stream.str("");
-  			fitxerEntrada << strNum + "\n";
+  			//fitxerEntrada << strNum + "\n";
 	    	for(int z=0; z <StrokesMatrix.size(); z++){
-	    		stream << StrokesMatrix[z].size()/2;
-	    		strNum = stream.str();
+	    		//stream << StrokesMatrix[z].size()/2;
+	    		fitxerEntrada << "[";
+	    		//strNum = stream.str();
 	    		stream.str("");
-	    		fitxerEntrada << strNum + "\n";
+	    		//fitxerEntrada << strNum + "\n";
 	    		for(int w=0; w<StrokesMatrix[z].size(); w+=2){
+	    			fitxerEntrada << "[";
 	    			stream << StrokesMatrix[z][w];
-	    			strNum = stream.str() + " ";
+	    			strNum = stream.str() + ",";
 	    			stream.str("");
 	    			stream << StrokesMatrix[z][w+1];
 	    			strNum += stream.str();
 	    			stream.str("");
-	    			fitxerEntrada << strNum + "\n";
+	    			if(w<StrokesMatrix[z].size()-2)
+	    				fitxerEntrada << strNum + "],";
+	    			else
+	    				fitxerEntrada << strNum + "]";
 	    		}
+	    		if (z < StrokesMatrix.size() - 1) 
+	    			fitxerEntrada << "],";
+	    		else
+	    			fitxerEntrada << "]";
 	    	}
+	    	fitxerEntrada << "]";
    	 		fitxerEntrada.close();
    	 		char comandaSeshat[60];
    	 		char fitxer1[30];
@@ -143,8 +154,8 @@ int main (int argc, char *argv[]){
 		  		else
 		    		printf("S'ha eliminat un fitxer antic");
 			}
-   	 		printf("Executem seshat");
-			sprintf(comandaSeshat,"cd seshat;script.seshat %s; mv -i %s %s;",argv[1],fitxer1,fitxer2);
+   	 		printf("Genero el fitxer de sortida per enviar al servidor de seshat");
+			sprintf(comandaSeshat,"cd seshat;mv -i %s %s;",argv[1],fitxer1,fitxer2);
 			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
