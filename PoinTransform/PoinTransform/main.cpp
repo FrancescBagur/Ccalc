@@ -104,10 +104,20 @@ int main (int argc, char *argv[]){
 	    	t++;
 	    }
 	    fitxer.close();
+	    char fitxer1[30];
+	    sprintf(fitxer1,"%s%s%s","seshat/SampleMathExps/",argv[1],"exp.scgink");
+	    //Si existeix el fitxer de sortida antic de seshat el borrem
+ 		if(existsFile(fitxer1)==1){
+		//Si ja existeix un fitxer anterior, l'elimino per poder seguir amb el proces
+			if(remove(fitxer1) != 0)
+	    		printf("Error a l'eliminar arxiu antic");
+	  		else
+	    		printf("S'ha eliminat un fitxer antic");
+		}
 	    std::stringstream stream;  
 		std::string strNum; 
- 		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
-	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
+ 		std::string nomFitxerEntradaSeshat = id + "exp.scgink";
+	    ofstream fitxerEntrada (fitxer1);
   		if (fitxerEntrada.is_open()){
   			//fitxerEntrada << "SCG_INK\n";
   			fitxerEntrada << "[";
@@ -142,20 +152,10 @@ int main (int argc, char *argv[]){
 	    	fitxerEntrada << "]";
    	 		fitxerEntrada.close();
    	 		char comandaSeshat[60];
-   	 		char fitxer1[30];
 			char fitxer2[30];
-			sprintf(fitxer1,"%s%s",argv[1],"out.inkml");
-			sprintf(fitxer2,"%s%s%s","out",argv[1],".inkml");
-   	 		//Si existeix el fitxer de sortida antic de seshat el borrem
-   	 		if(existsFile(fitxer1)==1){
-			//Si ja existeix un fitxer anterior, l'elimino per poder seguir amb el proces
-				if(remove(fitxer1) != 0)
-		    		printf("Error a l'eliminar arxiu antic");
-		  		else
-		    		printf("S'ha eliminat un fitxer antic");
-			}
+			sprintf(fitxer2,"%s%s%s","seshat/SampleMathExps/exp",argv[1],".scgink");
    	 		printf("Genero el fitxer de sortida per enviar al servidor de seshat");
-			sprintf(comandaSeshat,"cd seshat;mv -i %s %s;",argv[1],fitxer1,fitxer2);
+			sprintf(comandaSeshat,"mv -i %s %s;",fitxer1,fitxer2);
 			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
