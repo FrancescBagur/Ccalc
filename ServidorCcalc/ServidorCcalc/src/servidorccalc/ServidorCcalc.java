@@ -98,71 +98,6 @@ public class ServidorCcalc {
                 con.setRequestMethod("POST");
                 con.setRequestProperty("User-Agent", USER_AGENT);
                 con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-                /*String strokes = "[[[48, 223]," +
-                        "[69,229]," +
-                        "[95,226]," +
-                        "[114,215]," +
-                        "[128,207]," +
-                        "[134,190]," +
-                        "[125,176]," +
-                        "[117,163]," +
-                        "[105,155]," +
-                        "[90,152]," +
-                        "[81,151]," +
-                        "[73,154]," +
-                        "[65,149]," +
-                        "[73,139]," +
-                        "[99,136]," +
-                        "[103,123]," +
-                        "[105,114]," +
-                        "[97,108]," +
-                        "[90,105]," +
-                        "[75,97]," +
-                        "[57,95]," +
-                        "[43,106]]," +
-                        "[" +
-                        "[369,214]," +
-                        "[374,210]," +
-                        "[381,212]," +
-                        "[387,210]," +
-                        "[397,206]," +
-                        "[405,209]," +
-                        "[415,207]," +
-                        "[435,202]," +
-                        "[462,176]," +
-                        "[437,159]," +
-                        "[432,156]," +
-                        "[426,157]," +
-                        "[421,156]," +
-                        "[417,155]," +
-                        "[413,152]," +
-                        "[410,149]," +
-                        "[415,142]," +
-                        "[430,137]," +
-                        "[431,127]," +
-                        "[432,118]," +
-                        "[420,113]," +
-                        "[414,111]," +
-                        "[395,104]," +
-                        "[376,106]," +
-                        "[358,112]]," +
-                        "[" +
-                        "[246,181]," +
-                        "[244,164]," +
-                        "[253,162]," +
-                        "[279,162]]," +
-                        "[" +
-                        "[224,159]," +
-                        "[244,162]]," +
-                        "[" +
-                        "[243,161]," +
-                        "[244,132]]," +
-                        "[" +
-                        "[49,149]," +
-                        "[65,149]]," +
-                        "[" +
-                        "[377,145]," +
-                        "[410,149]]]";*/
                 String encodedStrokes = URLEncoder.encode(strokes, "UTF-8");
                 String urlParameters = "strokes="+encodedStrokes;
                 // Send post request
@@ -189,6 +124,17 @@ public class ServidorCcalc {
 
                 //print result
                 System.out.println(response.toString());
+                PrintWriter writer = new PrintWriter("expresions/"+id+"exp.txt", "UTF-8");
+                writer.println(response);
+                writer.close();
+                File oldfile =new File("expresions/"+id+"exp.txt");
+                File newfile =new File("expresions/exp"+id+".txt");
+
+                if(oldfile.renameTo(newfile)){
+                    System.out.println("Fitxer renombrat");
+                }else{
+                    System.out.println("Ha fallat al renombrar el fitxer");
+                }
                 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -335,7 +281,7 @@ public class ServidorCcalc {
                         //si s'ha creat el fitxer de sortida
 
                         while(!creat){
-                            fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out" + String.valueOf(idThread) + ".inkml");
+                            fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + String.valueOf(idThread) + ".scgink");
                             if (fitxerSortida.exists()) {
                                 //Els scripts han acabat
                                 System.out.println("Els scripts han finalitzat, llencem la petició  a seshat");
@@ -344,11 +290,20 @@ public class ServidorCcalc {
                         }
                         String strokes = llegirFitxerSeshat(idThread);
                         //Creo el Thread que farà la petició al server
-                        sendPost sp = new sendPost();
+                        sendPost sp = new sendPost(strokes);
                         Thread sendp = new Thread(sp);
                         sendp.start();
+                        creat = false;
+                        while(!creat){
+                            fitxerSortida = new File("expresions/exp" + id + ".txt");
+                            if (fitxerSortida.exists()) {
+                                //Ja tenim resposta del server
+                                System.out.println("Ja tenim resposta del server, engeuem les llibreries matemàtiques");
+                                creat = true;
+                            }
+                        }
                         //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
-                        engegarLibMath();
+                        //engegarLibMath();
                     }
                 }
             } catch (IOException ex) {
@@ -357,7 +312,7 @@ public class ServidorCcalc {
         }
 
         private String llegirFitxerSeshat(int id){
-            String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathsExps/out" + id + ".inkml";
+            String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
             String strokes = "";
             File f = new File(ruta);
             try (BufferedReader br = new BufferedReader(new FileReader(f))) {
@@ -368,8 +323,10 @@ public class ServidorCcalc {
                 return strokes;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                return null;
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         }
 
