@@ -6,6 +6,8 @@
 package servidorccalc;
 
 
+import com.sun.deploy.util.SessionState;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
@@ -51,23 +53,32 @@ public class ServidorCcalc {
                     BufferedReader entrada = new BufferedReader(new InputStreamReader(s.getInputStream()));
                     String token = entrada.readLine().trim();
                     if(token.equals("Ccalc")){
-                        //Es una connexió vàlida i podem crear el thread
-                            m.setConnexio(s);
-                            ClientConnectat client = new ClientConnectat(s,id,m);
-                            Thread t = new Thread(client);
-                            t.start();
-                            System.out.println("S'ha creat el thread");
-                            m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
-                            m.augmentarConnexio();
+                        //Es una connexió vàlida que ve d'una camara i podem crear el thread
+                        m.setConnexio(s);
+                        ClientConnectat client = new ClientConnectat(s,id,m);
+                        Thread t = new Thread(client);
+                        t.start();
+                        System.out.println("S'ha creat el thread de camara");
+                        m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
+                        m.augmentarConnexio();
                     }else if(token.startsWith("Ccalc:")){
                         //Es una connexió vàlida i espera una respota
-                            int idTrans = Integer.valueOf(token.substring(6));
-                            m.setConnexio(s);
-                            RespostaClient client = new RespostaClient(s,id,idTrans,m);
-                            Thread t = new Thread(client);
-                            t.start();
-                            System.out.println("S'ha creat el thread de resposta");
-                            m.augmentarConnexio();
+                        int idTrans = Integer.valueOf(token.substring(6));
+                        m.setConnexio(s);
+                        RespostaClient client = new RespostaClient(s,id,idTrans,m);
+                        Thread t = new Thread(client);
+                        t.start();
+                        System.out.println("S'ha creat el thread de resposta");
+                        m.augmentarConnexio();
+                    }else if(token.equals("CcalcWriter")){
+                        //Es una connexió valida que ve d'una tauleta
+                        m.setConnexio(s);
+                        ClientWriter cw = new ClientWriter(s,id,m);
+                        Thread t = new Thread(cw);
+                        t.start();
+                        System.out.println("S'ha creat un thread de tauleta");
+                        m.enviarMissatge("OK:"+ String.valueOf(id) + "\n",id);
+                        m.augmentarConnexio();
                     }
                 }   
             } catch (IOException ex) {
