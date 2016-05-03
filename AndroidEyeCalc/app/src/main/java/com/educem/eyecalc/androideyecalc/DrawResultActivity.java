@@ -105,6 +105,7 @@ public class DrawResultActivity extends Activity {
         tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.addView(tvError);
     }
+    //thread per comunicarse amb el servidor
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
         //canal de sortida per enviar strings
         DataOutputStream out;
@@ -124,10 +125,16 @@ public class DrawResultActivity extends Activity {
                 s = new Socket(SERVER_ADRESS,2010);
                 enviaMissatge(token);
                 escoltaDades();
-                //quan tinc la resposta envio la imatge
+                //quan tinc la resposta envio els strokes de la operacio
                 enviaMissatge(operacio);
-                //espero resultat
+                //tanco el socket
+                s.close();
+                //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
+                s = new Socket(SERVER_ADRESS,2010);
+                enviaMissatge(token + ":" + ID);
+                //espero el resultat de la operacio
                 escoltaDades();
+                //tanco el socket
                 s.close();
             } catch (IOException e) {
                 e.printStackTrace();
