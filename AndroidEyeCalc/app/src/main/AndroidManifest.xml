@@ -43,7 +43,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".DrawResultActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_draw_result"></activity>
     </application>
-
 </manifest>
