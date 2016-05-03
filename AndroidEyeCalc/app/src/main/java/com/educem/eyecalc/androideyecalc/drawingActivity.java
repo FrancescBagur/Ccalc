@@ -23,8 +23,9 @@ public class drawingActivity extends Activity {
     private Paint mPaint;
     private LinearLayout llPrinc;
     private int nStrokes=0;
-    //strokes per enviar i esperar resposta!
-    private String[] strokes = new String[500];
+    //tracades per enviar i esperar resposta!
+    private String[] tracades = new String[500];
+    private String[] strokes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,15 @@ public class drawingActivity extends Activity {
         SEND = (Button) findViewById(R.id.btSend);
         CLEAR.setOnClickListener(new listenClick());
         SEND.setOnClickListener(new listenClick());
+        //prepara la pantalla per escriure amb el dit
+        obrirCanvas();
+    }
+    //prepara la pantalla per escriure amb el dit
+    private void obrirCanvas(){
         //per escriure per pantalla
         dv = new DrawingView(this);
         dv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
         llPrinc.addView(dv,0);
-        //setContentView(dv);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -56,6 +61,7 @@ public class drawingActivity extends Activity {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+    //fa feina quan es clicken els botons, o nateja la pantalla o envia les dades.
     public class listenClick implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -69,14 +75,24 @@ public class drawingActivity extends Activity {
                     drawingActivity.this.recreate();
                 } else {
                     //aqui senvian les dades al servidor
-                    //obra un activity de resultat enviatli els strokes realitzats
-                    Intent goRes = new Intent(drawingActivity.this,DrawResultActivity.class);
-                    goRes.putExtra("strokes",strokes);
-                    startActivity(goRes);
-                    drawingActivity.this.finish();
+                    //obra un activity de resultat enviatli els tracades realitzats
+                    if(tracades[0]!=null) {
+                        preparaDades();
+                        Intent goRes = new Intent(drawingActivity.this, DrawResultActivity.class);
+                        goRes.putExtra("strokes", strokes);
+                        startActivity(goRes);
+                        drawingActivity.this.finish();
+                    }
                 }
             }
         }
+    }
+    //prepara les dades(treu nulls de l'array) per enviarles a la activity on es mostrara el resultat
+    private void preparaDades(){
+        int i=0;
+        while (tracades[i]!=null)i++;
+        strokes = new String[i];
+        for(i=0; i<strokes.length; i++) strokes[i] = tracades[i];
     }
     //clase per escriure a la pantalla amb el dit
     public class DrawingView extends View {
@@ -133,7 +149,7 @@ public class drawingActivity extends Activity {
             //inici de stroke en x,y
             if (nStrokes < 500) {
                 String puntIni = "[[" + Math.round(x) + "," + Math.round(y) + "]";
-                strokes[nStrokes] = puntIni;
+                tracades[nStrokes] = puntIni;
             }
         }
 
@@ -150,7 +166,7 @@ public class drawingActivity extends Activity {
                 //la stroke va aumentant en x,y
                 if(nStrokes < 500) {
                     String puntMove = ",[" + Math.round(x) + "," + Math.round(y) + "]";
-                    strokes[nStrokes] += puntMove;
+                    tracades[nStrokes] += puntMove;
                 }
             }
         }
@@ -162,9 +178,9 @@ public class drawingActivity extends Activity {
             mCanvas.drawPath(mPath,  mPaint);
             // kill this so we don't double draw
             mPath.reset();
-            //final de strokes
+            //final de tracades
             if(nStrokes < 501) {
-                strokes[nStrokes] += "]";
+                tracades[nStrokes] += "]";
                 nStrokes++;
             }
         }
