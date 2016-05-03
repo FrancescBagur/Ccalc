@@ -139,7 +139,7 @@ public class drawingActivity extends Activity {
         }
 
         private float mX, mY;
-        private static final float TOUCH_TOLERANCE = 4;
+        private static final float TOUCH_TOLERANCE = 1;
 
         private void touch_start(float x, float y) {
             mPath.reset();
