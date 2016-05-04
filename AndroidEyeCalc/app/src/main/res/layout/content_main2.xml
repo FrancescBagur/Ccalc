@@ -6,8 +6,16 @@
     android:background="#3a5795"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:id="@+id/llBoss">
 
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/llres"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:orientation="vertical"

@@ -7,11 +7,15 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -26,8 +30,10 @@ public class DrawResultActivity extends Activity {
     private int ID=0;
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
-    //layout on es mostrara el resultat.
+    //layout gefe
     private LinearLayout ll;
+    //layout on es mostrara el resultat
+    private LinearLayout llres;
     //torna a la plana inicial
     private Button scanAgain;
     //boolean per saber si hi ha o no conexio
@@ -43,8 +49,9 @@ public class DrawResultActivity extends Activity {
         //inicialitzo el boto per tornar al principi
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
-        //inicialitzo el layout pare i agafo les dades amb que m'han obert
-        ll = (LinearLayout) findViewById(R.id.llContenidor);
+        //inicialitzo el layout pare i la taula i agafo les dades amb que m'han obert
+        ll = (LinearLayout) findViewById(R.id.LlBoss);
+        llres = (LinearLayout) findViewById(R.id.llResultat);
         Intent res = getIntent();
         String[] strokes = res.getExtras().getStringArray("strokes");
         preparaDades(strokes);
@@ -84,33 +91,53 @@ public class DrawResultActivity extends Activity {
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        ll.removeView(pb);
+            //ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
+            //ll.removeView(pb);
+        LinearLayout lls = (LinearLayout) findViewById(R.id.llContenidor);
+        ll.removeView(lls);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
         TextView tvOperacio = new TextView(DrawResultActivity.this);
-        tvOperacio.setText("Operation   \n"+operacio);
+        tvOperacio.setText("Operacio");
+        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvOperacio.setTextSize(50);
+        tvOperacio.setTextColor(Color.WHITE);
+        tvOperacio.setBackgroundResource(R.drawable.text_views);
+        tvOperacio.setBackgroundColor(Color.parseColor("#0959c0"));
+        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        llres.addView(tvOperacio);
+        tvOperacio = new TextView(DrawResultActivity.this);
+        tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(50);
         tvOperacio.setTextColor(Color.WHITE);
         tvOperacio.setBackgroundResource(R.drawable.text_views);
         tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvOperacio);
+        llres.addView(tvOperacio);
         //resultat
         TextView tvResultat = new TextView(DrawResultActivity.this);
-        tvResultat.setText("Result   \n"+resultat);
+        tvResultat.setText("Resultat");
+        tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvResultat.setTextSize(50);
+        tvResultat.setTextColor(Color.WHITE);
+        tvResultat.setBackgroundResource(R.drawable.text_views);
+        tvResultat.setBackgroundColor(Color.parseColor("#0959c0"));
+        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        llres.addView(tvResultat);
+        tvResultat = new TextView(DrawResultActivity.this);
+        tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(50);
         tvResultat.setTextColor(Color.WHITE);
         tvResultat.setBackgroundResource(R.drawable.text_views);
         tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvResultat);
+        llres.addView(tvResultat);
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvError = new TextView(DrawResultActivity.this);
+        TextView tvError = new TextView(this);
         tvError.setBackgroundResource(R.drawable.text_views);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -118,14 +145,14 @@ public class DrawResultActivity extends Activity {
         tvError.setTextSize(50);
         tvError.setTextColor(Color.WHITE);
         tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvError);
+        llres.addView(tvError);
     }
     //thread per comunicarse amb el servidor
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.9";
+        private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
@@ -165,7 +192,7 @@ public class DrawResultActivity extends Activity {
             super.onPostExecute(aVoid);
             Boolean seguir = false;
             acabarEspera();
-            if(!serverOFF) {
+            if (!serverOFF) {
                 while (!seguir) {
                     if (!res[0].equals(""))
                         seguir = true;
