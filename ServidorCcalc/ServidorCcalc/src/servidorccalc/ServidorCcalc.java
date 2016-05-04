@@ -6,16 +6,15 @@
 package servidorccalc;
 
 
-import com.sun.deploy.util.SessionState;
-
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.net.ssl.HttpsURLConnection;
 
 
 /**

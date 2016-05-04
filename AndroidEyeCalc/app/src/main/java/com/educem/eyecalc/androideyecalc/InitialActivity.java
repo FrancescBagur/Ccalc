@@ -61,6 +61,7 @@ public class InitialActivity extends AppCompatActivity {
                 else {
                     Intent DrawIntent = new Intent(InitialActivity.this,drawingActivity.class);
                     startActivity(DrawIntent);
+                    InitialActivity.this.finish();
                 }
             }
         }

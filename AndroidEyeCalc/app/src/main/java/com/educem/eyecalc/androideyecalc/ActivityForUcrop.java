@@ -51,11 +51,16 @@ public class ActivityForUcrop extends AppCompatActivity {
     private LinearLayout ll;
     //boto per anar a la primera activity i torna a fer la foto
     private Button scanAgain;
-
+    //bolea per saber si hi ha conexio o no
+    private Boolean con=true;
+    //intent per anar a la activity inicial
+    private Intent intTofirstActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        //creo un intent per tornar a la primera activity
+        intTofirstActivity = new Intent(ActivityForUcrop.this, InitialActivity.class);
         //agafo el intent que m'ha obert la activity
         Intent intentResult = getIntent();
         //agafo la uri(photo) del intent
@@ -71,12 +76,12 @@ public class ActivityForUcrop extends AppCompatActivity {
     public class goInitial implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
-            //creo un intent per tornar a la primera activity
-            Intent intTofirstActivity = new Intent(ActivityForUcrop.this,InitialActivity.class);
-            //vaig a ala primera activity per torna a scanejar
-            startActivity(intTofirstActivity);
-            //tanco la activity
-            ActivityForUcrop.this.finish();
+            if(con) {
+                //vaig a ala primera activity per torna a scanejar
+                startActivity(intTofirstActivity);
+                //tanco la activity
+                ActivityForUcrop.this.finish();
+            } else ActivityForUcrop.this.recreate();
         }
     }
     //obre la activity del uCrop
@@ -105,12 +110,11 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //la paso a bytes
                 imgbyte = getBytesFromBitmap(bmpInvertit);
                 //si hi ha internet envio la foto al servidor
-                //Comprobo si hi ha internet
-                if(!isNetworkAvailable(getApplicationContext())){
+                if(isNetworkAvailable(getApplicationContext()))new enviaServerSocket().execute();
+                else {
                     acabarEspera();
                     scanAgain.setText("Connection lost, try again");
-                } else {
-                    new enviaServerSocket().execute();
+                    con = false;
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -118,12 +122,17 @@ public class ActivityForUcrop extends AppCompatActivity {
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(Data);
             if (cropError != null) {
-                Log.e("ActivityForUcrop", "handleCropError: ", cropError);
                 Toast.makeText(ActivityForUcrop.this, cropError.getMessage(), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(ActivityForUcrop.this, "unexpected error", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            //vaig a ala primera activity per torna a scanejar
+            startActivity(intTofirstActivity);
+            //tanco la activity
+            ActivityForUcrop.this.finish();
         }
+
     }
     //comproba si hi ha internet
     public boolean isNetworkAvailable(final Context context) {
@@ -204,12 +213,14 @@ public class ActivityForUcrop extends AppCompatActivity {
             try {
                 //obro el socket, envio el token i espero resposta
                 s = new Socket(SERVER_ADRESS,2010);
+                s.setSoTimeout(10000);
                 enviaMissatge(token);
                 escoltaDades();
                 //quan tinc la resposta envio la imatge
                 enviarImatge();
                 //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
                 s = new Socket(SERVER_ADRESS,2010);
+                s.setSoTimeout(10000);
                 enviaMissatge(token + ":"+ID);
                 //espero el resultat de la operacio
                 escoltaDades();
@@ -285,5 +296,14 @@ public class ActivityForUcrop extends AppCompatActivity {
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else ActivityForUcrop.this.res = dades;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //vaig a ala primera activity per torna a scanejar
+        startActivity(intTofirstActivity);
+        //tanco la activity
+        ActivityForUcrop.this.finish();
     }
 }

@@ -1,8 +1,10 @@
 package com.educem.eyecalc.androideyecalc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -28,10 +30,16 @@ public class DrawResultActivity extends Activity {
     private LinearLayout ll;
     //torna a la plana inicial
     private Button scanAgain;
+    //boolean per saber si hi ha o no conexio
+    private Boolean con = true;
+    //intent per obrir la primera activity
+    Intent intTofirstActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_result);
+        //creo un intent per tornar a la primera activity
+        intTofirstActivity = new Intent(DrawResultActivity.this, InitialActivity.class);
         //inicialitzo el boto per tornar al principi
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
@@ -40,21 +48,28 @@ public class DrawResultActivity extends Activity {
         Intent res = getIntent();
         String[] strokes = res.getExtras().getStringArray("strokes");
         preparaDades(strokes);
-        /* //mostra el que s'enviara al servidor per comprobar.
-        TextView tvRes = (TextView) findViewById(R.id.textView);
-        tvRes.setText(operacio);*/
-        new enviaServerSocket().execute();
+        if (isNetworkAvailable(this))new enviaServerSocket().execute();
+        else {
+            acabarEspera();
+            scanAgain.setText("Connection lost, try again");
+            con =false;
+        }
+    }
+    //Comprobo si hi ha internet
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
-            //creo un intent per tornar a la primera activity
-            Intent intTofirstActivity = new Intent(DrawResultActivity.this,InitialActivity.class);
-            //vaig a ala primera activity per torna a scanejar
-            startActivity(intTofirstActivity);
-            //tanco la activity
-            DrawResultActivity.this.finish();
+            if(con) {
+                //vaig a ala primera activity per torna a scanejar
+                startActivity(intTofirstActivity);
+                //tanco la activity
+                DrawResultActivity.this.finish();
+            } else DrawResultActivity.this.recreate();
         }
     }
     //prepara les dades per enviarles al servidor
@@ -123,6 +138,7 @@ public class DrawResultActivity extends Activity {
             try {
                 //obro el socket, envio el token i espero resposta
                 s = new Socket(SERVER_ADRESS,2010);
+                s.setSoTimeout(10000);
                 enviaMissatge(token);
                 escoltaDades();
                 //quan tinc la resposta envio els strokes de la operacio
@@ -131,6 +147,7 @@ public class DrawResultActivity extends Activity {
                 s.close();
                 //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
                 s = new Socket(SERVER_ADRESS,2010);
+                s.setSoTimeout(10000);
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
@@ -194,5 +211,14 @@ public class DrawResultActivity extends Activity {
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else DrawResultActivity.this.res = dades;
         }
+    }
+    //torna a la activity inicial
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //vaig a ala primera activity per torna a scanejar
+        startActivity(intTofirstActivity);
+        //tanco la activity
+        DrawResultActivity.this.finish();
     }
 }
