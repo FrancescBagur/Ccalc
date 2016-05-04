@@ -54,7 +54,7 @@ public class drawingActivity extends Activity {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(12);
+        mPaint.setStrokeWidth(15);
     }
     //Comprobo si hi ha internet
     public boolean isNetworkAvailable(final Context context) {
@@ -66,13 +66,12 @@ public class drawingActivity extends Activity {
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.btClear){
-                //aqui es nateja la pantalla
+                //aqui es nateja la pantalla tornant a crearla
                 drawingActivity.this.recreate();
             }
             else {
                 if(!isNetworkAvailable(getApplicationContext())){
-                    SEND.setText("No connection, Reload");
-                    drawingActivity.this.recreate();
+                    CLEAR.setText("Connection lost, try again");
                 } else {
                     //aqui senvian les dades al servidor
                     //obra un activity de resultat enviatli els tracades realitzats
@@ -139,7 +138,7 @@ public class drawingActivity extends Activity {
         }
 
         private float mX, mY;
-        private static final float TOUCH_TOLERANCE = 4;
+        private static final float TOUCH_TOLERANCE = 1;
 
         private void touch_start(float x, float y) {
             mPath.reset();
@@ -206,5 +205,13 @@ public class drawingActivity extends Activity {
             }
             return true;
         }
+    }
+    //obra la activity inicial
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent goIni = new Intent(drawingActivity.this,InitialActivity.class);
+        startActivity(goIni);
+        drawingActivity.this.finish();
     }
 }
