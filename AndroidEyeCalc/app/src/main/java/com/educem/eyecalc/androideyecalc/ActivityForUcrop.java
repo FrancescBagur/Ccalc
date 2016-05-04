@@ -191,7 +191,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.160";
+        private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)

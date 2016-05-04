@@ -7,6 +7,7 @@ class NotacioPolaca:
 
     def __init__(self, expresio):
         self.expresio = expresio;
+        print expresio
         self.precedencia={'+':1,'-':1,'*':2,'/':2,'^':3}
         self.associatiu={'+':'i','-':'i','*':'i','/':'i','^':'d'}
         self.operador='+-*/^'
@@ -143,5 +144,5 @@ class NotacioPolaca:
                         self.cola(self.pop())
                 self.push(token)
         self.vacia_stack()
-        #print self.cuaSortida
+        print self.cuaSortida
         return self.cuaSortida

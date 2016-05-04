@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #encoding: latin1
 import sys
-from ClassInkmlReader import InkmlReader;
+import os
+from ClassTransformadorExpSeshat import Transformador;
 from ClassNotacioPolaca import NotacioPolaca;
 from ClassCalculadoraPolaca import PolacCalc;
 
@@ -12,7 +13,9 @@ from ClassCalculadoraPolaca import PolacCalc;
 #Obting la operació del fitxer.
 try:
     infile = open('/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp'+sys.argv[1]+'.txt','r')
-    operacio = infile.readline()
+    operacio = infile.readline().rstrip()
+    ObjTransformador = Transformador(operacio)
+    operacio = ObjTransformador.transformarExpresio()
     #operacio = ObjInkmlReader.llegirINKML()
     ObjNotacioPolaca = NotacioPolaca(operacio)
 
@@ -22,6 +25,8 @@ try:
     for ex in cuaSortida:
         expresioPolaca += ex + " "
 
+    print expresioPolaca
+
     #Un cop ting l'string a notacio polaca "expresioPolaca", es hora de resoldre la operació
     #print expresioPolaca + '------->'
     ObjPolacCalc = PolacCalc(expresioPolaca);
@@ -29,14 +34,17 @@ try:
     operacioResultat = str(operacio)+":"+str(resultat)
 except ValueError:
     operacioResultat = "null:err"
-    file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt', 'w+')
+    file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
     file.write(operacioResultat)
     file.close()
+    os.rename('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
     raise ValueError("No s'ha pogut realitzar la operació")
 
-file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt', 'w+')
+file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
 file.write(operacioResultat)
 file.close()
+os.rename('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
+
 
 
 
