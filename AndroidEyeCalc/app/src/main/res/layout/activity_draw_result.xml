@@ -7,16 +7,23 @@
     tools:context="com.educem.eyecalc.an123droideyecalc.DrawResultActivity"
     android:background="#3a5795"
     android:orientation="vertical"
-    android:id="@+id/RlBoss">
+    android:id="@+id/LlBoss">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:id="@+id/llResultat"
+        android:layout_weight="1"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:id="@+id/llContenidor"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:layout_weight="1">
 
         <ProgressBar
             android:layout_width="wrap_content"

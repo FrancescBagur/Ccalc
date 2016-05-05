@@ -49,6 +49,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     private String[] res = {""};
     //El contenidor de la app
     private LinearLayout ll;
+    //layout on es mostrara el resultat
+    private LinearLayout llres;
     //boto per anar a la primera activity i torna a fer la foto
     private Button scanAgain;
     //bolea per saber si hi ha conexio o no
@@ -67,10 +69,11 @@ public class ActivityForUcrop extends AppCompatActivity {
         Uri OriginalImage = intentResult.getData();
         //obro el uCrop
         StartUcrop(OriginalImage);
-        //inicialitzo el boto per tornar a scanejar i li poso l'escoltador per quan el clickin
+        //inicialitzo el boto i el layout per tornar a scanejar i li poso l'escoltador per quan el clickin
+        llres = (LinearLayout) findViewById(R.id.llres);
         scanAgain = (Button) findViewById(R.id.btScanAgain);
         scanAgain.setOnClickListener(new goInitial());
-        this.ll = (LinearLayout) findViewById(R.id.llContenidor);
+        this.ll = (LinearLayout) findViewById(R.id.llBoss);
     }
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
@@ -142,33 +145,51 @@ public class ActivityForUcrop extends AppCompatActivity {
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progBar);
-        ll.removeView(pb);
+        LinearLayout lls = (LinearLayout) findViewById(R.id.llContenidor);
+        ll.removeView(lls);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
         TextView tvOperacio = new TextView(ActivityForUcrop.this);
-        tvOperacio.setText("Operation   \n"+operacio);
+        tvOperacio.setText("Operacio");
+        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvOperacio.setTextSize(50);
+        tvOperacio.setTextColor(Color.WHITE);
+        tvOperacio.setBackgroundResource(R.drawable.text_views);
+        tvOperacio.setBackgroundColor(Color.parseColor("#0959c0"));
+        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        llres.addView(tvOperacio);
+        tvOperacio = new TextView(ActivityForUcrop.this);
+        tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(50);
         tvOperacio.setTextColor(Color.WHITE);
         tvOperacio.setBackgroundResource(R.drawable.text_views);
         tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvOperacio);
+        llres.addView(tvOperacio);
         //resultat
         TextView tvResultat = new TextView(ActivityForUcrop.this);
-        tvResultat.setText("Result   \n"+resultat);
+        tvResultat.setText("Resultat");
+        tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvResultat.setTextSize(50);
+        tvResultat.setTextColor(Color.WHITE);
+        tvResultat.setBackgroundResource(R.drawable.text_views);
+        tvResultat.setBackgroundColor(Color.parseColor("#0959c0"));
+        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        llres.addView(tvResultat);
+        tvResultat = new TextView(ActivityForUcrop.this);
+        tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(50);
         tvResultat.setTextColor(Color.WHITE);
         tvResultat.setBackgroundResource(R.drawable.text_views);
         tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvResultat);
+        llres.addView(tvResultat);
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvError = new TextView(ActivityForUcrop.this);
+        TextView tvError = new TextView(this);
         tvError.setBackgroundResource(R.drawable.text_views);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -176,7 +197,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         tvError.setTextSize(50);
         tvError.setTextColor(Color.WHITE);
         tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(tvError);
+        llres.addView(tvError);
     }
     //inverteixo la imatge
     public Bitmap invertBMP(Bitmap bmp){
@@ -238,7 +259,7 @@ public class ActivityForUcrop extends AppCompatActivity {
             super.onPostExecute(aVoid);
             Boolean seguir = false;
             acabarEspera();
-            if(!serverOFF) {
+            if (!serverOFF) {
                 while (!seguir) {
                     if (!res[0].equals(""))
                         seguir = true;
