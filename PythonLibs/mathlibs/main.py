@@ -6,7 +6,14 @@ from ClassTransformadorExpSeshat import Transformador;
 from ClassNotacioPolaca import NotacioPolaca;
 from ClassCalculadoraPolaca import PolacCalc;
 
+def transformadorExpres(exp):
+    exp = exp.replace("s","sin")
+    exp = exp.replace("!","sqrt")
+    exp = exp.replace("?","log")
+    exp = exp.replace("|","cos")
+    exp = exp.replace("$","tan")
 
+    return exp
 #Creo un lector de fitxers inkml i li passo la ruta del fitxer que vui llegir
 #ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
 
@@ -32,6 +39,7 @@ try:
     ObjPolacCalc = PolacCalc(expresioPolaca);
     resultat = ObjPolacCalc.calcularExpresio();
     operacioResultat = str(operacio)+":"+str(resultat)
+    operacioResultat = transformadorExpres(operacioResultat)
 except ValueError:
     operacioResultat = "null:err"
     file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')

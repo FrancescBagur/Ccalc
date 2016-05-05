@@ -8,13 +8,13 @@ class NotacioPolaca:
     def __init__(self, expresio):
         self.expresio = expresio;
         print expresio
-        self.precedencia={'+':1,'-':1,'*':2,'/':2,'^':3}
+        self.precedencia={'s':1,'&':1,'·':1,'¬':1,'?':1,'º':1,'|':1,'¡':1,'+':2,'-':2,'*':3,'/':3,'^':4,'!':4}
         self.associatiu={'+':'i','-':'i','*':'i','/':'i','^':'d'}
-        self.operador='+-*/^'
+        self.operador='+-*/^?|$'
         self.papertura='([{'
         self.pcierre=')]}'
         self.sep=',;'
-        self.func=['sqrt','log','ln','sin','cos','tg','cotg']
+        self.func=['!','?','ln','s','|','$','cotg']
         self.expresion_infixa=''
         self.stack=[]
         self.cuaSortida=[]

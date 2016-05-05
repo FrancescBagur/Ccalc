@@ -83,10 +83,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ServidorCcalc.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServidorCcalc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="-1260">
               <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
               <folding />
             </state>
@@ -105,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1560">
-              <caret line="104" column="4" selection-start-line="104" selection-start-column="4" selection-end-line="121" selection-end-column="5" />
+            <state relative-caret-position="220">
+              <caret line="185" column="32" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -957,16 +957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="104" column="4" selection-start-line="104" selection-start-column="4" selection-end-line="121" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-274">
@@ -979,9 +969,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="-1260">
           <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="185" column="32" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
