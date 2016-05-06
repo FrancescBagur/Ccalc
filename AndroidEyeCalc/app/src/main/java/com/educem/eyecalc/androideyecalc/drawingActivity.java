@@ -45,12 +45,13 @@ public class drawingActivity extends Activity {
     private void obrirCanvas(){
         //per escriure per pantalla
         dv = new DrawingView(this);
+        dv.setBackgroundColor(Color.WHITE);
         dv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
         llPrinc.addView(dv,0);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(Color.WHITE);
+        mPaint.setColor(Color.parseColor("#FF4A659E"));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);

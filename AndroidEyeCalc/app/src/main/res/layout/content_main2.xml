@@ -3,45 +3,64 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3a5795"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:padding="16dp"
     android:id="@+id/llBoss">
 
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/llres"
-        android:layout_weight="1" />
+        android:layout_height="58dp"
+        android:id="@+id/linearLayout2"
+        android:background="#3a5795"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivfletcha"
+            android:src="@drawable/leftarrow"
+            android:layout_marginLeft="5dp"
+            android:contentDescription="@string/frcd" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/ccalc"
+            android:contentDescription="@string/ivlogocd" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/llResult"
         android:layout_weight="1"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/llContenidor"
-        android:gravity="center_horizontal">
+        android:layout_gravity="center"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvO" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvR"
+            android:gravity="center_horizontal" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progBar"
+            android:id="@+id/pBar"
             android:indeterminate="true" />
-
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btScanAgain"
-        android:id="@+id/btScanAgain"
-        android:enabled="true"
-        android:textColor="#3a5795"
-        android:background="@drawable/blue_button"
-        android:layout_gravity="center" />
 
 </LinearLayout>
