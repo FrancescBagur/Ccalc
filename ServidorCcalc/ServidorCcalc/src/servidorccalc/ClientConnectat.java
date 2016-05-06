@@ -131,11 +131,17 @@ class ClientConnectat implements Runnable{
 
     private void engegarLibMath(){
         try {
-            ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
+            ProcessBuilder pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py ",String.valueOf(idThread));
             Process p = null;
             p = pb.start();
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String missatge;
+            while((missatge = in.readLine() )!= null){
+                System.out.println(missatge + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("estem al catch");
         }
     }
 

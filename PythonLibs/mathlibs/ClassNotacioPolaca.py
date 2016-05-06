@@ -8,9 +8,9 @@ class NotacioPolaca:
     def __init__(self, expresio):
         self.expresio = expresio;
         print expresio
-        self.precedencia={'s':1,'&':1,'·':1,'¬':1,'?':1,'º':1,'|':1,'¡':1,'+':2,'-':2,'*':3,'/':3,'^':4,'!':4}
+        self.precedencia={'s':1,'&':1,'·':1,'¬':1,'?':1,'º':1,'|':1,'¡':1,'+':2,'-':2,'*':3,'/':3,'^':4,'!':4,'@':5}
         self.associatiu={'+':'i','-':'i','*':'i','/':'i','^':'d'}
-        self.operador='+-*/^?|$'
+        self.operador='+-*/^?|$@'
         self.papertura='([{'
         self.pcierre=')]}'
         self.sep=',;'
@@ -116,7 +116,7 @@ class NotacioPolaca:
                 else:
                     #es tancament
                     comp=self.papertura[self.pcierre.find(token)]
-                    while self.stack[0]<>comp:
+                    while self.stack[0]!=comp:
                         self.cola(self.pop())
                     self.pop()#treu el parèntesi i no el fica en cua
                     if len(self.stack)>0:

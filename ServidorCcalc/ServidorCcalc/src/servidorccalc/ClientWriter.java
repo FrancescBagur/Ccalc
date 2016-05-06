@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by root on 03/05/16.
+ * Created by francesc on 03/05/16.
  */
 class ClientWriter implements Runnable{
     Socket connexio;
@@ -47,11 +47,18 @@ class ClientWriter implements Runnable{
 
     private void engegarLibMath(){
         try {
-            ProcessBuilder pb = new ProcessBuilder("python","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
             Process p = null;
             p = pb.start();
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String missatge;
+            while((missatge = in.readLine() )!= null){
+                System.out.println(missatge + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 

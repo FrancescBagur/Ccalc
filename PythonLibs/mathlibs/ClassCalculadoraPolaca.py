@@ -24,7 +24,7 @@ class PolacCalc:
             # Si no el podem convertir en numero, hauria de ser un operador
             except ValueError:
                 # Si no es un operador valid, llença un ValueError
-                if element not in "+-*/ %!?s^|$" or len(element) != 1:
+                if element not in "+-*/ %!?s^|$@" or len(element) != 1:
                     raise ValueError("Operador invalid")
                 # Si es un operador valid, intenta desapilar i operar
                 try:
@@ -62,6 +62,8 @@ class PolacCalc:
                     resultat = math.cos(a1)
                 elif element == '$':
                     resultat = math.tan(a1)
+                elif element == "@":
+                    resultat = a2 / a1
                 p.apilar(resultat)
         # Al final el resultat té que ser l'unic de la pila
         res = p.desapilar()

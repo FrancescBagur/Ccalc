@@ -16,6 +16,7 @@ class Transformador:
         self.exp = self.exp.replace(',','.')
         self.exp = self.exp.replace('\cos','|')
         self.exp = self.exp.replace('\\tg','$')
+        self.exp = self.exp.replace('\\frac','@')
 
         return self.exp
 
