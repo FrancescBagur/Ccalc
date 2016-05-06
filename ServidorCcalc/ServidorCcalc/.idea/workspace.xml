@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc$EscoltaConnexio.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc$EscoltaConnexio.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc$Monitor.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc$Monitor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ServidorCcalc.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/sendPost.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/sendPost.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassCalculadoraPolaca.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassCalculadoraPolaca.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassNotacioPolaca.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassNotacioPolaca.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassTransformadorExpSeshat.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassTransformadorExpSeshat.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/main.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
-    </list>
+    <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="" />
     <ignored path="ServidorCcalc.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -449,7 +434,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44903582" sideWeight="0.5299465" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44903582" sideWeight="0.47005346" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44903582" sideWeight="0.47005346" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
