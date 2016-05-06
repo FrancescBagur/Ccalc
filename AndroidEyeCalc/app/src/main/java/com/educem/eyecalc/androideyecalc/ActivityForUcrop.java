@@ -48,8 +48,6 @@ public class ActivityForUcrop extends AppCompatActivity {
     private int ID=-1;
     //El resultat del Thread
     private String[] res = {""};
-    //El contenidor de la app
-    private LinearLayout ll;
     //layout on es mostrara el resultat
     private LinearLayout llres;
     //boto per anar a la primera activity i torna a fer la foto
@@ -71,10 +69,9 @@ public class ActivityForUcrop extends AppCompatActivity {
         //obro el uCrop
         StartUcrop(OriginalImage);
         //inicialitzo el boto i el layout per tornar a scanejar i li poso l'escoltador per quan el clickin
-        llres = (LinearLayout) findViewById(R.id.llResult);
+        llres = (LinearLayout) findViewById(R.id.llResultat2);
         scanAgain = (ImageView) findViewById(R.id.ivfletcha);
         scanAgain.setOnClickListener(new goInitial());
-        this.ll = (LinearLayout) findViewById(R.id.llBoss);
     }
     //classe a que sentra quan fas click a scanAgain
     public class goInitial implements Button.OnClickListener {
@@ -145,31 +142,33 @@ public class ActivityForUcrop extends AppCompatActivity {
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
-        ProgressBar pb2 = (ProgressBar) findViewById(R.id.pBar);
+        ProgressBar pb1 = (ProgressBar) findViewById(R.id.pbOpE);
+        ProgressBar pb2 = (ProgressBar) findViewById(R.id.pbResE);
+        llres.removeView(pb1);
         llres.removeView(pb2);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
-        Log.i("hola","entro a mostrar resultat correcte");
         //operacio
-        TextView tvOperacio = (TextView) findViewById(R.id.tvO);
+        TextView tvOperacio = (TextView) findViewById(R.id.tvOperacio);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(30);
         tvOperacio.setTextColor(Color.BLACK);
-        tvOperacio.setBackgroundColor(Color.parseColor("#3a5795"));
         //resultat
-        TextView tvResultat = (TextView) findViewById(R.id.tvR);
+        TextView tvResultat = (TextView) findViewById(R.id.tvResultat);
         tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(30);
         tvResultat.setTextColor(Color.BLACK);
-        tvResultat.setBackgroundColor(Color.parseColor("#3a5795"));
     }
     //mostra error al calcular
     private void mostrarError() {
-        Log.i("hola", "entro a mostrar error");
-        TextView tvError = (TextView) findViewById(R.id.tvO);
+        TextView tvOE = (TextView) findViewById(R.id.tvOE);
+        TextView tvRE = (TextView) findViewById(R.id.tvRE);
+        llres.removeView(tvOE);
+        llres.removeView(tvRE);
+        TextView tvError = (TextView) findViewById(R.id.tvOperacio);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");
@@ -198,7 +197,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.4";
+        private static final String SERVER_ADRESS="192.168.0.163";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
