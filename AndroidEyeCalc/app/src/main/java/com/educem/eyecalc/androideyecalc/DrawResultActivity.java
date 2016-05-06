@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -35,11 +33,12 @@ public class DrawResultActivity extends Activity {
     //layout on es mostrara el resultat
     private LinearLayout llres;
     //torna a la plana inicial
-    private Button scanAgain;
+    private ImageView scanAgain;
     //boolean per saber si hi ha o no conexio
     private Boolean con = true;
     //intent per obrir la primera activity
     Intent intTofirstActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +46,7 @@ public class DrawResultActivity extends Activity {
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(DrawResultActivity.this, InitialActivity.class);
         //inicialitzo el boto per tornar al principi
-        scanAgain = (Button) findViewById(R.id.btScanAgain);
+        scanAgain = (ImageView) findViewById(R.id.ivReturn);
         scanAgain.setOnClickListener(new goInitial());
         //inicialitzo el layout pare i la taula i agafo les dades amb que m'han obert
         ll = (LinearLayout) findViewById(R.id.LlBoss);
@@ -58,7 +57,8 @@ public class DrawResultActivity extends Activity {
         if (isNetworkAvailable(this))new enviaServerSocket().execute();
         else {
             acabarEspera();
-            scanAgain.setText("Connection lost, try again");
+            this.res[0]="ers";
+            mostrarError();
             con =false;
         }
     }
@@ -90,62 +90,36 @@ public class DrawResultActivity extends Activity {
     }
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
-        //Eliminem els elements antics del contenidor
-            //ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-            //ll.removeView(pb);
-        LinearLayout lls = (LinearLayout) findViewById(R.id.llContenidor);
-        ll.removeView(lls);
+        ProgressBar pb2 = (ProgressBar) findViewById(R.id.progBarRes);
+        llres.removeView(pb2);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
+        Log.i("hola","entro a mostrar resultat correcte");
         //operacio
-        TextView tvOperacio = new TextView(DrawResultActivity.this);
-        tvOperacio.setText("Operacio");
-        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(50);
-        tvOperacio.setTextColor(Color.WHITE);
-        tvOperacio.setBackgroundResource(R.drawable.text_views);
-        tvOperacio.setBackgroundColor(Color.parseColor("#0959c0"));
-        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvOperacio);
-        tvOperacio = new TextView(DrawResultActivity.this);
+        TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(50);
-        tvOperacio.setTextColor(Color.WHITE);
-        tvOperacio.setBackgroundResource(R.drawable.text_views);
-        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvOperacio);
+        tvOperacio.setTextSize(30);
+        tvOperacio.setTextColor(Color.BLACK);
+        tvOperacio.setBackgroundColor(Color.parseColor("#3a5795"));
         //resultat
-        TextView tvResultat = new TextView(DrawResultActivity.this);
-        tvResultat.setText("Resultat");
-        tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvResultat.setTextSize(50);
-        tvResultat.setTextColor(Color.WHITE);
-        tvResultat.setBackgroundResource(R.drawable.text_views);
-        tvResultat.setBackgroundColor(Color.parseColor("#0959c0"));
-        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvResultat);
-        tvResultat = new TextView(DrawResultActivity.this);
+        TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvResultat.setTextSize(50);
-        tvResultat.setTextColor(Color.WHITE);
-        tvResultat.setBackgroundResource(R.drawable.text_views);
-        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvResultat);
+        tvResultat.setTextSize(30);
+        tvResultat.setTextColor(Color.BLACK);
+        tvResultat.setBackgroundColor(Color.parseColor("#3a5795"));
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvError = new TextView(this);
-        tvError.setBackgroundResource(R.drawable.text_views);
+        Log.i("hola", "entro a mostrar error");
+        TextView tvError = (TextView) findViewById(R.id.tvOp);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");
         tvError.setTextSize(50);
-        tvError.setTextColor(Color.WHITE);
-        tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvError);
+        tvError.setTextColor(Color.BLACK);
     }
     //thread per comunicarse amb el servidor
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
@@ -165,7 +139,7 @@ public class DrawResultActivity extends Activity {
             try {
                 //obro el socket, envio el token i espero resposta
                 s = new Socket(SERVER_ADRESS,2010);
-                s.setSoTimeout(10000);
+                s.setSoTimeout(20000);
                 enviaMissatge(token);
                 escoltaDades();
                 //quan tinc la resposta envio els strokes de la operacio
@@ -174,7 +148,7 @@ public class DrawResultActivity extends Activity {
                 s.close();
                 //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
                 s = new Socket(SERVER_ADRESS,2010);
-                s.setSoTimeout(10000);
+                s.setSoTimeout(20000);
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
@@ -235,6 +209,7 @@ public class DrawResultActivity extends Activity {
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             String[] dades = msg.trim().split(":");
+            Log.i("hola","--"+dades[0]+"--"+dades[1]+"--");
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else DrawResultActivity.this.res = dades;
         }

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class ActivityForUcrop extends AppCompatActivity {
     //layout on es mostrara el resultat
     private LinearLayout llres;
     //boto per anar a la primera activity i torna a fer la foto
-    private Button scanAgain;
+    private ImageView scanAgain;
     //bolea per saber si hi ha conexio o no
     private Boolean con=true;
     //intent per anar a la activity inicial
@@ -70,8 +71,8 @@ public class ActivityForUcrop extends AppCompatActivity {
         //obro el uCrop
         StartUcrop(OriginalImage);
         //inicialitzo el boto i el layout per tornar a scanejar i li poso l'escoltador per quan el clickin
-        llres = (LinearLayout) findViewById(R.id.llres);
-        scanAgain = (Button) findViewById(R.id.btScanAgain);
+        llres = (LinearLayout) findViewById(R.id.llResult);
+        scanAgain = (ImageView) findViewById(R.id.ivfletcha);
         scanAgain.setOnClickListener(new goInitial());
         this.ll = (LinearLayout) findViewById(R.id.llBoss);
     }
@@ -93,7 +94,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         UCrop.Options opt = new UCrop.Options();
         opt.setFreeStyleCropEnabled(true);
         opt.setToolbarColor(Color.parseColor("#3a5795"));
-        opt.setStatusBarColor(Color.parseColor("#3a5795"));
+        opt.setStatusBarColor(Color.BLACK);
         UCrop.of(photo, finalPhoto).withAspectRatio(16, 9).withMaxResultSize(100, 100).withOptions(opt).start(ActivityForUcrop.this);
     }
     //agafa el resultat del UCrop
@@ -116,7 +117,6 @@ public class ActivityForUcrop extends AppCompatActivity {
                 if(isNetworkAvailable(getApplicationContext()))new enviaServerSocket().execute();
                 else {
                     acabarEspera();
-                    scanAgain.setText("Connection lost, try again");
                     con = false;
                 }
             } catch (FileNotFoundException e) {
@@ -145,59 +145,36 @@ public class ActivityForUcrop extends AppCompatActivity {
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
         //Eliminem els elements antics del contenidor
-        LinearLayout lls = (LinearLayout) findViewById(R.id.llContenidor);
-        ll.removeView(lls);
+        ProgressBar pb2 = (ProgressBar) findViewById(R.id.pBar);
+        llres.removeView(pb2);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
+        Log.i("hola","entro a mostrar resultat correcte");
         //operacio
-        TextView tvOperacio = new TextView(ActivityForUcrop.this);
-        tvOperacio.setText("Operacio");
-        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(50);
-        tvOperacio.setTextColor(Color.WHITE);
-        tvOperacio.setBackgroundResource(R.drawable.text_views);
-        tvOperacio.setBackgroundColor(Color.parseColor("#0959c0"));
-        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvOperacio);
-        tvOperacio = new TextView(ActivityForUcrop.this);
+        TextView tvOperacio = (TextView) findViewById(R.id.tvO);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(50);
-        tvOperacio.setTextColor(Color.WHITE);
-        tvOperacio.setBackgroundResource(R.drawable.text_views);
-        tvOperacio.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvOperacio);
+        tvOperacio.setTextSize(30);
+        tvOperacio.setTextColor(Color.BLACK);
+        tvOperacio.setBackgroundColor(Color.parseColor("#3a5795"));
         //resultat
-        TextView tvResultat = new TextView(ActivityForUcrop.this);
-        tvResultat.setText("Resultat");
-        tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvResultat.setTextSize(50);
-        tvResultat.setTextColor(Color.WHITE);
-        tvResultat.setBackgroundResource(R.drawable.text_views);
-        tvResultat.setBackgroundColor(Color.parseColor("#0959c0"));
-        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvResultat);
-        tvResultat = new TextView(ActivityForUcrop.this);
+        TextView tvResultat = (TextView) findViewById(R.id.tvR);
         tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvResultat.setTextSize(50);
-        tvResultat.setTextColor(Color.WHITE);
-        tvResultat.setBackgroundResource(R.drawable.text_views);
-        tvResultat.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvResultat);
+        tvResultat.setTextSize(30);
+        tvResultat.setTextColor(Color.BLACK);
+        tvResultat.setBackgroundColor(Color.parseColor("#3a5795"));
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvError = new TextView(this);
-        tvError.setBackgroundResource(R.drawable.text_views);
+        Log.i("hola", "entro a mostrar error");
+        TextView tvError = (TextView) findViewById(R.id.tvO);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");
         tvError.setTextSize(50);
-        tvError.setTextColor(Color.WHITE);
-        tvError.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        llres.addView(tvError);
+        tvError.setTextColor(Color.BLACK);
     }
     //inverteixo la imatge
     public Bitmap invertBMP(Bitmap bmp){
