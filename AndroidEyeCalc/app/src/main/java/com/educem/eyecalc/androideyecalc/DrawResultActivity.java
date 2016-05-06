@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -90,30 +93,32 @@ public class DrawResultActivity extends Activity {
     }
     //cancela la progress bar i activa el boto
     private void acabarEspera(){
-        ProgressBar pb2 = (ProgressBar) findViewById(R.id.progBarRes);
+        ProgressBar pb1 = (ProgressBar) findViewById(R.id.progBarOp);
+        ProgressBar pb2 = (ProgressBar) findViewById(R.id.progressBarRes);
+        llres.removeView(pb1);
         llres.removeView(pb2);
     }
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
-        Log.i("hola","entro a mostrar resultat correcte");
         //operacio
         TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(30);
         tvOperacio.setTextColor(Color.BLACK);
-        tvOperacio.setBackgroundColor(Color.parseColor("#3a5795"));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(30);
         tvResultat.setTextColor(Color.BLACK);
-        tvResultat.setBackgroundColor(Color.parseColor("#3a5795"));
     }
     //mostra error al calcular
     private void mostrarError() {
-        Log.i("hola", "entro a mostrar error");
+        TextView op = (TextView) findViewById(R.id.tvopE);
+        TextView re = (TextView) findViewById(R.id.tvresE);
+        llres.removeView(op);
+        llres.removeView(re);
         TextView tvError = (TextView) findViewById(R.id.tvOp);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -126,7 +131,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.4";
+        private static final String SERVER_ADRESS="192.168.0.163";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)

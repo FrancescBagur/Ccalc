@@ -179,8 +179,7 @@ class ClientConnectat implements Runnable{
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            ret = new Integer(in.readLine()).intValue();
-
+            ret = new Integer(in.readLine());
             long end = System.currentTimeMillis();
         } catch (IOException e) {
             e.printStackTrace();
