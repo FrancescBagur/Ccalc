@@ -131,7 +131,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.4";
+        private static final String SERVER_ADRESS="172.20.10.9";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
@@ -214,7 +214,6 @@ public class DrawResultActivity extends Activity {
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             String[] dades = msg.trim().split(":");
-            Log.i("hola","--"+dades[0]+"--"+dades[1]+"--");
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else DrawResultActivity.this.res = dades;
         }

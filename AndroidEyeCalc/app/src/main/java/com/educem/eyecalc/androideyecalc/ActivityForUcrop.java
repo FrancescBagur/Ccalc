@@ -197,7 +197,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.4";
+        private static final String SERVER_ADRESS="172.20.10.9";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
@@ -268,10 +268,8 @@ public class ActivityForUcrop extends AppCompatActivity {
                 outImg.write(imgbyte);
                 outImg.flush();
                 s.close();
-                Log.i("hola","imatge enviada");
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.i("hola","enviar imatge ha petat.");
             }
         }
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
