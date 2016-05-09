@@ -1,2 +1,0 @@
-#!/bin/bash
-./autotrace-0.31.1/autotrace -centerline -color-count 2 -tangent-surround 30 -preserve-width autotrace-0.31.1/render$1.bmp;
