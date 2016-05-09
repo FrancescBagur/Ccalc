@@ -37,7 +37,7 @@ class ClientConnectat implements Runnable{
         try {
             int bytesRead;
             int current;
-            int filesize=65383;
+            int filesize=300000;
             byte [] mybytearray2  = new byte [filesize];
             InputStream is = connexio.getInputStream();
             try (FileOutputStream fos = new FileOutputStream("/imatges/"+fitxerRebutMobil); // destination path and name of file
@@ -131,7 +131,8 @@ class ClientConnectat implements Runnable{
 
     private void engegarLibMath(){
         try {
-            ProcessBuilder pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py ",String.valueOf(idThread));
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -141,7 +142,7 @@ class ClientConnectat implements Runnable{
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("estem al catch");
+
         }
     }
 
