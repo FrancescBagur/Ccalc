@@ -197,7 +197,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.163";
+        private static final String SERVER_ADRESS="172.20.10.4";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
@@ -210,14 +210,14 @@ public class ActivityForUcrop extends AppCompatActivity {
             try {
                 //obro el socket, envio el token i espero resposta
                 s = new Socket(SERVER_ADRESS,2010);
-                s.setSoTimeout(10000);
+                s.setSoTimeout(20000);
                 enviaMissatge(token);
                 escoltaDades();
                 //quan tinc la resposta envio la imatge
                 enviarImatge();
                 //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
                 s = new Socket(SERVER_ADRESS,2010);
-                s.setSoTimeout(10000);
+                s.setSoTimeout(20000);
                 enviaMissatge(token + ":"+ID);
                 //espero el resultat de la operacio
                 escoltaDades();
@@ -268,8 +268,10 @@ public class ActivityForUcrop extends AppCompatActivity {
                 outImg.write(imgbyte);
                 outImg.flush();
                 s.close();
+                Log.i("hola","imatge enviada");
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.i("hola","enviar imatge ha petat.");
             }
         }
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor

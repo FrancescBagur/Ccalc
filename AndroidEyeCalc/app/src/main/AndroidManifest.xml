@@ -44,11 +44,13 @@
         <activity
             android:name=".drawingActivity"
             android:label="@string/title_activity_drawing"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DrawResultActivity"
             android:label="@string/title_activity_draw_result"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
