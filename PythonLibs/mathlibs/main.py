@@ -6,7 +6,7 @@ from ClassTransformadorExpSeshat import Transformador
 from ClassNotacioPolaca import NotacioPolaca
 from ClassCalculadoraPolaca import PolacCalc
 sys.path.insert(1,'/root/anaconda2/bin')
-print sys.path
+#print sys.path
 from ClassCalculadoraEquacions import EcuationCalc
 
 
@@ -20,6 +20,21 @@ def transformadorExpres(exp):
     exp = exp.replace("@","frac")
     return exp
 
+def netejarExpresio(exp):
+    i = 0
+    trobat = False
+    cleanExp = ""
+    while trobat == False:
+        lletra = exp[i]
+        if lletra == '=':
+            trobat = True
+        else:
+            i += 1
+            cleanExp += lletra
+    cleanExp = cleanExp.replace('^{','**')
+    cleanExp = cleanExp.replace('}','')
+    return cleanExp
+
 #Creo un lector de fitxers inkml i li passo la ruta del fitxer que vui llegir
 #ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
 
@@ -32,6 +47,7 @@ try:
     operacio = ObjTransformador.transformarExpresio()
     #operacio = ObjInkmlReader.llegirINKML()
     if "x" in operacio or "y" in operacio or  "z" in operacio:
+        operacio=netejarExpresio(operacio)
         ObjEcuationCalc = EcuationCalc(operacio)
         resultat = ObjEcuationCalc.calcularEquacio()
         print resultat
