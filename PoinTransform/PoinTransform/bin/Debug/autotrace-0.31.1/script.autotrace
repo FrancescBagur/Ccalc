@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ $# -eq 0 ];
-then
-./autotrace -centerline -color-count 2 render.bmp;
-else
-./autotrace -centerline -color-count 2 $1;
-fi

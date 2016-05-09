@@ -602,5 +602,4 @@ public class UCropActivity extends AppCompatActivity {
     protected void setResultException(Throwable throwable) {
         setResult(UCrop.RESULT_ERROR, new Intent().putExtra(UCrop.EXTRA_ERROR, throwable));
     }
-
 }
