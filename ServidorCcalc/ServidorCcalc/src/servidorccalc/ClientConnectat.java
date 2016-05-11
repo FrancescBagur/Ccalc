@@ -37,7 +37,7 @@ class ClientConnectat implements Runnable{
         try {
             int bytesRead;
             int current;
-            int filesize=65383;
+            int filesize=300000;
             byte [] mybytearray2  = new byte [filesize];
             InputStream is = connexio.getInputStream();
             try (FileOutputStream fos = new FileOutputStream("/imatges/"+fitxerRebutMobil); // destination path and name of file
