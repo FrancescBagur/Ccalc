@@ -61,11 +61,10 @@
             android:id="@+id/pbOpE"
             android:indeterminate="true" />
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:id="@+id/tvOperacio" />
+            android:id="@+id/ivOp" />
 
         <TextView
             android:layout_width="match_parent"

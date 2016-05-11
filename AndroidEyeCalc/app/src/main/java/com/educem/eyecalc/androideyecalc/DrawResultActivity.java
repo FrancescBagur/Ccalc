@@ -3,11 +3,12 @@ package com.educem.eyecalc.androideyecalc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -31,6 +31,8 @@ public class DrawResultActivity extends Activity {
     private int ID=0;
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
+    //imatge rebuda del servidor (operacio)
+    private Bitmap imgRes;
     //layout gefe
     private LinearLayout ll;
     //layout on es mostrara el resultat
@@ -101,11 +103,13 @@ public class DrawResultActivity extends Activity {
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
-        TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
+        ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
+        ivO.setImageBitmap(imgRes);
+        /*TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(30);
-        tvOperacio.setTextColor(Color.BLACK);
+        tvOperacio.setTextColor(Color.BLACK);*/
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
@@ -119,7 +123,7 @@ public class DrawResultActivity extends Activity {
         TextView re = (TextView) findViewById(R.id.tvresE);
         llres.removeView(op);
         llres.removeView(re);
-        TextView tvError = (TextView) findViewById(R.id.tvOp);
+        TextView tvError = (TextView) findViewById(R.id.tvRes);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");
@@ -131,7 +135,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.13";
+        private static final String SERVER_ADRESS="192.168.0.164";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
@@ -157,6 +161,12 @@ public class DrawResultActivity extends Activity {
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
+                if (!res[1].equals("err")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {
@@ -214,9 +224,21 @@ public class DrawResultActivity extends Activity {
         //actua en funció de les dades rebudes per el servidor.
         private void tractaDades(String msg){
             String[] dades = msg.trim().split(":");
-            Log.i("hola","--"+dades[0]+"--"+dades[1]+"--");
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else DrawResultActivity.this.res = dades;
+        }
+        //rep una imatge.
+        private void escoltaImatge(){
+            try {
+                InputStream stream = s.getInputStream();
+                byte[] img = new byte[300000];
+                int numberBytes = stream.read(img);
+                Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
+                imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
     //torna a la activity inicial
