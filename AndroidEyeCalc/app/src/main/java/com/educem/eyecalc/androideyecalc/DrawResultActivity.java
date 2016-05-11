@@ -123,7 +123,7 @@ public class DrawResultActivity extends Activity {
         TextView re = (TextView) findViewById(R.id.tvresE);
         llres.removeView(op);
         llres.removeView(re);
-        TextView tvError = (TextView) findViewById(R.id.tvOp);
+        TextView tvError = (TextView) findViewById(R.id.tvRes);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");

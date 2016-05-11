@@ -166,7 +166,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         TextView tvRE = (TextView) findViewById(R.id.tvRE);
         llres.removeView(tvOE);
         llres.removeView(tvRE);
-        TextView tvError = (TextView) findViewById(R.id.tvOperacio);
+        TextView tvError = (TextView) findViewById(R.id.tvResultat);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
         else tvError.setText("Error reading operation, try again.");
