@@ -9,6 +9,7 @@ import java.net.URL;
 /**
  * Created by francesc on 10/05/16.
  */
+
 class sendGet implements Runnable{
     private static final String USER_AGENT = "Mozilla/5.0";
     private String latexEquation;
@@ -51,12 +52,20 @@ class sendGet implements Runnable{
                 if(bytesRead >= 0) current += bytesRead;
                 //System.out.println(bytesRead);
             } while((bytesRead > -1));
-            System.out.println("Imatge rebuda");
+            System.out.println("Imatge latex rebuda");
 
             bos.write(mybytearray2);
-            System.out.println("hem acabat l'escriptura");
+            System.out.println("Imatge latex guardada");
             bos.flush();
             bos.close();
+
+            File oldName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
+            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(id) + ".gif");
+            if(oldName.renameTo(newName)) {
+                System.out.println("Imatge renombrada");
+            } else {
+                System.out.println("Error al renombrar l'imatge latex");
+            }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
