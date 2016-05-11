@@ -23,6 +23,7 @@ class ClientWriter implements Runnable{
 
     @Override
     public void run(){
+        String operacio = "";
         try {
             BufferedReader bf =new  BufferedReader(new InputStreamReader(connexio.getInputStream()));
             String strokes = bf.readLine();
@@ -34,10 +35,19 @@ class ClientWriter implements Runnable{
                 fitxerSortida = new File("expresions/exp" + idThread + ".txt");
                 if (fitxerSortida.exists()) {
                     //Ja tenim resposta del server
-                    System.out.println("Ja tenim resposta del server, engeuem les llibreries matemàtiques");
+                    System.out.println("Ja tenim resposta del server, engeuem les llibreries matemàtiques i fem la petició de l'imatge latex");
                     creat = true;
                 }
             }
+            try (BufferedReader br = new BufferedReader(new FileReader("expresions/exp" + idThread + ".txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    operacio += line;
+                }
+            }
+            sendGet s = new sendGet(operacio,idThread);
+            Thread t1 = new Thread(s);
+            t1.start();
             //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
             engegarLibMath();
         } catch (IOException e) {

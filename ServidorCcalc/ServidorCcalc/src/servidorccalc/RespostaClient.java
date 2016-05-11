@@ -1,7 +1,10 @@
 package servidorccalc;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 /**
  * Created by francesc on 02/05/16.
@@ -12,6 +15,7 @@ class RespostaClient implements Runnable{
     ServidorCcalc.Monitor m;
     Boolean creat;
     File fitxerSortida;
+    File imatgeLatex;
     int idThread;
     int idTransaccio;
 
@@ -48,7 +52,38 @@ class RespostaClient implements Runnable{
         }
         System.out.println("La id del thread es " + idThread);
         System.out.println("El resultat es: " + resultat);
+
+        //Envio el missatge amb el resultat
         m.enviarMissatge(resultat+"\n",idThread);
+        //Espero rebre el missatge de ok
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(connexio.getInputStream()));
+            String missatge = in.readLine();
+            if(missatge.trim().equals("ok")){
+                //El client ja ha rebut el resultat, passo a enviar-li la imatge
+                try {
+                    enviarImatge();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        creat = false;
+        while(!creat) {
+            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
+            if (imatgeLatex.exists()) {
+                //Els scripts han acabat
+                System.out.println("Ja hi ha la imatge latex guardada i la podem enviar");
+                creat = true;
+            }
+        }
+
         //borrarFitxersAntics(idTransaccio);
     }
 
@@ -78,5 +113,24 @@ class RespostaClient implements Runnable{
             return true;
         }else
             return false;
+    }
+
+    private void enviarImatge() throws IOException, InterruptedException {
+        OutputStream outputStream = connexio.getOutputStream();
+
+        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif"));
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "gif", byteArrayOutputStream);
+
+        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+        outputStream.write(size);
+        outputStream.write(byteArrayOutputStream.toByteArray());
+        outputStream.flush();
+        System.out.println("Flushed: " + System.currentTimeMillis());
+
+        Thread.sleep(120000);
+        System.out.println("Closing: " + System.currentTimeMillis());
+        connexio.close();
     }
 }
