@@ -1,28 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3a5795"
+    tools:context="com.educem.eyecalc.an123droideyecalc.ActivityForUcrop"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:padding="20dp">
+    android:id="@+id/llBoss">
 
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/ivMostraRes"
-        android:layout_weight="1" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/lltoolbar2"
+        android:background="#3a5795"
+        android:gravity="center_vertical|center_horizontal" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btScanAgain"
-        android:id="@+id/btScanAgain"
-        android:enabled="true"
-        android:textColor="#3a5795"
-        android:background="@drawable/blue_button"
-        android:layout_gravity="right" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivfletcha"
+            android:src="@drawable/leftarrow"
+            android:layout_marginLeft="5dp"
+            android:contentDescription="@string/frcd" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/ccalc"
+            android:contentDescription="@string/ivlogocd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/llResultat2"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvOE"
+            android:text="@string/OpEnunciat"
+            android:textSize="40sp"
+            android:textColor="#d6cece" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pbOpE"
+            android:indeterminate="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivOp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvRE"
+            android:textSize="40sp"
+            android:text="@string/resEnunciat"
+            android:textColor="#d6cece" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pbResE"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvResultat"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
 
 </LinearLayout>

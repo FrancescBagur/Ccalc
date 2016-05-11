@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.educem.eyecalc.an123droideyecalc.DrawResultActivity"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:id="@+id/LlBoss">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/llToolBar"
+        android:background="#3a5795"
+        android:gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivReturn"
+            android:src="@drawable/leftarrow"
+            android:layout_marginLeft="5dp"
+            android:contentDescription="@string/frcd" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/ccalc"
+            android:contentDescription="@string/ivlogocd" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/llResultat"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:weightSum="1"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvopE"
+            android:text="@string/OpEnunciat"
+            android:textSize="40sp"
+            android:textColor="#d6cece" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progBarOp"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvresE"
+            android:textSize="40sp"
+            android:text="@string/resEnunciat"
+            android:textColor="#d6cece" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivOpe" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarRes"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvRes"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+</LinearLayout>

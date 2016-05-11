@@ -41,7 +41,6 @@ int main (int argc, char *argv[]){
     		printf("Error a l'eliminar arxiu antic");
   		else
     		printf("S'ha eliminat un fitxer antic");
-  		return 0;
 	}
 	
 	//Executo l'escript de l'autotrace
@@ -51,9 +50,9 @@ int main (int argc, char *argv[]){
 	//el nom canviat per l'script
 	bool seguir = false;
 	while(!seguir){
+		printf("Soc al bucle");
 		if(existsFile(fitxSort)==1){
 			//El fitxer ja existeix, autotrace ha acabat i per tant podem seguir
-			printf("Soc al bucle");
 			seguir = true;
 		}
 	}
@@ -105,42 +104,62 @@ int main (int argc, char *argv[]){
 	    	t++;
 	    }
 	    fitxer.close();
-	   
+	    char fitxer1[30];
+	    sprintf(fitxer1,"%s%s%s","seshat/SampleMathExps/",argv[1],"exp.scgink");
+	    //Si existeix el fitxer de sortida antic de seshat el borrem
+ 		if(existsFile(fitxer1)==1){
+		//Si ja existeix un fitxer anterior, l'elimino per poder seguir amb el proces
+			if(remove(fitxer1) != 0)
+	    		printf("Error a l'eliminar arxiu antic");
+	  		else
+	    		printf("S'ha eliminat un fitxer antic");
+		}
 	    std::stringstream stream;  
 		std::string strNum; 
- 		std::string nomFitxerEntradaSeshat = "exp" + id + ".scgink";
-	    ofstream fitxerEntrada (("seshat/SampleMathExps/"+nomFitxerEntradaSeshat).c_str());
+ 		std::string nomFitxerEntradaSeshat = id + "exp.scgink";
+	    ofstream fitxerEntrada (fitxer1);
   		if (fitxerEntrada.is_open()){
-  			fitxerEntrada << "SCG_INK\n";
-  			stream << StrokesMatrix.size();
-	    	strNum = stream.str();
+  			//fitxerEntrada << "SCG_INK\n";
+  			fitxerEntrada << "[";
+  			//stream << StrokesMatrix.size();
+	    	//strNum = stream.str();
 	    	stream.str("");
-  			fitxerEntrada << strNum + "\n";
+  			//fitxerEntrada << strNum + "\n";
 	    	for(int z=0; z <StrokesMatrix.size(); z++){
-	    		stream << StrokesMatrix[z].size()/2;
-	    		strNum = stream.str();
+	    		//stream << StrokesMatrix[z].size()/2;
+	    		fitxerEntrada << "[";
+	    		//strNum = stream.str();
 	    		stream.str("");
-	    		fitxerEntrada << strNum + "\n";
+	    		//fitxerEntrada << strNum + "\n";
 	    		for(int w=0; w<StrokesMatrix[z].size(); w+=2){
+	    			fitxerEntrada << "[";
 	    			stream << StrokesMatrix[z][w];
-	    			strNum = stream.str() + " ";
+	    			strNum = stream.str() + ",";
 	    			stream.str("");
 	    			stream << StrokesMatrix[z][w+1];
 	    			strNum += stream.str();
 	    			stream.str("");
-	    			fitxerEntrada << strNum + "\n";
+	    			if(w<StrokesMatrix[z].size()-2)
+	    				fitxerEntrada << strNum + "],";
+	    			else
+	    				fitxerEntrada << strNum + "]";
 	    		}
+	    		if (z < StrokesMatrix.size() - 1) 
+	    			fitxerEntrada << "],";
+	    		else
+	    			fitxerEntrada << "]";
 	    	}
+	    	fitxerEntrada << "]";
    	 		fitxerEntrada.close();
    	 		char comandaSeshat[60];
-   	 		printf("Executem seshat");
-			sprintf(comandaSeshat,"cd seshat;script.seshat %s",argv[1]);
+			char fitxer2[30];
+			sprintf(fitxer2,"%s%s%s","seshat/SampleMathExps/exp",argv[1],".scgink");
+   	 		printf("Genero el fitxer de sortida per enviar al servidor de seshat");
+			sprintf(comandaSeshat,"mv -i %s %s;",fitxer1,fitxer2);
 			system(comandaSeshat);
   		}else cout << "Unable to open file";
     	
   	}else printf("Imposible obrir el fitxer");
-	
-	return 0;
 }
 
 int arrodonirFloat(float numf){

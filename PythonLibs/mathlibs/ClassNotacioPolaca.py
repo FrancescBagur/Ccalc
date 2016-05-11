@@ -7,13 +7,14 @@ class NotacioPolaca:
 
     def __init__(self, expresio):
         self.expresio = expresio;
-        self.precedencia={'+':1,'-':1,'*':2,'/':2,'^':3}
+        print expresio
+        self.precedencia={'s':1,'&':1,'·':1,'¬':1,'?':1,'º':1,'|':1,'¡':1,'+':2,'-':2,'*':3,'/':3,'^':4,'!':4,'@':5}
         self.associatiu={'+':'i','-':'i','*':'i','/':'i','^':'d'}
-        self.operador='+-*/^'
+        self.operador='+-*/^?|$@'
         self.papertura='([{'
         self.pcierre=')]}'
         self.sep=',;'
-        self.func=['sqrt','log','ln','sin','cos','tg','cotg']
+        self.func=['!','?','ln','s','|','$','cotg']
         self.expresion_infixa=''
         self.stack=[]
         self.cuaSortida=[]
@@ -115,7 +116,7 @@ class NotacioPolaca:
                 else:
                     #es tancament
                     comp=self.papertura[self.pcierre.find(token)]
-                    while self.stack[0]<>comp:
+                    while self.stack[0]!=comp:
                         self.cola(self.pop())
                     self.pop()#treu el parèntesi i no el fica en cua
                     if len(self.stack)>0:
@@ -143,5 +144,5 @@ class NotacioPolaca:
                         self.cola(self.pop())
                 self.push(token)
         self.vacia_stack()
-        #print self.cuaSortida
+        print self.cuaSortida
         return self.cuaSortida

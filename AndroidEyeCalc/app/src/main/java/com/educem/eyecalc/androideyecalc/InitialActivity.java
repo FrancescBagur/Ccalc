@@ -1,7 +1,9 @@
 package com.educem.eyecalc.androideyecalc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,9 +14,10 @@ import android.widget.Toast;
 
 public class InitialActivity extends AppCompatActivity {
     private static final int CAM_REQUEST = 1313; //codi de peticio per la camara
-    Button SCAN;    //boto que obrira la camara per fer la foto.
-    Intent intentResult;  //intent que obrira la activity per mostra el resultat.
-    //aqui s'inicialitzen variables i s'escolta el click del boto.
+    private Button SCAN;    //boto que obrira la camara per fer la foto.
+    private Button TRACE; //boto que obrira la pagina per escriure amb el dit
+    private Intent intentResult;  //intent que obrira la activity per mostra el resultat.
+    private Boolean con = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,24 +25,45 @@ public class InitialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //inicialitzo el intent que em portara a la pantalla del resultat.
         intentResult = new Intent(this,ActivityForUcrop.class);
-        //associo el boto programatic amb el boto creat visualment per obrir la camara
+        //associo els botons programatic amb el boto creat visualment per obrir la camara
+        TRACE = (Button) findViewById(R.id.btWrite);
         SCAN = (Button) findViewById(R.id.btScan);
-        //poso un listener al boto
-        SCAN.setOnClickListener(new takenfotoClicker());
+        //poso un listener al botons
+        TRACE.setOnClickListener(new listenClick());
+        SCAN.setOnClickListener(new listenClick());
+        if(!isNetworkAvailable(getApplicationContext())){
+            SCAN.setText("No internet connection, Reload");
+            con=false;
+        }
+    }
+    //Comprobo si hi ha internet
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
     //classe a que sentra quan fas click a tkfoto
-    public class takenfotoClicker implements Button.OnClickListener {
+    public class listenClick implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
-            //intent que obrira la camara i guardara la foto que es faci
-            if(!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Toast.makeText(getApplicationContext(), "The mobile has no camera", Toast.LENGTH_LONG).show();
-                finish();
+            if (!con){
+                InitialActivity.this.recreate();
+            } else {
+                if (v.getId() == R.id.btScan) {
+                    if(!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                        Toast.makeText(getApplicationContext(), "The mobile has no camera", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
+                    startActivityForResult(cameraIntent, CAM_REQUEST);
+                }
+                else {
+                    Intent DrawIntent = new Intent(InitialActivity.this,drawingActivity.class);
+                    startActivity(DrawIntent);
+                    InitialActivity.this.finish();
+                }
             }
-            //si s'ha superat el if anterior vol dir que el mòvil te càmara i per tant la cridem.
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //envia l'intent amb la foto feta al acticity result. la seguent funcio del codi \/ despres d'aquesta classe
-            startActivityForResult(cameraIntent, CAM_REQUEST);
         }
     }
     //aqui obrire un altra activity que s'encarregarà de tractar la imatge que s'ha fet.
@@ -54,54 +78,9 @@ public class InitialActivity extends AppCompatActivity {
                    intentResult.setData(photo);
                    //obro la segona activity
                    startActivity(intentResult);
+                   //tanco aquesta activity
+                   InitialActivity.this.finish();
                } else if (resultCode == RESULT_CANCELED) Toast.makeText(getApplicationContext(), "Canceled by User", Toast.LENGTH_LONG).show();
             } else Toast.makeText(getApplicationContext(), "Error taking picture please try again", Toast.LENGTH_LONG).show();
     }
 }
-    /*
-    //aquesta clase envia la foto a una API, alternativa als sockets.
-    public class uploadFile extends AsyncTask <Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            //intanciem un byteArrayOutputStream
-                //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            //comprimim la imatge en format JPEG amb cualitat 100 i la guardem al byteArrayOutputStream anterior
-                //bmpInvertit.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            //codifiquem la imatge en base64
-                //String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-            //Intent de pasar la imatge a bytes sense fer el compress
-                ByteBuffer bb = ByteBuffer.allocate(bmpInvertit.getRowBytes() * bmpInvertit.getHeight());
-                bmpInvertit.copyPixelsToBuffer(bb);
-                byte[] imgBytes = bb.array();
-                String encodedImage = Base64.encodeToString(imgBytes,Base64.DEFAULT);
-            //creem un arraylist i li afegim les dades que volem enviar al server.
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("image", encodedImage));
-            dataToSend.add(new BasicNameValuePair("name", "primeraImgPalserver"));
-            //instanciem la conexio aki perque el finally la pugui desconectar
-            try {
-                URL url = new URL(SERVER_ADRESS + "index.php");  //inicialitzem una conexió amb el servidor
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection(); //obrim la conexió amb el servidor
-                try {
-                    urlConnection.setDoOutput(true);    //obrim connexio amb el servidor
-                    urlConnection.setChunkedStreamingMode(0); //serveix per evitar alguns errors
-                    OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream()); //crea un outputStream per enviar dades al server amb la seguent instruccio
-                    out.write(dataToSend.get(0).getValue().getBytes());
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream()); //agafa les possibles dades que pugui retornar el servidor
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    urlConnection.disconnect();
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-    */
