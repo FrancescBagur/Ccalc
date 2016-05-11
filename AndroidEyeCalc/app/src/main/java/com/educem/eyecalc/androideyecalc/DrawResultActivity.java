@@ -3,6 +3,8 @@ package com.educem.eyecalc.androideyecalc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -28,6 +31,8 @@ public class DrawResultActivity extends Activity {
     private int ID=0;
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
+    //imatge rebuda del servidor (operacio)
+    private Bitmap imgRes;
     //layout gefe
     private LinearLayout ll;
     //layout on es mostrara el resultat
@@ -98,11 +103,13 @@ public class DrawResultActivity extends Activity {
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
-        TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
+        ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
+        ivO.setImageBitmap(imgRes);
+        /*TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
         tvOperacio.setText(operacio);
         tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
         tvOperacio.setTextSize(30);
-        tvOperacio.setTextColor(Color.BLACK);
+        tvOperacio.setTextColor(Color.BLACK);*/
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
@@ -154,6 +161,12 @@ public class DrawResultActivity extends Activity {
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
+                if (!res[1].equals("err")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {
@@ -213,6 +226,19 @@ public class DrawResultActivity extends Activity {
             String[] dades = msg.trim().split(":");
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else DrawResultActivity.this.res = dades;
+        }
+        //rep una imatge.
+        private void escoltaImatge(){
+            try {
+                InputStream stream = s.getInputStream();
+                byte[] img = new byte[300000];
+                int numberBytes = stream.read(img);
+                Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
+                imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
     //torna a la activity inicial

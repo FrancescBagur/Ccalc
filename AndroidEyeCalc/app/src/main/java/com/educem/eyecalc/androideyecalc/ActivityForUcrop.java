@@ -41,6 +41,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     private Uri finalPhoto;
     //Resultat del UCrop invertit
     private Bitmap bmpInvertit;
+    //imatge rebuda del servidor (operacio)
+    private Bitmap imgRes;
     //resultat del UCrop en bytes per enviarlo
     private byte[] imgbyte;
     //id de transacció, per el servido
@@ -149,11 +151,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     //mostra per pantalla el resultat correcte
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
-        TextView tvOperacio = (TextView) findViewById(R.id.tvOperacio);
-        tvOperacio.setText(operacio);
-        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(30);
-        tvOperacio.setTextColor(Color.BLACK);
+        ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
+        ivOperacio.setImageBitmap(imgRes);
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvResultat);
         tvResultat.setText(resultat);
@@ -217,9 +216,15 @@ public class ActivityForUcrop extends AppCompatActivity {
                 //obro un altre socket i envio la ID de transaccio perque m'envii el resultat
                 s = new Socket(SERVER_ADRESS,2010);
                 s.setSoTimeout(20000);
-                enviaMissatge(token + ":"+ID);
+                enviaMissatge(token + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
+                if (!res[1].equals("err")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {
@@ -228,7 +233,6 @@ public class ActivityForUcrop extends AppCompatActivity {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -249,7 +253,6 @@ public class ActivityForUcrop extends AppCompatActivity {
                 mostrarError();
             }
         }
-
         //enviar token al server
         private void enviaMissatge(String msg){
             try {
@@ -291,6 +294,19 @@ public class ActivityForUcrop extends AppCompatActivity {
             String[] dades = msg.trim().split(":");
             if (dades[0].trim().equals("OK")) ID = Integer.valueOf(dades[1]);
             else ActivityForUcrop.this.res = dades;
+        }
+        //rep una imatge.
+        private void escoltaImatge(){
+            try {
+                InputStream stream = s.getInputStream();
+                byte[] img = new byte[300000];
+                int numberBytes = stream.read(img);
+                Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
+                imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
