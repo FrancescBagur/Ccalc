@@ -20,7 +20,7 @@ class sendGet implements Runnable{
     public sendGet(String latexEquation, int id) {
         this.latexEquation = latexEquation;
         this.id = id;
-        this.url += this.latexEquation;
+        this.url += this.latexEquation.replace(" ","%20");
         this.fitxerRebutWeb = String.valueOf(this.id) + this.fitxerRebutWeb;
     }
 
@@ -36,6 +36,7 @@ class sendGet implements Runnable{
             con.setRequestMethod("GET");
 
             int responseCode = con.getResponseCode();
+            //aqui crec que caldira fer if responseCode == 200, continuar, per evitar que exploti i am seshat nose si ho fas pero igual
             System.out.println("\nSending 'GET' request to URL : " + url);
             System.out.println("Response Code : " + responseCode);
             int bytesRead;
@@ -60,7 +61,7 @@ class sendGet implements Runnable{
             bos.close();
 
             File oldName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
-            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(id) + ".gif");
+            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage/" + String.valueOf(id) + ".gif");
             if(oldName.renameTo(newName)) {
                 System.out.println("Imatge renombrada");
             } else {

@@ -309,7 +309,6 @@ public class ActivityForUcrop extends AppCompatActivity {
 
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
