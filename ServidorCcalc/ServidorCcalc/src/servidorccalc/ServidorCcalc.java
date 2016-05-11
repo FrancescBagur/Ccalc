@@ -29,6 +29,9 @@ public class ServidorCcalc {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         id = 0;
+        sendGet s = new sendGet("x^{2}\\cdot%203",1);
+        Thread t1 = new Thread(s);
+        t1.start();
         Monitor m = new Monitor();
         EscoltaConnexio ec = new EscoltaConnexio(m);
         Thread t = new Thread(ec);
