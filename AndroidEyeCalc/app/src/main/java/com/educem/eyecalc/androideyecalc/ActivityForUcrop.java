@@ -88,7 +88,7 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //obre la activity del uCrop
     public void StartUcrop(Uri photo){
-        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+SimpleDateFormat.getDateTimeInstance()+".bmp"));
+        finalPhoto = Uri.fromFile(new File(getCacheDir(), "takenPhoto"+SimpleDateFormat.getDateTimeInstance()+".gif"));
         UCrop.Options opt = new UCrop.Options();
         opt.setFreeStyleCropEnabled(true);
         opt.setToolbarColor(Color.parseColor("#3a5795"));
@@ -195,7 +195,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.164";
+        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)

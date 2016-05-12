@@ -61,7 +61,7 @@ class sendGet implements Runnable{
             bos.close();
 
             File oldName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
-            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage/" + String.valueOf(id) + ".gif");
+            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(id) + ".gif");
             if(oldName.renameTo(newName)) {
                 System.out.println("Imatge renombrada");
             } else {

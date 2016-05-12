@@ -76,7 +76,7 @@ class RespostaClient implements Runnable{
 
         creat = false;
         while(!creat) {
-            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage/" + String.valueOf(idTransaccio) + ".gif");
+            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
             if (imatgeLatex.exists()) {
                 //Els scripts han acabat
                 System.out.println("Ja hi ha la imatge latex guardada i la podem enviar");
@@ -118,7 +118,7 @@ class RespostaClient implements Runnable{
     private void enviarImatge() throws IOException, InterruptedException {
         OutputStream outputStream = connexio.getOutputStream();
 
-        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage/" + String.valueOf(idTransaccio) + ".gif"));
+        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "gif", byteArrayOutputStream);
