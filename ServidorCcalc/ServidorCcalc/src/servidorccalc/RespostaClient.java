@@ -81,8 +81,11 @@ class RespostaClient implements Runnable{
                             creat = true;
                         }
                     }
-                    convertirImatgeGifAJpg();
-                    enviarImatge();
+                    if(convertirImatgeGifAJpg()){
+                        //Ja tenim la imatge convertida a jpg
+                        System.out.println("Imatge transformada a jpg, passem a enviar");
+                        enviarImatge();
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -100,8 +103,8 @@ class RespostaClient implements Runnable{
         String formatName = "JPG";
         boolean result = false;
         try {
-            result = ImageConverter.convertFormat(inputImage,
-                    oututImage, formatName);
+            ImageConverter ic = new ImageConverter();
+            result = ic.convertFormat(inputImage, oututImage, formatName);
             if (result) {
                 System.out.println("Image converted successfully.");
             } else {
@@ -145,10 +148,10 @@ class RespostaClient implements Runnable{
 
     private void enviarImatge() throws IOException, InterruptedException {
         OutputStream outputStream = connexio.getOutputStream();
-        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif"));
+        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "gif", byteArrayOutputStream);
+        ImageIO.write(image, "jpg", byteArrayOutputStream);
 
         byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
         outputStream.write(size);
