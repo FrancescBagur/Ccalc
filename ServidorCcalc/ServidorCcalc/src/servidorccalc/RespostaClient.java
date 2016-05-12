@@ -1,7 +1,16 @@
 package servidorccalc;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriter;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageOutputStream;
+import java.awt.*;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageProducer;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -60,9 +69,19 @@ class RespostaClient implements Runnable{
         try {
             in = new BufferedReader(new InputStreamReader(connexio.getInputStream()));
             String missatge = in.readLine();
-            if(missatge.trim().equals("ok")){
+            if(missatge.trim().equals("OK")){
                 //El client ja ha rebut el resultat, passo a enviar-li la imatge
                 try {
+                    creat = false;
+                    while(!creat) {
+                        imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
+                        if (imatgeLatex.exists()) {
+                            //Els scripts han acabat
+                            System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jpg");
+                            creat = true;
+                        }
+                    }
+                    convertirImatgeGifAJpg();
                     enviarImatge();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -72,19 +91,28 @@ class RespostaClient implements Runnable{
             e.printStackTrace();
         }
 
-
-
-        creat = false;
-        while(!creat) {
-            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
-            if (imatgeLatex.exists()) {
-                //Els scripts han acabat
-                System.out.println("Ja hi ha la imatge latex guardada i la podem enviar");
-                creat = true;
-            }
-        }
-
         //borrarFitxersAntics(idTransaccio);
+    }
+
+    private boolean convertirImatgeGifAJpg() {
+        String inputImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif";
+        String oututImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg";
+        String formatName = "JPG";
+        boolean result = false;
+        try {
+            result = ImageConverter.convertFormat(inputImage,
+                    oututImage, formatName);
+            if (result) {
+                System.out.println("Image converted successfully.");
+            } else {
+                System.out.println("Could not convert image.");
+            }
+            return result;
+        } catch (IOException ex) {
+            System.out.println("Error during converting image.");
+            ex.printStackTrace();
+            return result;
+        }
     }
 
     private void borrarFitxersAntics(int idTran){
@@ -117,7 +145,6 @@ class RespostaClient implements Runnable{
 
     private void enviarImatge() throws IOException, InterruptedException {
         OutputStream outputStream = connexio.getOutputStream();
-
         BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -129,8 +156,33 @@ class RespostaClient implements Runnable{
         outputStream.flush();
         System.out.println("Flushed: " + System.currentTimeMillis());
 
-        Thread.sleep(120000);
+        //Thread.sleep(120000);
         System.out.println("Closing: " + System.currentTimeMillis());
         connexio.close();
     }
+
+    /*
+    public static byte[] convert(byte[] bytes, Color backgroundColor)
+    {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            BufferedImage newBi = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = (Graphics2D) newBi.getGraphics();
+            g2d.drawImage(bufferedImage, 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), backgroundColor, null);
+            //bufferedImage.getHeight(),null);
+            ByteArrayOutputStream osByteArray = new ByteArrayOutputStream();
+            ImageOutputStream outputStream = ImageIO.createImageOutputStream(osByteArray);
+            ImageIO.write(newBi, "jpg", outputStream);
+            outputStream.flush();
+            outputStream.close();
+            return osByteArray.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }*/
+
+
 }

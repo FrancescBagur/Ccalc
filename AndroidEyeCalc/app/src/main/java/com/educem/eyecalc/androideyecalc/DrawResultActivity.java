@@ -135,7 +135,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.164";
+        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
