@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ImageWriter;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,12 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 
 public class DrawResultActivity extends Activity {
     //aqui es guardara la operacio escrita per lusuari en el format correcte.
@@ -32,7 +38,7 @@ public class DrawResultActivity extends Activity {
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
     //imatge rebuda del servidor (operacio)
-    private Bitmap imgRes;
+    private String rutaImgOP;
     //layout gefe
     private LinearLayout ll;
     //layout on es mostrara el resultat
@@ -104,12 +110,9 @@ public class DrawResultActivity extends Activity {
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
         ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
-        ivO.setImageBitmap(imgRes);
-        /*TextView tvOperacio = (TextView) findViewById(R.id.tvOp);
-        tvOperacio.setText(operacio);
-        tvOperacio.setGravity(Gravity.CENTER_HORIZONTAL);
-        tvOperacio.setTextSize(30);
-        tvOperacio.setTextColor(Color.BLACK);*/
+        ivO.setContentDescription(operacio);
+        //ivO.setImageURI(Uri.fromFile(new File(rutaImgOP)));
+        ivO.setImageBitmap(BitmapFactory.decodeFile(rutaImgOP));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
@@ -161,12 +164,14 @@ public class DrawResultActivity extends Activity {
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
-                if (!res[1].equals("err")) {
-                    //envio ok conforme he rebut un resultat
-                    enviaMissatge("OK");
-                    //espero a rebre una imatge
-                    escoltaImatge();
-                }
+                if (res.length>1) {
+                    if (!res[1].equals("err")) {
+                        //envio ok conforme he rebut un resultat
+                        enviaMissatge("OK");
+                        //espero a rebre una imatge
+                        escoltaImatge();
+                    }
+                } else serverOFF = true;
                 //tanco el socket
                 s.close();
             } catch (IOException e) {
@@ -230,11 +235,30 @@ public class DrawResultActivity extends Activity {
         //rep una imatge.
         private void escoltaImatge(){
             try {
+                int bytesRead;
+                int current;
+                int filesize=300000;
+                byte [] mybytearray2  = new byte [filesize];
+                InputStream is = s.getInputStream();
+                rutaImgOP = getCacheDir()+"opgif"+ SimpleDateFormat.getDateTimeInstance()+".jpg";
+                FileOutputStream fos = new FileOutputStream(rutaImgOP); // destination path and name of file
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                bytesRead = is.read(mybytearray2,0,mybytearray2.length);
+                current = bytesRead;
+                do {
+                    bytesRead = is.read(mybytearray2, current, mybytearray2.length-current);
+                    if(bytesRead >= 0) current += bytesRead;
+                } while((bytesRead > -1));
+                bos.write(mybytearray2);
+                bos.flush();
+                bos.close();
+                /*
                 InputStream stream = s.getInputStream();
                 byte[] img = new byte[300000];
                 int numberBytes = stream.read(img);
                 Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
                 imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
+                */
             } catch (IOException e) {
                 e.printStackTrace();
             }
