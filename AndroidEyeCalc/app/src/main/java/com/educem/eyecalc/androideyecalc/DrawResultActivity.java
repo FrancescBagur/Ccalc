@@ -3,10 +3,7 @@ package com.educem.eyecalc.androideyecalc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.ImageWriter;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.yalantis.ucrop.UCrop;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -40,7 +35,7 @@ public class DrawResultActivity extends Activity {
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
     //imatge rebuda del servidor (operacio)
-    private Bitmap imgRes;
+    private String ruta;
     //layout gefe
     private LinearLayout ll;
     //layout on es mostrara el resultat
@@ -113,7 +108,8 @@ public class DrawResultActivity extends Activity {
         //operacio
         ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
         ivO.setContentDescription(operacio);
-        ivO.setImageBitmap(imgRes);
+        ivO.setImageURI(Uri.fromFile(new File(ruta)));
+        ivO.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
@@ -181,7 +177,6 @@ public class DrawResultActivity extends Activity {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -202,7 +197,6 @@ public class DrawResultActivity extends Activity {
                 mostrarError();
             }
         }
-
         //enviar token al server
         private void enviaMissatge(String msg){
             try {
@@ -239,15 +233,20 @@ public class DrawResultActivity extends Activity {
                 int bytesRead;
                 int current;
                 int filesize=300000;
+                ruta = getCacheDir()+"imgserver"+SimpleDateFormat.getDateTimeInstance()+".jpg";
                 byte [] mybytearray2  = new byte [filesize];
                 InputStream is = s.getInputStream();
+                FileOutputStream fos = new FileOutputStream(ruta); // destination path and name of file
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
                 bytesRead = is.read(mybytearray2,0,mybytearray2.length);
                 current = bytesRead;
                 do {
                     bytesRead = is.read(mybytearray2, current, mybytearray2.length-current);
                     if(bytesRead >= 0) current += bytesRead;
                 } while((bytesRead > -1));
-                Bitmap b = BitmapFactory.decodeByteArray(mybytearray2, 0, mybytearray2.length);
+                bos.write(mybytearray2);
+                bos.flush();
+                bos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

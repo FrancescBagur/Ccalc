@@ -23,11 +23,13 @@ import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,6 +45,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     private Bitmap bmpInvertit;
     //imatge rebuda del servidor (operacio)
     private Bitmap imgRes;
+    //imatge rebuda del servidor (operacio)
+    private String ruta;
     //resultat del UCrop en bytes per enviarlo
     private byte[] imgbyte;
     //id de transacció, per el servido
@@ -152,7 +156,9 @@ public class ActivityForUcrop extends AppCompatActivity {
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
         ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
-        ivOperacio.setImageBitmap(imgRes);
+        ivOperacio.setContentDescription(operacio);
+        ivOperacio.setImageURI(Uri.fromFile(new File(ruta)));
+        ivOperacio.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvResultat);
         tvResultat.setText(resultat);
@@ -298,11 +304,24 @@ public class ActivityForUcrop extends AppCompatActivity {
         //rep una imatge.
         private void escoltaImatge(){
             try {
-                InputStream stream = s.getInputStream();
-                byte[] img = new byte[300000];
-                int numberBytes = stream.read(img);
-                Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
-                imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
+                int bytesRead;
+                int current;
+                int filesize=300000;
+                ruta = getCacheDir()+"imgserver"+SimpleDateFormat.getDateTimeInstance()+".jpg";
+                byte [] mybytearray2  = new byte [filesize];
+                InputStream is = s.getInputStream();
+                FileOutputStream fos = new FileOutputStream(ruta); // destination path and name of file
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                bytesRead = is.read(mybytearray2,0,mybytearray2.length);
+                current = bytesRead;
+                do {
+                    bytesRead = is.read(mybytearray2, current, mybytearray2.length-current);
+                    if(bytesRead >= 0) current += bytesRead;
+                } while((bytesRead > -1));
+                bos.write(mybytearray2);
+                bos.flush();
+                bos.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

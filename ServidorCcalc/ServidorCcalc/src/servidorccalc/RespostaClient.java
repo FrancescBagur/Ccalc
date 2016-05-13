@@ -77,13 +77,13 @@ class RespostaClient implements Runnable{
                         imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
                         if (imatgeLatex.exists()) {
                             //Els scripts han acabat
-                            System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jpg");
+                            System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jph");
                             creat = true;
                         }
                     }
                     if(convertirImatgeGifAJpg()){
                         //Ja tenim la imatge convertida a jpg
-                        System.out.println("Imatge transformada a jpg, passem a enviar");
+                        System.out.println("Imatge transformada a jph, passem a enviar");
                         enviarImatge();
                     }
                 } catch (InterruptedException e) {
@@ -152,40 +152,13 @@ class RespostaClient implements Runnable{
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
-
-        byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
-        outputStream.write(size);
         outputStream.write(byteArrayOutputStream.toByteArray());
         outputStream.flush();
         System.out.println("Flushed: " + System.currentTimeMillis());
 
-        //Thread.sleep(120000);
+        //Thread.sleep(1000);
         System.out.println("Closing: " + System.currentTimeMillis());
         connexio.close();
     }
-
-    /*
-    public static byte[] convert(byte[] bytes, Color backgroundColor)
-    {
-        try {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
-            BufferedImage bufferedImage = ImageIO.read(inputStream);
-            BufferedImage newBi = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = (Graphics2D) newBi.getGraphics();
-            g2d.drawImage(bufferedImage, 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), backgroundColor, null);
-            //bufferedImage.getHeight(),null);
-            ByteArrayOutputStream osByteArray = new ByteArrayOutputStream();
-            ImageOutputStream outputStream = ImageIO.createImageOutputStream(osByteArray);
-            ImageIO.write(newBi, "jpg", outputStream);
-            outputStream.flush();
-            outputStream.close();
-            return osByteArray.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }*/
-
 
 }

@@ -35,7 +35,7 @@ if test "X${CDPATH+set}" = Xset; then CDPATH=:; export CDPATH; fi
 
 # ### BEGIN LIBTOOL CONFIG
 
-# Libtool was configured on host debian1:
+# Libtool was configured on host Phantom:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"

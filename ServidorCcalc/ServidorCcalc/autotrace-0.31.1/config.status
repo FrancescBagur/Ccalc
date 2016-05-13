@@ -461,7 +461,7 @@ s,@MAKEINFO@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missin
 s,@AMTAR@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run tar,;t t
 s,@install_sh@,/Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/install-sh,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
-s,@AWK@,gawk,;t t
+s,@AWK@,mawk,;t t
 s,@SET_MAKE@,,;t t
 s,@AMDEP_TRUE@,,;t t
 s,@AMDEP_FALSE@,#,;t t
