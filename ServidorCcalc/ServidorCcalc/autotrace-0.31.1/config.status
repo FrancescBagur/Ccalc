@@ -453,13 +453,13 @@ s,@PACKAGE@,autotrace,;t t
 s,@VERSION@,0.31.1,;t t
 s,@EXEEXT@,,;t t
 s,@OBJEXT@,o,;t t
-s,@ACLOCAL@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run aclocal,;t t
-s,@AUTOCONF@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run autoconf,;t t
-s,@AUTOMAKE@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run automake,;t t
-s,@AUTOHEADER@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run makeinfo,;t t
-s,@AMTAR@,${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run tar,;t t
-s,@install_sh@,/home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/install-sh,;t t
+s,@ACLOCAL@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run aclocal,;t t
+s,@AUTOCONF@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run autoconf,;t t
+s,@AUTOMAKE@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run automake,;t t
+s,@AUTOHEADER@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run makeinfo,;t t
+s,@AMTAR@,${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run tar,;t t
+s,@install_sh@,/Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/install-sh,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
 s,@AWK@,gawk,;t t
 s,@SET_MAKE@,,;t t

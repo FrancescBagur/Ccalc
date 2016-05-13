@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.yalantis.ucrop.UCrop;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -38,7 +40,7 @@ public class DrawResultActivity extends Activity {
     //aqui es guardara el resultat que envii el servidor.
     private String[] res = {""};
     //imatge rebuda del servidor (operacio)
-    private String rutaImgOP;
+    private Bitmap imgRes;
     //layout gefe
     private LinearLayout ll;
     //layout on es mostrara el resultat
@@ -111,8 +113,7 @@ public class DrawResultActivity extends Activity {
         //operacio
         ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
         ivO.setContentDescription(operacio);
-        //ivO.setImageURI(Uri.fromFile(new File(rutaImgOP)));
-        ivO.setImageBitmap(BitmapFactory.decodeFile(rutaImgOP));
+        ivO.setImageBitmap(imgRes);
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
         tvResultat.setText(resultat);
@@ -240,25 +241,13 @@ public class DrawResultActivity extends Activity {
                 int filesize=300000;
                 byte [] mybytearray2  = new byte [filesize];
                 InputStream is = s.getInputStream();
-                rutaImgOP = getCacheDir()+"opgif"+ SimpleDateFormat.getDateTimeInstance()+".jpg";
-                FileOutputStream fos = new FileOutputStream(rutaImgOP); // destination path and name of file
-                BufferedOutputStream bos = new BufferedOutputStream(fos);
                 bytesRead = is.read(mybytearray2,0,mybytearray2.length);
                 current = bytesRead;
                 do {
                     bytesRead = is.read(mybytearray2, current, mybytearray2.length-current);
                     if(bytesRead >= 0) current += bytesRead;
                 } while((bytesRead > -1));
-                bos.write(mybytearray2);
-                bos.flush();
-                bos.close();
-                /*
-                InputStream stream = s.getInputStream();
-                byte[] img = new byte[300000];
-                int numberBytes = stream.read(img);
-                Bitmap b = BitmapFactory.decodeByteArray(img, 0, img.length);
-                imgRes = b.createBitmap(b.getWidth(),b.getHeight(),Bitmap.Config.ARGB_8888);
-                */
+                Bitmap b = BitmapFactory.decodeByteArray(mybytearray2, 0, mybytearray2.length);
             } catch (IOException e) {
                 e.printStackTrace();
             }

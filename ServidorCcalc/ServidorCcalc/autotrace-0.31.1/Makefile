@@ -38,10 +38,10 @@ pkglibdir = $(libdir)/autotrace
 pkgincludedir = $(includedir)/autotrace
 top_builddir = .
 
-ACLOCAL = ${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run aclocal
-AUTOCONF = ${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run autoconf
-AUTOMAKE = ${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run automake
-AUTOHEADER = ${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run autoheader
+ACLOCAL = ${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run aclocal
+AUTOCONF = ${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run autoconf
+AUTOMAKE = ${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run automake
+AUTOHEADER = ${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run autoheader
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,7 +57,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = 
 host_triplet = x86_64-unknown-linux-gnu
-AMTAR = ${SHELL} /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/missing --run tar
+AMTAR = ${SHELL} /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/missing --run tar
 AS = @AS@
 AUTOTRACE_VERSION = 0.31.1
 AWK = gawk
@@ -93,7 +93,7 @@ STRIP = strip
 VERSION = 0.31.1
 am__include = include
 am__quote = 
-install_sh = /home/francesc/Development/CCalc/PoinTransform/PoinTransform/bin/Debug/autotrace-0.31.1/install-sh
+install_sh = /Ccalc/ServidorCcalc/ServidorCcalc/autotrace-0.31.1/install-sh
 
 man_MANS = autotrace.1
 EXTRA_DIST = $(man_MANS)						\
