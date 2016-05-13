@@ -3,17 +3,13 @@ package com.educem.eyecalc.androideyecalc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.ImageWriter;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +18,6 @@ import android.widget.TextView;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -182,7 +177,6 @@ public class DrawResultActivity extends Activity {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -203,7 +197,6 @@ public class DrawResultActivity extends Activity {
                 mostrarError();
             }
         }
-
         //enviar token al server
         private void enviaMissatge(String msg){
             try {
@@ -211,6 +204,7 @@ public class DrawResultActivity extends Activity {
                 out.writeBytes(msg + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
         }
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
@@ -254,11 +248,10 @@ public class DrawResultActivity extends Activity {
                 bos.write(mybytearray2);
                 bos.flush();
                 bos.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
-
         }
     }
     //torna a la activity inicial
