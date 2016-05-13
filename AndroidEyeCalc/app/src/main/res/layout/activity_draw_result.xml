@@ -51,7 +51,8 @@
             android:id="@+id/tvopE"
             android:text="@string/OpEnunciat"
             android:textSize="40sp"
-            android:textColor="#d6cece" />
+            android:textColor="#d6cece"
+            android:layout_marginBottom="10dp" />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -60,9 +61,10 @@
             android:indeterminate="true" />
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ivOpe" />
+            android:id="@+id/ivOpe"
+            android:adjustViewBounds="false" />
 
         <TextView
             android:layout_width="match_parent"
@@ -71,7 +73,9 @@
             android:id="@+id/tvresE"
             android:textSize="40sp"
             android:text="@string/resEnunciat"
-            android:textColor="#d6cece" />
+            android:textColor="#d6cece"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
 
         <ProgressBar
             android:layout_width="wrap_content"

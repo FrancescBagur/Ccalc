@@ -2,9 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../scripts/script.autotrace" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../scripts/script.seshat" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/.libs/autotrace" afterPath="$PROJECT_DIR$/autotrace-0.31.1/.libs/autotrace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.a" afterPath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.so.3.0.0" afterPath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.so.3.0.0" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/.libs/lt-autotrace" afterPath="$PROJECT_DIR$/autotrace-0.31.1/.libs/lt-autotrace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_draw_result.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_draw_result.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/content_main2.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/content_main2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ImageConverter.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ImageConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace" afterPath="$PROJECT_DIR$/autotrace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.lai" afterPath="$PROJECT_DIR$/autotrace-0.31.1/.libs/libautotrace.lai" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/Makefile" afterPath="$PROJECT_DIR$/autotrace-0.31.1/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/autotrace" afterPath="$PROJECT_DIR$/autotrace-0.31.1/autotrace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/autotrace.pc" afterPath="$PROJECT_DIR$/autotrace-0.31.1/autotrace.pc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/autotrace.spec" afterPath="$PROJECT_DIR$/autotrace-0.31.1/autotrace.spec" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/config.log" afterPath="$PROJECT_DIR$/autotrace-0.31.1/config.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/config.status" afterPath="$PROJECT_DIR$/autotrace-0.31.1/config.status" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/libautotrace.la" afterPath="$PROJECT_DIR$/autotrace-0.31.1/libautotrace.la" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/libtool" afterPath="$PROJECT_DIR$/autotrace-0.31.1/libtool" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autotrace-0.31.1/stamp-h" afterPath="$PROJECT_DIR$/autotrace-0.31.1/stamp-h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" afterPath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
     </list>
     <ignored path="ServidorCcalc.iws" />
@@ -30,18 +52,18 @@
       <file leaf-file-name="ServidorCcalc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
+            <state relative-caret-position="360">
               <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RespostaClient.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RespostaClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+            <state relative-caret-position="2235">
+              <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -50,7 +72,7 @@
       <file leaf-file-name="ImageConverter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ImageConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
+            <state relative-caret-position="705">
               <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -59,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="40" selection-end-column="56" />
+            <state relative-caret-position="138">
+              <caret line="148" column="17" selection-start-line="148" selection-start-column="17" selection-end-line="148" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -74,7 +96,7 @@
       <file leaf-file-name="ClientWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="525">
               <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
               <folding />
             </state>
@@ -94,7 +116,7 @@
       <file leaf-file-name="sendGet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="870">
               <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="102" />
               <folding />
             </state>
@@ -124,14 +146,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/servidorccalc/Monitor.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/sendPost.java" />
-        <option value="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/URL.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/sendGet.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/sendGet.java" />
-        <option value="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ImageConverter.java" />
+        <option value="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
+        <option value="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
       </list>
     </option>
   </component>
@@ -166,7 +188,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -175,38 +196,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServidorCcalc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServidorCcalc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServidorCcalc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServidorCcalc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="servidorccalc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -513,32 +507,32 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="30" width="1282" height="771" extended-state="7" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41009465" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5007657" sideWeight="0.5056543" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3093415" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14701131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14701131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41009465" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32159266" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -918,19 +912,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="40" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
+        <state relative-caret-position="360">
           <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
           <folding />
         </state>
@@ -938,7 +922,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="870">
           <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="102" />
           <folding />
         </state>
@@ -946,7 +930,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="525">
           <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
           <folding />
         </state>
@@ -954,7 +938,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ImageConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
+        <state relative-caret-position="705">
           <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -964,9 +948,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+        <state relative-caret-position="2235">
+          <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="148" column="17" selection-start-line="148" selection-start-column="17" selection-end-line="148" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

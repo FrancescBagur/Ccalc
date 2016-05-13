@@ -182,7 +182,7 @@ class ClientConnectat implements Runnable{
         //que eliminem sombres i defectes
         int ret = 0;
         try {
-            ProcessBuilder pb = new ProcessBuilder("python","../../PythonLibs/SimpleCv/filtradorImatges.py",fitxerConvertitBmp);
+            ProcessBuilder pb = new ProcessBuilder("python2.7","../../PythonLibs/SimpleCv/filtradorImatges.py",fitxerConvertitBmp);
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

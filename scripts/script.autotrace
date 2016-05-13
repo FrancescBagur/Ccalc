@@ -1,3 +1,0 @@
-#!/bin/bash
-./autotrace-0.31.1/autotrace -filter-iterations 4 -input-format BMP  -centerline -preserve-width -color-count 2 -despeckle-tightness 4 /Ccalc/ServidorCcalc/ServidorCcalc/imatges/render$1.bmp;
-
