@@ -7,6 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".InitialActivity">
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/initial_activity" />
 
 </android.support.design.widget.CoordinatorLayout>
