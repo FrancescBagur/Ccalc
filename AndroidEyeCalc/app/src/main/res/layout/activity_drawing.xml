@@ -12,7 +12,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="0"
         android:paddingTop="10sp">
 
@@ -22,9 +22,11 @@
             android:id="@+id/btClear"
             android:background="@drawable/blue_button"
             android:enabled="true"
-            android:textColor="#3a5795"
+            android:textColor="#ffffff"
             android:text="@string/btClear"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp" />
 
         <Button
             android:layout_width="fill_parent"
@@ -32,9 +34,11 @@
             android:id="@+id/btSend"
             android:background="@drawable/blue_button"
             android:enabled="true"
-            android:textColor="#3a5795"
+            android:textColor="#ffffff"
             android:text="@string/btSend"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
     </LinearLayout>
 

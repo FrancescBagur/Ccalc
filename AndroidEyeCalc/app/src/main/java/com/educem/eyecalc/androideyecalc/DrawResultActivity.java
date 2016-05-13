@@ -204,6 +204,7 @@ public class DrawResultActivity extends Activity {
                 out.writeBytes(msg + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
         }
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
@@ -249,8 +250,8 @@ public class DrawResultActivity extends Activity {
                 bos.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
-
         }
     }
     //torna a la activity inicial

@@ -225,12 +225,14 @@ public class ActivityForUcrop extends AppCompatActivity {
                 enviaMissatge(token + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
-                if (!res[1].equals("err")) {
-                    //envio ok conforme he rebut un resultat
-                    enviaMissatge("OK");
-                    //espero a rebre una imatge
-                    escoltaImatge();
-                }
+                if (res.length>1) {
+                    if (!res[1].equals("err")) {
+                        //envio ok conforme he rebut un resultat
+                        enviaMissatge("OK");
+                        //espero a rebre una imatge
+                        escoltaImatge();
+                    }
+                } else serverOFF = true;
                 //tanco el socket
                 s.close();
             } catch (IOException e) {
@@ -266,6 +268,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 out.writeBytes(msg+"\n");
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
         }
         //enviar la imatge al server
@@ -278,6 +281,7 @@ public class ActivityForUcrop extends AppCompatActivity {
                 s.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
         }
         //quan rep algo del servidor crida a tractarDades i li passa el missatge del servidor
@@ -321,11 +325,10 @@ public class ActivityForUcrop extends AppCompatActivity {
                 bos.write(mybytearray2);
                 bos.flush();
                 bos.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
+                serverOFF=true;
             }
-
         }
     }
     @Override
