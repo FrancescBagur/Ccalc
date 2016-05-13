@@ -95,7 +95,6 @@ class RespostaClient implements Runnable{
                 e.printStackTrace();
             }
         }
-
         //borrarFitxersAntics(idTransaccio);
     }
 
@@ -129,7 +128,9 @@ class RespostaClient implements Runnable{
                 "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".dot",
                 "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/render"+idTran+".pmg",
                 "/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+idTran+".txt",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp"+idTran+".txt"
+                "/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp"+idTran+".txt",
+                "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".gif",
+                "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".jpg"
         };
         for (int i=0; i<fitxerBorrar.length; i++){
             if(existeixFitxer(fitxerBorrar[i])){
