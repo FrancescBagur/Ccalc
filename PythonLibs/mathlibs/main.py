@@ -38,7 +38,7 @@ def netejarExpresio(exp):
 #Creo un lector de fitxers inkml i li passo la ruta del fitxer que vui llegir
 #ObjInkmlReader = InkmlReader('/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out'+sys.argv[1]+'.inkml')
 
-#Obting la operaciÃ³ del fitxer.
+#Obting la operació del fitxer.
 operacioResultat = ""
 try:
     infile = open('/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp'+sys.argv[1]+'.txt','r')
@@ -51,10 +51,12 @@ try:
         ObjEcuationCalc = EcuationCalc(operacio)
         resultat = ObjEcuationCalc.calcularEquacio()
         print resultat
+        #Un cop tinc el resultat d'operar les equacions de primer i segon grau ho podem guardar
+        operacioResultat = str(operacio)+":"+str(resultat.replace({"[","]"},""))
     else:
         ObjNotacioPolaca = NotacioPolaca(operacio)
 
-        #Passo la operaciÃ³ a notaciÃ³ polaca i la fico en un string expresioPolaca
+        #Passo la operació a notació polaca i la fico en un string expresioPolaca
         cuaSortida = ObjNotacioPolaca.pasarExpresioAPolaca()
         expresioPolaca = ""
         for ex in cuaSortida:
@@ -62,7 +64,7 @@ try:
 
         print expresioPolaca
 
-        #Un cop ting l'string a notacio polaca "expresioPolaca", es hora de resoldre la operaciÃ³
+        #Un cop ting l'string a notacio polaca "expresioPolaca", es hora de resoldre la operació
         #print expresioPolaca + '------->'
         ObjPolacCalc = PolacCalc(expresioPolaca);
         resultat = ObjPolacCalc.calcularExpresio();
@@ -74,7 +76,7 @@ except ValueError:
     file.write(operacioResultat)
     file.close()
     os.rename('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
-    raise ValueError("No s'ha pogut realitzar la operaciÃ³")
+    raise ValueError("No s'ha pogut realitzar la operació")
 
 file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
 file.write(operacioResultat)
