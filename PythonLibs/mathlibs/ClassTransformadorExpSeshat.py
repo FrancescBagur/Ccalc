@@ -21,6 +21,9 @@ class Transformador:
         self.exp = self.exp.replace('\\frac','@')
         self.exp = self.exp.replace('\\pm','+')
         self.exp = self.exp.replace('\pm','+')
+        if "^{-" in (self.exp):
+            self.exp = self.exp.replace('^{-','-')
+            self.exp = self.exp.replace('}','')
 
         return self.exp
 

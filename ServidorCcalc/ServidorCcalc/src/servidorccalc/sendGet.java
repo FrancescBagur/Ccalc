@@ -19,8 +19,9 @@ class sendGet implements Runnable{
 
     public sendGet(String latexEquation, int id) {
         this.latexEquation = latexEquation;
+        String expresio = filtarEquacio();
         this.id = id;
-        this.url += this.latexEquation.replace(" ","%20");
+        this.url += expresio.replace(" ","%20");
         this.fitxerRebutWeb = String.valueOf(this.id) + this.fitxerRebutWeb;
     }
 
@@ -75,5 +76,26 @@ class sendGet implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String filtarEquacio(){
+        String expresio = "";
+        try {
+            ProcessBuilder pb;
+            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/filtradorImatges/main.py",latexEquation);
+            Process p = null;
+            p = pb.start();
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String missatge;
+            expresio = "";
+            while((missatge = in.readLine() )!= null){
+                expresio += missatge;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        return expresio;
     }
 }

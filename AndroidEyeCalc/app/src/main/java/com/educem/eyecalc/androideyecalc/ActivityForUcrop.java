@@ -157,11 +157,15 @@ public class ActivityForUcrop extends AppCompatActivity {
         //operacio
         ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
         ivOperacio.setContentDescription(operacio);
-        ivOperacio.setImageURI(Uri.fromFile(new File(ruta)));
+        Bitmap res = BitmapFactory.decodeFile(ruta);
+        res.getScaledWidth(new DisplayMetrics().densityDpi);
+        res.getScaledHeight(new DisplayMetrics().densityDpi);
+        ivOperacio.setImageBitmap(res);
+        //ivOperacio.setImageURI(Uri.fromFile(new File(ruta)));
         ivOperacio.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvResultat);
-        tvResultat.setText(resultat);
+        tvResultat.setText(resultat.replace(";","\n"));
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(30);
         tvResultat.setTextColor(Color.BLACK);
