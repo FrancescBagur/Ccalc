@@ -3,11 +3,14 @@ package com.educem.eyecalc.androideyecalc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -108,11 +111,15 @@ public class DrawResultActivity extends Activity {
         //operacio
         ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
         ivO.setContentDescription(operacio);
-        ivO.setImageURI(Uri.fromFile(new File(ruta)));
+        Bitmap res = BitmapFactory.decodeFile(ruta);
+        res.getScaledWidth(new DisplayMetrics().densityDpi);
+        res.getScaledHeight(new DisplayMetrics().densityDpi);
+        ivO.setImageBitmap(res);
+        //ivO.setImageURI(Uri.fromFile(new File(ruta)));
         ivO.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //resultat
         TextView tvResultat = (TextView) findViewById(R.id.tvRes);
-        tvResultat.setText(resultat);
+        tvResultat.setText(resultat.replace(";","\n"));
         tvResultat.setGravity(Gravity.CENTER_HORIZONTAL);
         tvResultat.setTextSize(30);
         tvResultat.setTextColor(Color.BLACK);
@@ -135,7 +142,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="192.168.0.164";
+        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
