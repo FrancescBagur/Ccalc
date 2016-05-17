@@ -6,11 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/flitradorExpresions/main.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/flitradorExpresions/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/sendGet.java" afterPath="$PROJECT_DIR$/src/servidorccalc/sendGet.java" />
     </list>
@@ -69,7 +64,7 @@
       <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
+            <state relative-caret-position="2592">
               <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -81,7 +76,7 @@
       <file leaf-file-name="ClientWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
+            <state relative-caret-position="630">
               <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
               <folding />
             </state>
@@ -101,8 +96,8 @@
       <file leaf-file-name="sendGet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+            <state relative-caret-position="196">
+              <caret line="66" column="72" selection-start-line="66" selection-start-column="72" selection-end-line="66" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -146,7 +141,7 @@
     <option name="x" value="-1" />
     <option name="y" value="28" />
     <option name="width" value="1922" />
-    <option name="height" value="1020" />
+    <option name="height" value="869" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -484,7 +479,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="28" width="1922" height="1020" extended-state="6" />
+    <frame x="-1" y="28" width="1922" height="869" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -495,7 +490,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5007657" sideWeight="0.5056543" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30102623" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36363637" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -944,7 +939,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
+        <state relative-caret-position="630">
           <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
           <folding />
         </state>
@@ -952,7 +947,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
+        <state relative-caret-position="2592">
           <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -962,8 +957,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        <state relative-caret-position="196">
+          <caret line="66" column="72" selection-start-line="66" selection-start-column="72" selection-end-line="66" selection-end-column="72" />
           <folding />
         </state>
       </provider>

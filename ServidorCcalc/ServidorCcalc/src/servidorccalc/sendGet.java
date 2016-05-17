@@ -27,12 +27,10 @@ class sendGet implements Runnable{
 
     @Override
     public void run() {
-
         try {
             URL obj = null;
             obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
             // optional default is GET
             con.setRequestMethod("GET");
 
