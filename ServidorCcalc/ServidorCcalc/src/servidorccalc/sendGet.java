@@ -19,7 +19,7 @@ class sendGet implements Runnable{
 
     public sendGet(String latexEquation, int id) {
         this.latexEquation = latexEquation;
-        String expresio = filtarEquacio();
+        String expresio = filtrarEquacio();
         this.id = id;
         this.url += expresio.replace(" ","%20");
         this.fitxerRebutWeb = String.valueOf(this.id) + this.fitxerRebutWeb;
@@ -68,7 +68,6 @@ class sendGet implements Runnable{
             } else {
                 System.out.println("Error al renombrar l'imatge latex");
             }
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -78,11 +77,11 @@ class sendGet implements Runnable{
         }
     }
 
-    private String filtarEquacio(){
+    private String filtrarEquacio(){
         String expresio = "";
         try {
             ProcessBuilder pb;
-            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/filtradorImatges/main.py",latexEquation);
+            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/filtradorExpresions/main.py",latexEquation);
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -91,10 +90,8 @@ class sendGet implements Runnable{
             while((missatge = in.readLine() )!= null){
                 expresio += missatge;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
-
         }
         return expresio;
     }
