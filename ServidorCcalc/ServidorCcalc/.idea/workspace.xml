@@ -5,26 +5,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Documentació Projecte/descripcioCcalc.zip" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Documentació Projecte/LogoProjecte.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/manifest.mf" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/initial_activity_no_touch.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_main2.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_for_ucrop_no_touch.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/initial_activity.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/content_main2.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/res/layout/activity_for_ucrop.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassCalculadoraPolaca.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/ClassCalculadoraPolaca.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../PythonLibs/mathlibs/main.py" afterPath="$PROJECT_DIR$/../../PythonLibs/mathlibs/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/ActivityForUcrop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/DrawResultActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" afterPath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
-    </list>
+    <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="" />
     <ignored path="ServidorCcalc.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -112,7 +93,7 @@
       <file leaf-file-name="sendGet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
+            <state relative-caret-position="520">
               <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="102" />
               <folding />
             </state>
@@ -576,7 +557,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
+        <state relative-caret-position="520">
           <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="102" />
           <folding />
         </state>
