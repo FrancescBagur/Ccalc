@@ -93,6 +93,16 @@ class ClientConnectat implements Runnable{
                             creat = true;
                         }
                     }
+                    String operacio = "";
+                    try (BufferedReader br = new BufferedReader(new FileReader("expresions/exp" + idThread + ".txt"))) {
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            operacio += line;
+                        }
+                    }
+                    sendGet s = new sendGet(operacio,idThread);
+                    Thread t1 = new Thread(s);
+                    t1.start();
                     //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                     engegarLibMath();
                 }

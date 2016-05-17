@@ -51,8 +51,22 @@ try:
         ObjEcuationCalc = EcuationCalc(operacio)
         resultat = ObjEcuationCalc.calcularEquacio()
         print resultat
-        #Un cop tinc el resultat d'operar les equacions de primer i segon grau ho podem guardar
-        operacioResultat = str(operacio)+":"+str(resultat.replace({"[","]"},""))
+        result = str(resultat)
+        if "I" in result:
+            #Si el resultat conte la lletra I de imaginari
+            operacioResultat = str(operacio) + " = 0 : This equation don't have solution in real numbers."
+            print operacioResultat
+        else:
+            #Un cop tinc el resultat d'operar les equacions de primer i segon grau ho podem guardar
+            for ch in ["[","]",","]:
+                if ch in result:
+                    if ch == "[" or ch == "]":
+                        result = result.replace(ch,"")
+                    else:
+                        result = result.replace(ch,";")
+
+            operacioResultat = str(operacio)+" = 0 :"+str(result)
+            print operacioResultat
     else:
         ObjNotacioPolaca = NotacioPolaca(operacio)
 

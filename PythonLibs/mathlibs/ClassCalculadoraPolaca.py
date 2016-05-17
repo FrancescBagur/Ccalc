@@ -10,8 +10,8 @@ class PolacCalc:
 
     def calculadoraPolaca(self,elements):
         """ Dada una expresio d'elements que representen els components d'una
-            expresio en notaciÃ³ polaca inversa, evalua aquesta expresio.
-            Si l'expresio esta mal formada, llenÃ§a un ValueError. """
+            expresio en notació polaca inversa, evalua aquesta expresio.
+            Si l'expresio esta mal formada, llença un ValueError. """
 
         p = Pila()
         for element in elements:
@@ -23,7 +23,7 @@ class PolacCalc:
                 #print "DEBUG: apila ", nombre
             # Si no el podem convertir en numero, hauria de ser un operador
             except ValueError:
-                # Si no es un operador valid, llenÃ§a un ValueError
+                # Si no es un operador valid, llença un ValueError
                 if element not in "+-*/ %!?s^|$@" or len(element) != 1:
                     raise ValueError("Operador invalid")
                 # Si es un operador valid, intenta desapilar i operar
@@ -65,11 +65,12 @@ class PolacCalc:
                 elif element == "@":
                     resultat = a2 / a1
                 p.apilar(resultat)
-        # Al final el resultat tÃ© que ser l'unic de la pila
+        # Al final el resultat té que ser l'unic de la pila
         res = p.desapilar()
         if p.esta_buida():
             return res
         else:
+            print p.items
             print "DEBUG: error a la pila, sobren operants"
             raise ValueError("Sobren operants")
 

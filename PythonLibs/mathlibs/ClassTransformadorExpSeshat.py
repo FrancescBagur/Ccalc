@@ -4,7 +4,7 @@ class Transformador:
     """Transforma una expresio extreta de seshat en una expresio normal"""
 
     def __init__(self,expresio):
-        """ Crea el transformador i guardo l'expresiÃ³ obtinguda de seshat """
+        """ Crea el transformador i guardo l'expresió obtinguda de seshat """
         self.exp = expresio
 
     def transformarExpresio(self):
@@ -19,6 +19,8 @@ class Transformador:
         self.exp = self.exp.replace('\cos','|')
         self.exp = self.exp.replace('\\tg','$')
         self.exp = self.exp.replace('\\frac','@')
+        self.exp = self.exp.replace('\\pm','+')
+        self.exp = self.exp.replace('\pm','+')
 
         return self.exp
 
