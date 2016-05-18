@@ -16,3 +16,4 @@ def transformarExpresio(exp):
     return exp
 
 print transformarExpresio(sys.argv[1])
+

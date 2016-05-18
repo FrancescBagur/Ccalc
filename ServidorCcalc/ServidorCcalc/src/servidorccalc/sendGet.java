@@ -19,7 +19,7 @@ class sendGet implements Runnable{
 
     public sendGet(String latexEquation, int id) {
         this.latexEquation = latexEquation;
-        String expresio = filtraEquacio();
+        String expresio = filtrarEquacio();
         this.id = id;
         this.url += expresio.replace(" ","%20");
         this.fitxerRebutWeb = String.valueOf(this.id) + this.fitxerRebutWeb;
@@ -27,12 +27,10 @@ class sendGet implements Runnable{
 
     @Override
     public void run() {
-
         try {
             URL obj = null;
             obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
             // optional default is GET
             con.setRequestMethod("GET");
 
@@ -68,7 +66,6 @@ class sendGet implements Runnable{
             } else {
                 System.out.println("Error al renombrar l'imatge latex");
             }
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -78,7 +75,7 @@ class sendGet implements Runnable{
         }
     }
 
-    private String filtraEquacio(){
+    private String filtrarEquacio(){
         String expresio = "";
         try {
             ProcessBuilder pb;
@@ -91,10 +88,8 @@ class sendGet implements Runnable{
             while((missatge = in.readLine() )!= null){
                 expresio += missatge;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
-
         }
         return expresio;
     }

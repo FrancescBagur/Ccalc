@@ -1,0 +1,3 @@
+#!/bin/bash
+./autotrace-0.31.1/autotrace -log -centerline -color-count 3 -despeckle-tightness 4.0 -line-threshold 4 -line-reversion-threshold 4 /Ccalc/ServidorCcalc/ServidorCcalc/imatges/render$1.bmp;
+
