@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-#encoding: latin1
+#!/usr/bin/env python encoding: latin1
 import sys
 from SimpleCV import Image
 
