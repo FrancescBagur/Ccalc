@@ -70,25 +70,27 @@ class RespostaClient implements Runnable{
             try {
                 in = new BufferedReader(new InputStreamReader(connexio.getInputStream()));
                 String missatge = in.readLine();
-                if (missatge.trim().equals("OK")) {
-                    //El client ja ha rebut el resultat, passo a enviar-li la imatge
-                    try {
-                        creat = false;
-                        while (!creat) {
-                            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
-                            if (imatgeLatex.exists()) {
-                                //Els scripts han acabat
-                                System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jph");
-                                creat = true;
+                if (missatge != null) {
+                    if (missatge.trim().equals("OK")) {
+                        //El client ja ha rebut el resultat, passo a enviar-li la imatge
+                        try {
+                            creat = false;
+                            while (!creat) {
+                                imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
+                                if (imatgeLatex.exists()) {
+                                    //Els scripts han acabat
+                                    System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jph");
+                                    creat = true;
+                                }
                             }
+                            if (convertirImatgeGifAJpg()) {
+                                //Ja tenim la imatge convertida a jpg
+                                System.out.println("Imatge transformada a jph, passem a enviar");
+                                enviarImatge();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        if (convertirImatgeGifAJpg()) {
-                            //Ja tenim la imatge convertida a jpg
-                            System.out.println("Imatge transformada a jph, passem a enviar");
-                            enviarImatge();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
             } catch (IOException e) {
