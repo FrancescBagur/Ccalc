@@ -2,7 +2,7 @@
 #encoding: latin1
 import sys
 
-def transformarExpresio(self,exp):
+def transformarExpresio(exp):
     exp = exp.replace('- \cdots ','+')
     exp = exp.replace('\cdots - ','+') #mato tots els cdots sense sentit que sol retornar a vegades
     exp = exp.replace('\cdots ','') #mato tots els cdots sense sentit que sol retornar a vegades
@@ -15,4 +15,5 @@ def transformarExpresio(self,exp):
 
     return exp
 
-print transformarExpresio(sys.argv[1],sys.argv[1])
+print transformarExpresio(sys.argv[1])
+
