@@ -8,6 +8,7 @@ class Transformador:
         self.exp = expresio
 
     def transformarExpresio(self):
+        self.exp = self.exp.replace('.','*')
         self.exp = self.exp.replace('- \cdots ','+')
         self.exp = self.exp.replace('\cdots - ','+') #mato tots els cdots sense sentit que sol retornar a vegades
         self.exp = self.exp.replace('\cdots ','') #mato tots els cdots sense sentit que sol retornar a vegades
