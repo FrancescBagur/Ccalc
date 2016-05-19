@@ -39,6 +39,8 @@ import java.text.SimpleDateFormat;
 
 
 public class ActivityForUcrop extends AppCompatActivity {
+    //Ip del servidor
+    private static String SERVER_ADRESS="192.168.0.166";
     //ruta on es guarda el resultat del ucrop, en cachè.
     private Uri finalPhoto;
     //Resultat del UCrop invertit
@@ -65,6 +67,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_ucrop_no_touch);
+        //agafo la ip de les preferencies
+        SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(ActivityForUcrop.this, InitialActivity.class);
         //agafo el intent que m'ha obert la activity
@@ -212,8 +216,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         DataOutputStream out;
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
-        //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)

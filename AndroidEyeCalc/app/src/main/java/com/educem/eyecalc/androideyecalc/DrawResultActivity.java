@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +29,8 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 
 public class DrawResultActivity extends Activity {
+    //Ip del servidor
+    private static String SERVER_ADRESS="192.168.0.166";
     //aqui es guardara la operacio escrita per lusuari en el format correcte.
     String operacio = "";
     //identificador per el servidor
@@ -39,8 +39,6 @@ public class DrawResultActivity extends Activity {
     private String[] res = {""};
     //imatge rebuda del servidor (operacio)
     private String ruta;
-    //layout gefe
-    private LinearLayout ll;
     //layout on es mostrara el resultat
     private LinearLayout llres;
     //torna a la plana inicial
@@ -54,13 +52,14 @@ public class DrawResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_result);
+        //agafo la ip de les preferencies
+        SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(DrawResultActivity.this, InitialActivity.class);
         //inicialitzo el boto per tornar al principi
         scanAgain = (ImageView) findViewById(R.id.ivReturn);
         scanAgain.setOnClickListener(new goInitial());
         //inicialitzo el layout pare i la taula i agafo les dades amb que m'han obert
-        ll = (LinearLayout) findViewById(R.id.LlBoss);
         llres = (LinearLayout) findViewById(R.id.llResultat);
         Intent res = getIntent();
         String[] strokes = res.getExtras().getStringArray("strokes");
@@ -148,8 +147,6 @@ public class DrawResultActivity extends Activity {
     public class enviaServerSocket extends AsyncTask<Void, Void, Void> {
         //canal de sortida per enviar strings
         DataOutputStream out;
-        //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
