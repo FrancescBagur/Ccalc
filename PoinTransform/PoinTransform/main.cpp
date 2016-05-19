@@ -73,26 +73,26 @@ int main (int argc, char *argv[]){
 	    			if(linia.find("S") == std::string::npos){
 	    				//Si no hi ha una S significa que son punts
 	    				vector <string> nombres;
-	    				printf("linia:\n");
-	    				printf(linia.c_str());
-	    				printf("\n");
+	    				//printf("linia:\n");
+	    				//printf(linia.c_str());
+	    				//printf("\n");
 	    				split(nombres, linia, is_any_of("   "));
 	    				for(int k=0; k< nombres.size(); k++){
 	    					if(nombres[k] != "m" && nombres[k] != "l" && nombres[k] != "c"){
-	    						printf(nombres[k].c_str());
+	    						//printf(nombres[k].c_str());
 	    						
 	    						//si no es cap lletra es que es un numero, el passo a float per no perdre els desimals
 	    						if(!nombres[k].compare("") == 0){
-	    							printf("-");
+	    							//printf("-");
 		    						float numFloat = 0;
 		    						sscanf(nombres[k].c_str(), "%f", &numFloat); //Passa la cadena a un float
 		    						numInt.push_back(arrodonirFloat(numFloat)); //El passo a integer
-		    						printf("%i->", (int)numFloat);
+		    						//printf("%i->", (int)numFloat);
 		    					}
 	    					}
 	    				}
 
-	    				printf("\n");
+	    				//printf("\n");
 	    			}else{
 	    				//significa que comença una nova stroke
 	    				StrokesMatrix.push_back(numInt);
@@ -104,7 +104,7 @@ int main (int argc, char *argv[]){
 	    	t++;
 	    }
 	    fitxer.close();
-	    char fitxer1[30];
+	    char fitxer1[40];
 	    sprintf(fitxer1,"%s%s%s","seshat/SampleMathExps/",argv[1],"exp.scgink");
 	    //Si existeix el fitxer de sortida antic de seshat el borrem
  		if(existsFile(fitxer1)==1){
@@ -140,19 +140,19 @@ int main (int argc, char *argv[]){
 	    			strNum += stream.str();
 	    			stream.str("");
 	    			if(w<StrokesMatrix[z].size()-2)
-	    				fitxerEntrada << strNum + "],";
+	    				fitxerEntrada << strNum + "]:";
 	    			else
 	    				fitxerEntrada << strNum + "]";
 	    		}
 	    		if (z < StrokesMatrix.size() - 1) 
-	    			fitxerEntrada << "],";
+	    			fitxerEntrada << "]:";
 	    		else
 	    			fitxerEntrada << "]";
 	    	}
 	    	fitxerEntrada << "]";
    	 		fitxerEntrada.close();
-   	 		char comandaSeshat[60];
-			char fitxer2[30];
+   	 		char comandaSeshat[70];
+			char fitxer2[40];
 			sprintf(fitxer2,"%s%s%s","seshat/SampleMathExps/exp",argv[1],".scgink");
    	 		printf("Genero el fitxer de sortida per enviar al servidor de seshat");
 			sprintf(comandaSeshat,"mv -i %s %s;",fitxer1,fitxer2);
