@@ -172,10 +172,18 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvOE = (TextView) findViewById(R.id.tvOE);
-        TextView tvRE = (TextView) findViewById(R.id.tvRE);
-        llres.removeView(tvOE);
-        llres.removeView(tvRE);
+        //operacio
+        Bitmap resp = BitmapFactory.decodeFile(ruta);
+        if(resp!=null) {
+            ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
+            resp.getScaledWidth(new DisplayMetrics().densityDpi);
+            resp.getScaledHeight(new DisplayMetrics().densityDpi);
+            ivOperacio.setImageBitmap(resp);
+        } else {
+            ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
+            llres.removeView(ivOperacio);
+        }
+        //resultat
         TextView tvError = (TextView) findViewById(R.id.tvResultat);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -205,7 +213,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.9";
+        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
@@ -229,14 +237,12 @@ public class ActivityForUcrop extends AppCompatActivity {
                 enviaMissatge(token + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
-                if (res.length>1) {
-                    if (!res[1].equals("err")) {
-                        //envio ok conforme he rebut un resultat
-                        enviaMissatge("OK");
-                        //espero a rebre una imatge
-                        escoltaImatge();
-                    }
-                } else serverOFF = true;
+                if(!res[0].equals("postbuit")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {

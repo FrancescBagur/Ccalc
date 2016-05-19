@@ -110,7 +110,6 @@ public class DrawResultActivity extends Activity {
     private void mostrarResultatCorrecte(String operacio, String resultat){
         //operacio
         ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
-        ivO.setContentDescription(operacio);
         Bitmap res = BitmapFactory.decodeFile(ruta);
         res.getScaledWidth(new DisplayMetrics().densityDpi);
         res.getScaledHeight(new DisplayMetrics().densityDpi);
@@ -126,10 +125,18 @@ public class DrawResultActivity extends Activity {
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView op = (TextView) findViewById(R.id.tvopE);
-        TextView re = (TextView) findViewById(R.id.tvresE);
-        llres.removeView(op);
-        llres.removeView(re);
+        //operacio
+        Bitmap resp = BitmapFactory.decodeFile(ruta);
+        if (resp != null) {
+            ImageView ivO = (ImageView) findViewById(R.id.ivOpe);
+            resp.getScaledWidth(new DisplayMetrics().densityDpi);
+            resp.getScaledHeight(new DisplayMetrics().densityDpi);
+            ivO.setImageBitmap(resp);
+        } else {
+            TextView op = (TextView) findViewById(R.id.tvopE);
+            llres.removeView(op);
+        }
+        //resultat
         TextView tvError = (TextView) findViewById(R.id.tvRes);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -142,7 +149,7 @@ public class DrawResultActivity extends Activity {
         //canal de sortida per enviar strings
         DataOutputStream out;
         //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.9";
+        private static final String SERVER_ADRESS="172.20.10.2";
         //token identificatiu perque el servidor respongui
         private final String token= "CcalcWriter";
         //Socket (canal de comunicacio amb el servidor)
@@ -168,14 +175,12 @@ public class DrawResultActivity extends Activity {
                 enviaMissatge("Ccalc" + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
-                if (res.length>1) {
-                    if (!res[1].equals("err")) {
-                        //envio ok conforme he rebut un resultat
-                        enviaMissatge("OK");
-                        //espero a rebre una imatge
-                        escoltaImatge();
-                    }
-                } else serverOFF = true;
+                if (!res[0].equals("postbuit")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {

@@ -64,7 +64,7 @@ class RespostaClient implements Runnable{
 
         //Envio el missatge amb el resultat
         m.enviarMissatge(resultat+"\n",idThread);
-        if(!resultat.equals("null:err")) { //Si no han fallat les llibreries matematiques podem esperar el ok i enviar la imatge
+        //if(!resultat.equals("null:err")) { //Si no han fallat les llibreries matematiques podem esperar el ok i enviar la imatge
             //Espero rebre el missatge de ok
             BufferedReader in = null;
             try {
@@ -95,9 +95,9 @@ class RespostaClient implements Runnable{
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            //}
         }
-        //borrarFitxersAntics(idTransaccio);
+        borrarFitxersAntics(idTransaccio);
     }
 
     private boolean convertirImatgeGifAJpg() {
