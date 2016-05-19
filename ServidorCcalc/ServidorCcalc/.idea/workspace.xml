@@ -6,35 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp10.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp12.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp14.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp16.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp18.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp20.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp4.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp6.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/expresions/exp8.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage10.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage12.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage12.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage14.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage14.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage16.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage16.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage18.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage20.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage20.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage4.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage6.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage6.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/latexImages/latexImage8.gif" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/sendPost.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/sendPost.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" afterPath="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" afterPath="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
     </list>
     <ignored path="ServidorCcalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +44,8 @@
       <file leaf-file-name="RespostaClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1092">
-              <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
+            <state relative-caret-position="478">
+              <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -89,7 +64,7 @@
       <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-105">
+            <state relative-caret-position="570">
               <caret line="149" column="25" selection-start-line="149" selection-start-column="25" selection-end-line="149" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -101,27 +76,27 @@
       <file leaf-file-name="ClientWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+            <state relative-caret-position="253">
+              <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sendPost.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sendPost.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendPost.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="12" column="53" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="53" />
+            <state relative-caret-position="237">
+              <caret line="65" column="12" selection-start-line="65" selection-start-column="12" selection-end-line="69" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sendGet.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="sendGet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
+            <state relative-caret-position="435">
               <caret line="66" column="72" selection-start-line="66" selection-start-column="72" selection-end-line="66" selection-end-column="72" />
               <folding />
             </state>
@@ -152,12 +127,12 @@
         <option value="$PROJECT_DIR$/src/servidorccalc/Monitor.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/URL.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ServidorCcalc.java" />
-        <option value="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ImageConverter.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/sendGet.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/sendGet.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
+        <option value="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
       </list>
     </option>
   </component>
@@ -538,7 +513,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="30" width="1282" height="771" extended-state="6" />
+    <frame x="-1" y="30" width="1282" height="771" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -549,7 +524,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5007657" sideWeight="0.5056543" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25114855" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.94640124" sideWeight="0.49572194" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -611,13 +586,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="24" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="strokesSplitats[i]" language="JAVA" custom="" />
-        <watch expression="strokesFinal" language="JAVA" custom="" />
-        <watch expression="strokesSplitats" language="JAVA" custom="" />
+        <watch expression="operacio.trim()" language="JAVA" custom="" />
       </configuration>
     </watches-manager>
   </component>
@@ -975,24 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="66" column="72" selection-start-line="66" selection-start-column="72" selection-end-line="66" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105">
-          <caret line="149" column="25" selection-start-line="149" selection-start-column="25" selection-end-line="149" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ImageConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -1001,26 +956,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="570">
+          <caret line="149" column="25" selection-start-line="149" selection-start-column="25" selection-end-line="149" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+        <state relative-caret-position="478">
+          <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendPost.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="53" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="53" />
+        <state relative-caret-position="237">
+          <caret line="65" column="12" selection-start-line="65" selection-start-column="12" selection-end-line="69" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="56" column="40" selection-start-line="56" selection-start-column="40" selection-end-line="56" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendGet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="66" column="72" selection-start-line="66" selection-start-column="72" selection-end-line="66" selection-end-column="72" />
           <folding />
         </state>
       </provider>
