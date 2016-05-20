@@ -47,7 +47,7 @@ public class drawingActivity extends Activity {
         dv = new DrawingView(this);
         dv.setBackgroundColor(Color.WHITE);
         dv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-        llPrinc.addView(dv,0);
+        llPrinc.addView(dv);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);

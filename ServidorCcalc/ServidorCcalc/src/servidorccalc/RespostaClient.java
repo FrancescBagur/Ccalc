@@ -95,7 +95,7 @@ class RespostaClient implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //borrarFitxersAntics(idTransaccio);
+        borrarFitxersAntics(idTransaccio);
     }
 
     private boolean convertirImatgeGifAJpg() {
