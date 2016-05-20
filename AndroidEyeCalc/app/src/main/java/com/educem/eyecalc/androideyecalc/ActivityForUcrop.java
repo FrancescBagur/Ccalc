@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,7 @@ import java.text.SimpleDateFormat;
 
 public class ActivityForUcrop extends AppCompatActivity {
     //Ip del servidor
-    private static String SERVER_ADRESS="192.168.0.166";
+    private static String SERVER_ADRESS="";
     //ruta on es guarda el resultat del ucrop, en cachè.
     private Uri finalPhoto;
     //Resultat del UCrop invertit
@@ -69,6 +70,7 @@ public class ActivityForUcrop extends AppCompatActivity {
         setContentView(R.layout.activity_for_ucrop_no_touch);
         //agafo la ip de les preferencies
         SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
+        Log.i("IP", SERVER_ADRESS);
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(ActivityForUcrop.this, InitialActivity.class);
         //agafo el intent que m'ha obert la activity

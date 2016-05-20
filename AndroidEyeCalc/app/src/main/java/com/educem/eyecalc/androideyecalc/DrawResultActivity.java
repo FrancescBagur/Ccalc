@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,7 @@ import java.text.SimpleDateFormat;
 
 public class DrawResultActivity extends Activity {
     //Ip del servidor
-    private static String SERVER_ADRESS="192.168.0.166";
+    private static String SERVER_ADRESS="";
     //aqui es guardara la operacio escrita per lusuari en el format correcte.
     String operacio = "";
     //identificador per el servidor
@@ -54,6 +55,7 @@ public class DrawResultActivity extends Activity {
         setContentView(R.layout.activity_draw_result);
         //agafo la ip de les preferencies
         SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
+        Log.i("IP", SERVER_ADRESS);
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(DrawResultActivity.this, InitialActivity.class);
         //inicialitzo el boto per tornar al principi
