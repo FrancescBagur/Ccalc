@@ -23,6 +23,9 @@ class Transformador:
         self.exp = self.exp.replace('\\frac','@')
         self.exp = self.exp.replace('\\pm','+')
         self.exp = self.exp.replace('\pm','+')
+        self.exp = self.exp.replace('\pi','3.14159265358979323846264338')
+        self.exp = self.exp.replace(' ', '')
+        
         if "^{-" in (self.exp):
             self.exp = self.exp.replace('^{-','-')
             self.exp = self.exp.replace('}','')
