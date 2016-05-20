@@ -70,7 +70,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         setContentView(R.layout.activity_for_ucrop_no_touch);
         //agafo la ip de les preferencies
         SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
-        Log.i("IP", SERVER_ADRESS);
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(ActivityForUcrop.this, InitialActivity.class);
         //agafo el intent que m'ha obert la activity
