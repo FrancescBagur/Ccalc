@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="0"
-        android:paddingTop="10sp">
+        android:paddingBottom="10sp">
 
         <Button
             android:layout_width="fill_parent"

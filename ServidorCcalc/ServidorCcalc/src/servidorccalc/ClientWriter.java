@@ -45,11 +45,25 @@ class ClientWriter implements Runnable{
                     operacio += line;
                 }
             }
-            sendGet s = new sendGet(operacio,idThread);
-            Thread t1 = new Thread(s);
-            t1.start();
-            //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
-            engegarLibMath();
+            if(!operacio.isEmpty()) {
+                sendGet s = new sendGet(operacio, idThread);
+                Thread t1 = new Thread(s);
+                t1.start();
+                //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
+                engegarLibMath();
+            } else {
+
+                PrintWriter writer = new PrintWriter("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt", "UTF-8");
+                writer.println("postbuit:err");
+                writer.close();
+                File oldfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt");
+                File newfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + idThread + ".txt");
+                if (oldfile.renameTo(newfile)) {
+                    System.out.println("Fitxer renombrat");
+                } else {
+                    System.out.println("Ha fallat al renombrar el fitxer");
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

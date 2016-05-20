@@ -79,6 +79,8 @@ class ClientConnectat implements Runnable{
                             creat = true;
                         }
                     }
+                    //Fusionem els punts pròxims per evitar errors d'autotrace
+                    fusionarPunts(idThread);
                     String strokes = llegirFitxerSeshat(idThread);
                     //Creo el Thread que farà la petició al server
                     sendPost sp = new sendPost(strokes,idThread);
@@ -110,6 +112,65 @@ class ClientConnectat implements Runnable{
         } catch (IOException ex) {
             Logger.getLogger(ServidorCcalc.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    //Aquesta funció fusiona els punts que son molt pròxims i estan dividits degut a errors d'autotrace
+    private void fusionarPunts(int id){
+        Point p1;
+        Point p2;
+        String aux;
+        String [] auxSplitat;
+        String strokesFinal = "";
+        String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
+        String strokes = "";
+        File f = new File(ruta);
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                strokes = line.trim();
+            }
+            System.out.println(strokes);
+            //un cop tenim els strokes en un string ja podem passar a la modificació
+            String [] strokesSplitats = strokes.split(":");
+            for (int i = 0; i < strokesSplitats.length; i++){
+                if(!strokesSplitats[i].contains("]]]") && strokesSplitats[i].contains("]]")){
+                    aux = strokesSplitats[i].replace('[',' ').trim();
+                    aux = aux.replace(']',' ').trim();
+                    auxSplitat = aux.split(",");
+                    p1 = new Point(Integer.parseInt(auxSplitat[0]),Integer.parseInt(auxSplitat[1]));
+                    aux = strokesSplitats[i+1].replace('[',' ').trim();
+                    aux = aux.replace(']',' ').trim();
+                    auxSplitat = aux.split(",");
+                    p2 = new Point(Integer.parseInt(auxSplitat[0]),Integer.parseInt(auxSplitat[1]));
+                    //Es pot anar jugant amb el parametre de la distància de la següent funció per anar corregint errors
+                    if(distanciaEntreDosPuntsInferiorA(p1,p2,(float)7)){
+                        strokesSplitats[i] = strokesSplitats[i].substring(0,strokesSplitats[i].length()-1);
+                        if(strokesSplitats[i+1].contains("[[")){
+                            strokesSplitats[i+1] = strokesSplitats[i+1].substring(1,strokesSplitats[i+1].length());
+                        }
+                    }
+                }
+                if(i<strokesSplitats.length-1)
+                    strokesFinal += strokesSplitats[i] + ",";
+                else
+                    strokesFinal += strokesSplitats[i];
+            }
+
+            PrintWriter writer = new PrintWriter(ruta, "UTF-8");
+            writer.println(strokesFinal);
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //A aquesta funció sa li passen dos punts i una distancia y retorna cert si hi ha mes distancia i fals si ni ha menys
+    private boolean distanciaEntreDosPuntsInferiorA(Point p1, Point p2, float dist){
+        float resultat = (float) Math.sqrt(Math.pow((p2.x - p1.x),2) + Math.pow((p2.y-p1.y),2));
+        return (dist > resultat);
     }
 
     private String llegirFitxerSeshat(int id){
@@ -202,6 +263,16 @@ class ClientConnectat implements Runnable{
             e.printStackTrace();
         }
         return ret;
+    }
+
+    class Point{
+        int x;
+        int y;
+
+        public Point(int x ,int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
 }

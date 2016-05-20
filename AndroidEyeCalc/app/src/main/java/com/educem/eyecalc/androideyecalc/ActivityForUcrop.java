@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,8 @@ import java.text.SimpleDateFormat;
 
 
 public class ActivityForUcrop extends AppCompatActivity {
+    //Ip del servidor
+    private static String SERVER_ADRESS="";
     //ruta on es guarda el resultat del ucrop, en cachè.
     private Uri finalPhoto;
     //Resultat del UCrop invertit
@@ -65,6 +68,8 @@ public class ActivityForUcrop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_ucrop_no_touch);
+        //agafo la ip de les preferencies
+        SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(ActivityForUcrop.this, InitialActivity.class);
         //agafo el intent que m'ha obert la activity
@@ -172,10 +177,18 @@ public class ActivityForUcrop extends AppCompatActivity {
     }
     //mostra error al calcular
     private void mostrarError() {
-        TextView tvOE = (TextView) findViewById(R.id.tvOE);
-        TextView tvRE = (TextView) findViewById(R.id.tvRE);
-        llres.removeView(tvOE);
-        llres.removeView(tvRE);
+        //operacio
+        Bitmap resp = BitmapFactory.decodeFile(ruta);
+        if(resp!=null) {
+            ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
+            resp.getScaledWidth(new DisplayMetrics().densityDpi);
+            resp.getScaledHeight(new DisplayMetrics().densityDpi);
+            ivOperacio.setImageBitmap(resp);
+        } else {
+            ImageView ivOperacio = (ImageView) findViewById(R.id.ivOp);
+            llres.removeView(ivOperacio);
+        }
+        //resultat
         TextView tvError = (TextView) findViewById(R.id.tvResultat);
         tvError.setGravity(Gravity.CENTER_HORIZONTAL);
         if(res[0].equals("ers"))tvError.setText("Error while connecting to the server, try again later.");
@@ -204,8 +217,6 @@ public class ActivityForUcrop extends AppCompatActivity {
         DataOutputStream out;
         //canal de sortida per enviar la imatge.
         OutputStream outImg;
-        //Ip del servidor
-        private static final String SERVER_ADRESS="172.20.10.9";
         //token identificatiu perque el servidor respongui
         private final String token= "Ccalc";
         //Socket (canal de comunicacio amb el servidor)
@@ -229,14 +240,12 @@ public class ActivityForUcrop extends AppCompatActivity {
                 enviaMissatge(token + ":" + ID);
                 //espero el resultat de la operacio
                 escoltaDades();
-                if (res.length>1) {
-                    if (!res[1].equals("err")) {
-                        //envio ok conforme he rebut un resultat
-                        enviaMissatge("OK");
-                        //espero a rebre una imatge
-                        escoltaImatge();
-                    }
-                } else serverOFF = true;
+                if(!res[0].equals("postbuit")) {
+                    //envio ok conforme he rebut un resultat
+                    enviaMissatge("OK");
+                    //espero a rebre una imatge
+                    escoltaImatge();
+                }
                 //tanco el socket
                 s.close();
             } catch (IOException e) {

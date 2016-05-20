@@ -33,6 +33,7 @@
     <string name="TVoperation">Operation</string>
     <string name="OpEnunciat">Operation</string>
     <string name="resEnunciat">Result</string>
+    <string name="ipTextHint">type IP</string>
     <!--<string name="userplaceholder">Usuari</string>
     <string name="passplaceholder">Contrasenya</string>
     <string name="rememberPass">¿Has oblidat la contrasenya?</string>
