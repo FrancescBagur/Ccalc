@@ -55,7 +55,6 @@ public class DrawResultActivity extends Activity {
         setContentView(R.layout.activity_draw_result);
         //agafo la ip de les preferencies
         SERVER_ADRESS = getSharedPreferences("IP_CONFIG",MODE_PRIVATE).getString("IP","");
-        Log.i("IP",SERVER_ADRESS);
         //creo un intent per tornar a la primera activity
         intTofirstActivity = new Intent(DrawResultActivity.this, InitialActivity.class);
         //inicialitzo el boto per tornar al principi
