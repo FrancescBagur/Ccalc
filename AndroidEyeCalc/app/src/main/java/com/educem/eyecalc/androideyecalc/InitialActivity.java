@@ -30,8 +30,8 @@ public class InitialActivity extends AppCompatActivity {
         //estableixo la variable IP de manera que es veu entre activities
         SharedPreferences sp = getSharedPreferences("IP_CONFIG",MODE_PRIVATE);
         SharedPreferences.Editor editsp = sp.edit();
-        editsp.putString("IP","192.168.0.166");
-        editsp.commit();
+        editsp.putString("IP","172.20.10.2");
+        editsp.apply();
         //poso un click listener al logo per poder canviar la ip
         ImageView logo = (ImageView) findViewById(R.id.imageLogo);
         logo.setOnClickListener(new logoClick(sp));
@@ -60,7 +60,7 @@ public class InitialActivity extends AppCompatActivity {
                 String novaIP = String.valueOf(et.getText()).trim();
                 if (!novaIP.isEmpty()) {
                     editsp.putString("IP", novaIP);
-                    editsp.commit();
+                    editsp.apply();
                 }
                 et.setVisibility(View.INVISIBLE);
                 pressed = false;
