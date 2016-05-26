@@ -67,6 +67,7 @@ class ClientConnectat implements Runnable{
                     }
                     //Llenço els scripts que executen PoinTransform i autotrace, que generaran l'entrada de seshat
                     llencarScripts();
+
                     System.out.println("Scripts llençats");
                     //Un cop llençats els scripts, he de veure si han acabat i ho miraré comprovant
                     //si s'ha creat el fitxer de sortida
@@ -83,9 +84,11 @@ class ClientConnectat implements Runnable{
                     fusionarPunts(idThread);
                     String strokes = llegirFitxerSeshat(idThread);
                     //Creo el Thread que farà la petició al server
-                    sendPost sp = new sendPost(strokes,idThread);
-                    Thread sendp = new Thread(sp);
-                    sendp.start();
+                    if(idThread>14) {
+                        sendPost sp = new sendPost(strokes, idThread);
+                        Thread sendp = new Thread(sp);
+                        sendp.start();
+                    }
                     creat = false;
                     while(!creat){
                         fitxerSortida = new File("expresions/exp" + idThread + ".txt");
