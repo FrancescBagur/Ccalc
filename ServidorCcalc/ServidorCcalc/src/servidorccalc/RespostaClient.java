@@ -84,7 +84,7 @@ class RespostaClient implements Runnable{
                         }
                         if (convertirImatgeGifAJpg()) {
                             //Ja tenim la imatge convertida a jpg
-                            if(idThread<=14){
+                            if(idThread<=15){
                                 Thread.sleep(4000);
                             }
                             System.out.println("Imatge transformada a jph, passem a enviar");

@@ -1,0 +1,125 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: Adobe Illustrator by AutoTrace version 0.31.1
+%%Title: 
+%%CreationDate: Sun May 29 17:38:46 2016
+%%BoundingBox: 0 0 500 170
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+/bd { bind def } bind def
+/incompound false def
+/m { moveto } bd
+/l { lineto } bd
+/c { curveto } bd
+/F { incompound not {fill} if } bd
+/f { closepath F } bd
+/S { stroke } bd
+/*u { /incompound true def } bd
+/*U { /incompound false def f} bd
+/k { setcmykcolor } bd
+/K { k } bd
+%%EndProlog
+%%BeginSetup
+%%EndSetup
+0.000 0.000 0.000 0.996 K
+*u
+374 161 m
+383 167 l
+S
+398 167 m
+378 151 l
+S
+410 151 m
+393 141 l
+S
+487 125 m
+487 122 l
+S
+421 101.258 m
+435.787 107.421  452.526 85  436.956 77.357  c 
+423.426 70.582  407.376 95.532  421 101.258  c 
+S
+383 87 m
+393 86 l
+S
+342 82 m
+353 80 l
+344 72 l
+S
+384 77 m
+390 77 l
+S
+349 71 m
+352 64 l
+S
+313 65 m
+313 64 l
+S
+257 62 m
+257 61 l
+S
+269 62 m
+278 46 l
+S
+342 61 m
+343 61 l
+S
+217 52 m
+232 48 l
+S
+262 57 m
+265 57 l
+S
+247 51 m
+248 51 l
+S
+268 47 m
+267 42 l
+S
+218 41 m
+224 41 l
+S
+183 40 m
+176 37 l
+S
+2 35 m
+1 32 l
+S
+122 35 m
+122 20 l
+S
+112 33 m
+121 30 l
+S
+221 33 m
+237 32 l
+S
+78 3 m
+86 9.999 l
+71 24 l
+86 27 l
+S
+392 26 m
+416 7 l
+S
+402 26 m
+402 23 l
+S
+70 24 m
+71 24 l
+S
+131 17 m
+132 17 l
+S
+147 16 m
+147 7 l
+S
+402 15 m
+397 11 l
+S
+479 0 m
+484 0 l
+S
+*U
+%%Trailer
+%%EOF

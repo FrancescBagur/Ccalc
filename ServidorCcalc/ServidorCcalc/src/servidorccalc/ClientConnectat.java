@@ -105,9 +105,12 @@ class ClientConnectat implements Runnable{
                             operacio += line;
                         }
                     }
-                    sendGet s = new sendGet(operacio,idThread);
-                    Thread t1 = new Thread(s);
-                    t1.start();
+                    if(idThread > 14){
+                        sendGet s = new sendGet(operacio,idThread);
+                        Thread t1 = new Thread(s);
+                        t1.start();
+                    }
+
                     //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                     engegarLibMath();
                 }
