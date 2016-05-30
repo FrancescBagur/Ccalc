@@ -6,19 +6,72 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b873f03-0968-43c3-ab94-cee2ee4f37e4" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Documentació Projecte/BagurAlmendro-DocumentacioFinal.zip" afterPath="$PROJECT_DIR$/../../Documentació Projecte/BagurAlmendro-DocumentacioFinal.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render0.bmp" afterPath="$PROJECT_DIR$/imatges/render0.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render10.bmp" afterPath="$PROJECT_DIR$/imatges/render10.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render12.bmp" afterPath="$PROJECT_DIR$/imatges/render12.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render14.bmp" afterPath="$PROJECT_DIR$/imatges/render14.bmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render2.bmp" afterPath="$PROJECT_DIR$/imatges/render2.bmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render4.bmp" afterPath="$PROJECT_DIR$/imatges/render4.bmp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render6.bmp" afterPath="$PROJECT_DIR$/imatges/render6.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imatges/render8.bmp" afterPath="$PROJECT_DIR$/imatges/render8.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage0.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage0.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage0.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage0.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage10.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage10.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage10.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage10.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage12.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage12.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage12.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage12.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage14.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage14.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage14.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage14.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage2.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage2.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage2.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage2.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage4.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage4.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage4.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage4.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage6.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage6.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage6.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage6.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage8.gif" afterPath="$PROJECT_DIR$/latexImages/latexImage8.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/latexImages/latexImage8.jpg" afterPath="$PROJECT_DIR$/latexImages/latexImage8.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientConnectat.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/ClientWriter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" afterPath="$PROJECT_DIR$/out/production/ServidorCcalc/servidorccalc/RespostaClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" afterPath="$PROJECT_DIR$/../../AndroidEyeCalc/app/src/main/java/com/educem/eyecalc/androideyecalc/InitialActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp0.txt" afterPath="$PROJECT_DIR$/expresions/exp0.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp10.txt" afterPath="$PROJECT_DIR$/expresions/exp10.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp12.txt" afterPath="$PROJECT_DIR$/expresions/exp12.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp14.txt" afterPath="$PROJECT_DIR$/expresions/exp14.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp2.txt" afterPath="$PROJECT_DIR$/expresions/exp2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp4.txt" afterPath="$PROJECT_DIR$/expresions/exp4.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp6.txt" afterPath="$PROJECT_DIR$/expresions/exp6.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expresions/exp8.txt" afterPath="$PROJECT_DIR$/expresions/exp8.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida0.txt" afterPath="$PROJECT_DIR$/fitxerSortida0.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida10.txt" afterPath="$PROJECT_DIR$/fitxerSortida10.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida12.txt" afterPath="$PROJECT_DIR$/fitxerSortida12.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida14.txt" afterPath="$PROJECT_DIR$/fitxerSortida14.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida2.txt" afterPath="$PROJECT_DIR$/fitxerSortida2.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida4.txt" afterPath="$PROJECT_DIR$/fitxerSortida4.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida6.txt" afterPath="$PROJECT_DIR$/fitxerSortida6.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxerSortida8.txt" afterPath="$PROJECT_DIR$/fitxerSortida8.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/0.txt" afterPath="$PROJECT_DIR$/fitxersSortida/0.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/10.txt" afterPath="$PROJECT_DIR$/fitxersSortida/10.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/12.txt" afterPath="$PROJECT_DIR$/fitxersSortida/12.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/14.txt" afterPath="$PROJECT_DIR$/fitxersSortida/14.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/2.txt" afterPath="$PROJECT_DIR$/fitxersSortida/2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/4.txt" afterPath="$PROJECT_DIR$/fitxersSortida/4.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/6.txt" afterPath="$PROJECT_DIR$/fitxersSortida/6.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fitxersSortida/8.txt" afterPath="$PROJECT_DIR$/fitxersSortida/8.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/0exp.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/0exp.scgink" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/2exp.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/2exp.scgink" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/4exp.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/4exp.scgink" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/6exp.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/6exp.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp0.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp0.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp10.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp10.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp12.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp12.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp14.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp14.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp2.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp2.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp4.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp4.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp6.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp6.scgink" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seshat/SampleMathExps/exp8.scgink" afterPath="$PROJECT_DIR$/seshat/SampleMathExps/exp8.scgink" />
     </list>
     <ignored path="ServidorCcalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,11 +108,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientWriter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="780">
               <caret line="55" column="50" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1575">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -98,8 +161,8 @@
       <file leaf-file-name="RespostaClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1095">
-              <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+            <state relative-caret-position="1140">
+              <caret line="89" column="43" selection-start-line="89" selection-start-column="43" selection-end-line="89" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -108,8 +171,8 @@
       <file leaf-file-name="ClientConnectat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1575">
-              <caret line="110" column="35" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="35" />
+            <state relative-caret-position="1650">
+              <caret line="115" column="13" selection-start-line="115" selection-start-column="13" selection-end-line="115" selection-end-column="13" />
               <folding>
                 <element signature="method#distanciaEntreDosPuntsInferiorA#0;class#ClientConnectat#0" expanded="false" />
                 <element signature="method#llegirFitxerSeshat#0;class#ClientConnectat#0" expanded="false" />
@@ -155,6 +218,7 @@
         <option value="$PROJECT_DIR$/src/servidorccalc/RespostaClient.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java" />
         <option value="$PROJECT_DIR$/src/servidorccalc/ClientWriter.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -189,6 +253,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -259,7 +324,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
@@ -568,7 +632,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="30" width="1282" height="771" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -578,7 +642,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5007657" sideWeight="0.5056543" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33690658" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3353752" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -653,14 +717,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/sendPost.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1165,16 +1221,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/RespostaClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+        <state relative-caret-position="1140">
+          <caret line="89" column="43" selection-start-line="89" selection-start-column="43" selection-end-line="89" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientConnectat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="110" column="35" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="35" />
+        <state relative-caret-position="1650">
+          <caret line="115" column="13" selection-start-line="115" selection-start-column="13" selection-end-line="115" selection-end-column="13" />
           <folding>
             <element signature="method#distanciaEntreDosPuntsInferiorA#0;class#ClientConnectat#0" expanded="false" />
             <element signature="method#llegirFitxerSeshat#0;class#ClientConnectat#0" expanded="false" />
@@ -1190,8 +1246,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servidorccalc/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="780">
           <caret line="55" column="50" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1575">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

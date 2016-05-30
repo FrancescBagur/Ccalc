@@ -1,8 +1,13 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Creator: Adobe Illustrator by AutoTrace version 0.31.1
 %%Title: 
+<<<<<<< HEAD
 %%CreationDate: Mon May 30 12:58:26 2016
 %%BoundingBox: 0 0 500 200
+=======
+%%CreationDate: Sun May 29 18:35:57 2016
+%%BoundingBox: 0 0 500 280
+>>>>>>> a3c33e8af76156fe57c32edf50ab7580b435f6b4
 %%DocumentData: Clean7Bit
 %%EndComments
 %%BeginProlog
@@ -23,6 +28,7 @@
 %%EndSetup
 0.000 0.000 0.000 0.996 K
 *u
+<<<<<<< HEAD
 107 182 m
 110 182 l
 S
@@ -129,6 +135,90 @@ S
 S
 222 23 m
 222 20 l
+=======
+497 170 m
+499 162 l
+S
+497 163 m
+492 158 l
+S
+489 157 m
+489 155 l
+S
+483 152 m
+483 149 l
+S
+474 139 m
+474 138 l
+474 139 l
+S
+473 137 m
+470 134 l
+S
+467 131 m
+469 131 l
+S
+482 131 m
+482 128 l
+S
+456 118 m
+465 126 l
+S
+477 124 m
+475 122 l
+S
+449 107 m
+449 106 l
+S
+437 96 m
+437 95 l
+S
+435 94 m
+433 88 l
+S
+425 81 m
+426 77 l
+427 79 l
+S
+405 62 m
+425 81 l
+S
+437 80 m
+437 77 l
+S
+415 57 m
+417 54 l
+S
+403 56 m
+410 52 l
+S
+387 42 m
+398 52 l
+399 52 l
+400 52 l
+401 51 l
+S
+395 47 m
+397 45 l
+S
+392 40 m
+394 38 l
+S
+401 38 m
+402 37 l
+S
+392 36 m
+393 35 l
+S
+382 32 m
+385 30 l
+S
+387 28 m
+387 26 l
+S
+374 12 m
+372 8 l
+>>>>>>> a3c33e8af76156fe57c32edf50ab7580b435f6b4
 S
 *U
 %%Trailer
