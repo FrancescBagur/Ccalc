@@ -57,7 +57,7 @@
 				  </div>
 				</div>
 				<h2 class="title22">Diagrama Explicatiu</h2>
-				<img class="imgwidth4" src="diagrames/diagramExplicatiu.PNG" alt="java">
+				<img class="imgwidth4" src="diagrames/diagramExplicatiu2.PNG" alt="java">
 				<h2 class="title22">Diagrama de casos d'us</h2>
 				<img class="imgwidth4" src="diagrames/useCase.PNG" alt="java">
 				<h2 class="title22">Diagrama de classes de l'app mòbil</h2>

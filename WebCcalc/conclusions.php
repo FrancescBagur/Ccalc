@@ -9,17 +9,17 @@
 			<div class="container2"></br>
 				<h1 class="title22">Conclusions</h1>
 				<ul>
-					<li class="listy lead">S'ha de plantejar un projecte realista.</li>
-					<li class="listy lead">Destacar la importància del codi lliure.</li>
-					<li class="listy lead">Tenir molt clar quines tecnologies es faran servir.</li>
-					<li class="listy lead">La importancia de la persistència.</li>
+					<li class="listy lead">Ambició vs Viabilitat.</li>
+					<li class="listy lead">Codi lliure.</li>
+					<li class="listy lead">Tecnologies.</li>
+					<li class="listy lead">Persistència.</li>
 				</ul>
 				<h1 class="title22">Agraïments</h1>
 				<ul>
 					<li class="listy lead">Al professorat.</li>
 					<li class="listy lead">A l'escola.</li>
-					<li class="listy lead">Als desenvolupadors de Seshat, SimpleCV, Autotrace, Ucrop i Sympy.</li>
 					<li class="listy lead">ASIX.</li>
+					<li class="listy lead">Als desenvolupadors de Seshat, SimpleCV, Autotrace, Ucrop i Sympy.</li>
 				</ul></br>
 			</div>
 		</div>

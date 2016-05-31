@@ -9,7 +9,7 @@
 			<div class="container2">
 				<h1 class="title22">Cost de desenvolupament</h1>
 				<img class="imgcost" src="diagrames/CostDesenvolupament.PNG"/></br>
-				<p></br>Total d'hores: 532.</p>
+				<p></br>Total d'hores: 575.</p>
 			</div>
 		</div>
 		<?php include_once("html/footer.html");?> <!--Incloc el footer de la pàgina -->
