@@ -40,7 +40,8 @@ class RespostaClient implements Runnable{
     public void run(){
         System.out.println("La id de transaccio val " + idTransaccio);
         while(!creat){
-            fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
+            //fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
+            fitxerSortida = new File("fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
             if (fitxerSortida.exists()) {
                 //Els scripts han acabat
                 System.out.println("Ja hi ha el fitxer de sortida");
@@ -75,7 +76,8 @@ class RespostaClient implements Runnable{
                     try {
                         creat = false;
                         while (!creat) {
-                            imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
+                            //imatgeLatex = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
+                            imatgeLatex = new File("latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
                             if (imatgeLatex.exists()) {
                                 //Els scripts han acabat
                                 System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jph");
@@ -84,9 +86,9 @@ class RespostaClient implements Runnable{
                         }
                         if (convertirImatgeGifAJpg()) {
                             //Ja tenim la imatge convertida a jpg
-                            if(idThread<=15){
-                                Thread.sleep(4000);
-                            }
+                            //if(idThread<=15){
+                              //  Thread.sleep(4000);
+                            //}
                             System.out.println("Imatge transformada a jph, passem a enviar");
                             enviarImatge();
                         }
@@ -98,12 +100,14 @@ class RespostaClient implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //borrarFitxersAntics(idTransaccio);
+        borrarFitxersAntics(idTransaccio);
     }
 
     private boolean convertirImatgeGifAJpg() {
-        String inputImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif";
-        String oututImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg";
+        //String inputImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif";
+        //String oututImage = "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg";
+        String inputImage = "latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif";
+        String oututImage = "latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg";
         String formatName = "JPG";
         boolean result = false;
         try {
@@ -154,15 +158,14 @@ class RespostaClient implements Runnable{
 
     private void enviarImatge() throws IOException, InterruptedException {
         OutputStream outputStream = connexio.getOutputStream();
-        BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg"));
+        //BufferedImage image = ImageIO.read(new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg"));
+        BufferedImage image = ImageIO.read(new File("latexImages/latexImage" + String.valueOf(idTransaccio) + ".jpg"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
         outputStream.write(byteArrayOutputStream.toByteArray());
         outputStream.flush();
         System.out.println("Flushed: " + System.currentTimeMillis());
-
-        //Thread.sleep(1000);
         System.out.println("Closing: " + System.currentTimeMillis());
         connexio.close();
     }

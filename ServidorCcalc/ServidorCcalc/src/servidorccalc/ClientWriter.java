@@ -27,11 +27,11 @@ class ClientWriter implements Runnable{
         try {
             BufferedReader bf =new  BufferedReader(new InputStreamReader(connexio.getInputStream()));
             String strokes = bf.readLine();
-            if(idThread > 14) {
-                sendPost sp = new sendPost(strokes, idThread);
-                Thread sendp = new Thread(sp);
-                sendp.start();
-            }
+            //if(idThread > 14) {
+            sendPost sp = new sendPost(strokes, idThread);
+            Thread sendp = new Thread(sp);
+            sendp.start();
+            //}
             creat = false;
             while(!creat){
                 fitxerSortida = new File("expresions/exp" + idThread + ".txt");
@@ -48,11 +48,11 @@ class ClientWriter implements Runnable{
                 }
             }
             if(!operacio.isEmpty()) {
-                if(idThread > 14) {
-                    sendGet s = new sendGet(operacio, idThread);
-                    Thread t1 = new Thread(s);
-                    t1.start();
-                }
+                //if(idThread > 14) {
+                sendGet s = new sendGet(operacio, idThread);
+                Thread t1 = new Thread(s);
+                t1.start();
+                //}
                 //Aqui ja ha acabat el seshat, ja podem posar en marxa les llibreries de calcul matemàtic.
                 engegarLibMath();
             } else {

@@ -43,7 +43,8 @@ class sendGet implements Runnable{
             int filesize=300000;
             byte [] mybytearray2  = new byte [filesize];
             InputStream is = con.getInputStream();
-            FileOutputStream fos = new FileOutputStream("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb); // destination path and name of file
+            //FileOutputStream fos = new FileOutputStream("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
+            FileOutputStream fos = new FileOutputStream("latexImages/"+fitxerRebutWeb); //destination path and name of file
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             bytesRead = is.read(mybytearray2,0,mybytearray2.length);
             current = bytesRead;
@@ -59,8 +60,11 @@ class sendGet implements Runnable{
             bos.flush();
             bos.close();
 
-            File oldName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
-            File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(id) + ".gif");
+            //File oldName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/"+fitxerRebutWeb);
+            //File newName = new File("/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage" + String.valueOf(id) + ".gif");
+
+            File oldName = new File("latexImages/"+fitxerRebutWeb);
+            File newName = new File("latexImages/latexImage" + String.valueOf(id) + ".gif");
             if(oldName.renameTo(newName)) {
                 System.out.println("Imatge renombrada");
             } else {
