@@ -54,7 +54,7 @@ try:
         result = str(resultat)
         if "I" in result:
             #Si el resultat conte la lletra I de imaginari
-            operacioResultat = str(operacio) + " = 0 : This equation don't have solution in real numbers."
+            operacioResultat = str(operacio) + " = 0 : This equation doesn't have solution in real numbers."
             print operacioResultat
         else:
             #Un cop tinc el resultat d'operar les equacions de primer i segon grau ho podem guardar
