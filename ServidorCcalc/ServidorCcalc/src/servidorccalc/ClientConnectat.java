@@ -73,7 +73,7 @@ class ClientConnectat implements Runnable{
                     //si s'ha creat el fitxer de sortida
 
                     while(!creat){
-                        fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + String.valueOf(idThread) + ".scgink");
+                        fitxerSortida = new File("/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + String.valueOf(idThread) + ".scgink");
                         if (fitxerSortida.exists()) {
                             //Els scripts han acabat
                             System.out.println("Els scripts han finalitzat, llencem la petició  a seshat");
@@ -127,7 +127,7 @@ class ClientConnectat implements Runnable{
         String aux;
         String [] auxSplitat;
         String strokesFinal = "";
-        String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
+        String ruta = "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
         String strokes = "";
         File f = new File(ruta);
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
@@ -180,7 +180,7 @@ class ClientConnectat implements Runnable{
     }
 
     private String llegirFitxerSeshat(int id){
-        String ruta = "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
+        String ruta = "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp" + id + ".scgink";
         String strokes = "";
         File f = new File(ruta);
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
@@ -209,7 +209,7 @@ class ClientConnectat implements Runnable{
     private void engegarLibMath(){
         try {
             ProcessBuilder pb;
-            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
+            pb = new ProcessBuilder("python2.7","/home/palmendr/Documentos/PerePersonal/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -225,7 +225,7 @@ class ClientConnectat implements Runnable{
 
     private void llencarScripts(){
         try {
-            ProcessBuilder pb = new ProcessBuilder("/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform", String.valueOf(idThread));
+            ProcessBuilder pb = new ProcessBuilder("/home/palmendr/Documentos/PerePersonal/Ccalc/PoinTransform/PoinTransform/bin/Debug/PoinTransform", String.valueOf(idThread));
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -246,7 +246,7 @@ class ClientConnectat implements Runnable{
             BufferedImage image = null;
             image = ImageIO.read(input);
             //Creo el fitxer de sortida segons la id de la transaccio
-            File output = new File("/Ccalc/ServidorCcalc/ServidorCcalc/imatges/"+ fitxerConvertitBmp);
+            File output = new File("/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/imatges/"+ fitxerConvertitBmp);
             //Escric el jpg amb bmp
             ImageIO.write(image, "bmp", output);
         } catch (IOException e) {
@@ -259,7 +259,7 @@ class ClientConnectat implements Runnable{
         //que eliminem sombres i defectes
         int ret = 0;
         try {
-            ProcessBuilder pb = new ProcessBuilder("python2.7","../../PythonLibs/SimpleCv/filtradorImatges.py",fitxerConvertitBmp);
+            ProcessBuilder pb = new ProcessBuilder("python2.7","/home/palmendr/Documentos/PerePersonal/PythonLibs/SimpleCv/filtradorImatges.py",fitxerConvertitBmp);
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

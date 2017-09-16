@@ -83,7 +83,7 @@ class sendGet implements Runnable{
         String expresio = "";
         try {
             ProcessBuilder pb;
-            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/filtradorExpresions/main.py",latexEquation);
+            pb = new ProcessBuilder("python2.7","/home/palmendr/Documentos/PerePersonal/Ccalc/PythonLibs/mathlibs/filtradorExpresions/main.py",latexEquation);
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

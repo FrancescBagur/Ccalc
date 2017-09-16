@@ -57,11 +57,14 @@ class ClientWriter implements Runnable{
                 engegarLibMath();
             } else {
 
-                PrintWriter writer = new PrintWriter("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt", "UTF-8");
+                //PrintWriter writer = new PrintWriter("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter("fitxersSortida/temp" + idThread + ".txt", "UTF-8");
                 writer.println("postbuit:err");
                 writer.close();
-                File oldfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt");
-                File newfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + idThread + ".txt");
+                //File oldfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp" + idThread + ".txt");
+                //File newfile = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + idThread + ".txt");
+                File oldfile = new File("fitxersSortida/temp" + idThread + ".txt");
+                File newfile = new File("fitxersSortida/" + idThread + ".txt");
                 if (oldfile.renameTo(newfile)) {
                     System.out.println("Fitxer renombrat");
                 } else {
@@ -76,7 +79,7 @@ class ClientWriter implements Runnable{
     private void engegarLibMath(){
         try {
             ProcessBuilder pb;
-            pb = new ProcessBuilder("python2.7","/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
+            pb = new ProcessBuilder("python2.7","/home/palmendr/Documentos/PerePersonal/Ccalc/PythonLibs/mathlibs/main.py",String.valueOf(idThread));
             Process p = null;
             p = pb.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));

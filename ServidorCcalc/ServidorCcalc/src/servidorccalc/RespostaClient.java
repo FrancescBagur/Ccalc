@@ -41,7 +41,7 @@ class RespostaClient implements Runnable{
         System.out.println("La id de transaccio val " + idTransaccio);
         while(!creat){
             //fitxerSortida = new File("/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
-            fitxerSortida = new File("fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
+            fitxerSortida = new File("/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/" + String.valueOf(idTransaccio) + ".txt");
             if (fitxerSortida.exists()) {
                 //Els scripts han acabat
                 System.out.println("Ja hi ha el fitxer de sortida");
@@ -80,7 +80,7 @@ class RespostaClient implements Runnable{
                             imatgeLatex = new File("latexImages/latexImage" + String.valueOf(idTransaccio) + ".gif");
                             if (imatgeLatex.exists()) {
                                 //Els scripts han acabat
-                                System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jph");
+                                System.out.println("Ja hi ha la imatge latex guardada i la podem transformar a jpg");
                                 creat = true;
                             }
                         }
@@ -89,7 +89,7 @@ class RespostaClient implements Runnable{
                             //if(idThread<=15){
                               //  Thread.sleep(4000);
                             //}
-                            System.out.println("Imatge transformada a jph, passem a enviar");
+                            System.out.println("Imatge transformada a jpg, passem a enviar");
                             enviarImatge();
                         }
                     } catch (InterruptedException e) {
@@ -128,16 +128,16 @@ class RespostaClient implements Runnable{
 
     private void borrarFitxersAntics(int idTran){
         String[] fitxerBorrar = {"/imatges/rebut"+idTran+".jpg",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/imatges/render"+idTran+".bmp",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/fitxerSortida"+idTran+".txt",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp"+idTran+".scgink",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".inkml",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".dot",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/seshat/render"+idTran+".pmg",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+idTran+".txt",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp"+idTran+".txt",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".gif",
-                "/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".jpg"
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/imatges/render"+idTran+".bmp",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxerSortida"+idTran+".txt",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/SampleMathExps/exp"+idTran+".scgink",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".inkml",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/out"+idTran+".dot",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/seshat/render"+idTran+".pmg",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/"+idTran+".txt",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp"+idTran+".txt",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".gif",
+                "/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/latexImages/latexImage"+idTran+".jpg"
         };
         for (int i=0; i<fitxerBorrar.length; i++){
             if(existeixFitxer(fitxerBorrar[i])){

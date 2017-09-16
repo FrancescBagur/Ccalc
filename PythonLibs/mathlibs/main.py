@@ -41,7 +41,7 @@ def netejarExpresio(exp):
 #Obting la operació del fitxer.
 operacioResultat = ""
 try:
-    infile = open('/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp'+sys.argv[1]+'.txt','r')
+    infile = open('/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/expresions/exp'+sys.argv[1]+'.txt','r')
     operacio = infile.readline().rstrip()
     ObjTransformador = Transformador(operacio)
     operacio = ObjTransformador.transformarExpresio()
@@ -86,16 +86,16 @@ try:
         operacioResultat = transformadorExpres(operacioResultat)
 except ValueError:
     operacioResultat = "null:err"
-    file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
+    file = open('/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
     file.write(operacioResultat)
     file.close()
-    os.rename('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
+    os.rename('/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
     raise ValueError("No s'ha pogut realitzar la operació")
 
-file = open('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
+file = open('/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt', 'w+')
 file.write(operacioResultat)
 file.close()
-os.rename('/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
+os.rename('/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/temp'+sys.argv[1]+'.txt','/home/palmendr/Documentos/PerePersonal/Ccalc/ServidorCcalc/ServidorCcalc/fitxersSortida/'+sys.argv[1]+'.txt')
 
 
 
