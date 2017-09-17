@@ -16,38 +16,52 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class drawingActivity extends Activity {
-    private Button CLEAR;  //nateja la pantalla
-    private Button SEND;  //envia les dades
-    //variables per escriure per pantalla
-    private DrawingView dv ;
+    //intents
+    Intent goToResultActivity;
+    Intent goToInitialActivity;
+
+    //buttons
+    private Button clearButton;
+    private Button sendButton;
+
+    //Drawing vars
+    private DrawingView drawingView ;
     private Paint mPaint;
     private LinearLayout llPrinc;
-    private int nStrokes=0;
-    //tracades per enviar i esperar resposta!
-    private String[] tracades = new String[500];
+    private String[] traces = new String[500];
     private String[] strokes;
+    private int nStrokes=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
-        //linear layout gefe
-        llPrinc = (LinearLayout) findViewById(R.id.llPrinc);
-        //Buttons
-        CLEAR = (Button) findViewById(R.id.btClear);
-        SEND = (Button) findViewById(R.id.btSend);
-        CLEAR.setOnClickListener(new listenClick());
-        SEND.setOnClickListener(new listenClick());
-        //prepara la pantalla per escriure amb el dit
+
+        getViewsById();
+
+        addClickListeners();
+
         obrirCanvas();
     }
-    //prepara la pantalla per escriure amb el dit
+
+    private void addClickListeners(){
+        clearButton.setOnClickListener(new buttonsListener());
+        sendButton.setOnClickListener(new buttonsListener());
+    }
+
+    private void getViewsById(){
+        llPrinc = (LinearLayout) findViewById(R.id.llPrinc);
+        clearButton = (Button) findViewById(R.id.btClear);
+        sendButton = (Button) findViewById(R.id.btSend);
+    }
+
     private void obrirCanvas(){
         //per escriure per pantalla
-        dv = new DrawingView(this);
-        dv.setBackgroundColor(Color.WHITE);
-        dv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-        llPrinc.addView(dv);
+        drawingView = new DrawingView(this);
+        drawingView.setBackgroundColor(Color.WHITE);
+        drawingView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        llPrinc.addView(drawingView);
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -57,48 +71,44 @@ public class drawingActivity extends Activity {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(15);
     }
-    //Comprobo si hi ha internet
+
     public boolean isNetworkAvailable(final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
-    //fa feina quan es clicken els botons, o nateja la pantalla o envia les dades.
-    public class listenClick implements Button.OnClickListener {
+
+    public class buttonsListener implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.btClear){
-                //aqui es nateja la pantalla tornant a crearla
                 drawingActivity.this.recreate();
             }
             else {
                 if(!isNetworkAvailable(getApplicationContext())){
-                    CLEAR.setText("Connection lost, try again");
+                    clearButton.setText("Connection lost, try again");
                 } else {
-                    //aqui senvian les dades al servidor
-                    //obra un activity de resultat enviatli els tracades realitzats
-                    if(tracades[0]!=null) {
+
+                    if(traces[0]!=null) {
                         preparaDades();
-                        Intent goRes = new Intent(drawingActivity.this, DrawResultActivity.class);
-                        goRes.putExtra("strokes", strokes);
-                        startActivity(goRes);
+                        goToResultActivity = new Intent(drawingActivity.this, DrawResultActivity.class);
+                        goToResultActivity.putExtra("strokes", strokes);
+                        startActivity(goToResultActivity);
                         drawingActivity.this.finish();
                     }
                 }
             }
         }
     }
-    //prepara les dades(treu nulls de l'array) per enviarles a la activity on es mostrara el resultat
+
     private void preparaDades(){
         int i=0;
-        while (tracades[i]!=null)i++;
+        while (traces[i]!=null)i++;
         strokes = new String[i];
-        for(i=0; i<strokes.length; i++) strokes[i] = tracades[i];
+        for(i=0; i<strokes.length; i++) strokes[i] = traces[i];
     }
-    //clase per escriure a la pantalla amb el dit
+
     public class DrawingView extends View {
 
-        public int width;
-        public  int height;
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
@@ -149,7 +159,7 @@ public class drawingActivity extends Activity {
             //inici de stroke en x,y
             if (nStrokes < 500) {
                 String puntIni = "[[" + Math.round(x) + "," + Math.round(y) + "]";
-                tracades[nStrokes] = puntIni;
+                traces[nStrokes] = puntIni;
             }
         }
 
@@ -166,7 +176,7 @@ public class drawingActivity extends Activity {
                 //la stroke va aumentant en x,y
                 if(nStrokes < 500) {
                     String puntMove = ",[" + Math.round(x) + "," + Math.round(y) + "]";
-                    tracades[nStrokes] += puntMove;
+                    traces[nStrokes] += puntMove;
                 }
             }
         }
@@ -180,7 +190,7 @@ public class drawingActivity extends Activity {
             mPath.reset();
             //final de tracades
             if(nStrokes < 501) {
-                tracades[nStrokes] += "]";
+                traces[nStrokes] += "]";
                 nStrokes++;
             }
         }
@@ -207,12 +217,14 @@ public class drawingActivity extends Activity {
             return true;
         }
     }
+
     //obra la activity inicial
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent goIni = new Intent(drawingActivity.this,InitialActivity.class);
-        startActivity(goIni);
+
+        goToInitialActivity = new Intent(drawingActivity.this,InitialActivity.class);
+        startActivity(goToInitialActivity);
         drawingActivity.this.finish();
     }
 }
