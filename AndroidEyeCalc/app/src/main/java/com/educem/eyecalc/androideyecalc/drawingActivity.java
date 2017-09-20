@@ -81,7 +81,7 @@ public class drawingActivity extends Activity {
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.btClear){
-                drawingActivity.this.recreate();
+                resetDrawingView();
             }
             else {
                 if(!isNetworkAvailable(getApplicationContext())){
@@ -98,6 +98,16 @@ public class drawingActivity extends Activity {
                 }
             }
         }
+    }
+
+    private void resetDrawingView(){
+
+        llPrinc.removeView(drawingView);
+
+        drawingView = new DrawingView(this);
+        drawingView.setBackgroundColor(Color.WHITE);
+        drawingView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+        llPrinc.addView(drawingView);
     }
 
     private void preparaDades(){
