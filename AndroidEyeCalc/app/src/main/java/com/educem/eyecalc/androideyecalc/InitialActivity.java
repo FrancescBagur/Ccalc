@@ -46,7 +46,7 @@ public class InitialActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("IP_CONFIG", MODE_PRIVATE);
         intentToUcrop = new Intent(this,ActivityForUcrop.class);
 
-        setDefaultIpAddresToSharedPreferences("192.168.0.162");
+        setDefaultIpAddresToSharedPreferences("palmendr.sytes.net");
 
         getViewsById();
 
